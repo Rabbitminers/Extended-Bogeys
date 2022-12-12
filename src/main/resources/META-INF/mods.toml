@@ -1,0 +1,54 @@
+modLoader="javafml" #mandatory
+
+loaderVersion="[40,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+
+license="All rights reserved"
+
+[[mods]] #mandatory
+
+modId="addontemplate" #mandatory
+
+# If you prefer this can be manually set
+version="${file.jarVersion}" #mandatory
+
+# TODO: Add your mods name
+displayName="Create Addon Template" #mandatory
+
+logoFile="AddonTemplate.png" #optional
+
+credits="Rabbitminers" #optional
+
+# TODO: Add your name here
+authors="yourname" #optional
+# The description text for the mod (multi line!) (#mandatory)
+# TODO: Describe your mod
+description='''
+A template for create addons on Create 0.5.d
+'''
+# A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
+[[dependencies.addontemplate]] #optional
+    # the modid of the dependency
+    modId="forge" #mandatory
+    # Does this dependency have to exist - if not, ordering below must be specified
+    mandatory=true #mandatory
+    # The version range of the dependency
+    versionRange="[40,)" #mandatory
+    # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
+    ordering="NONE"
+    # Side this dependency is applied on - BOTH, CLIENT or SERVER
+    side="BOTH"
+# Here's another dependency
+[[dependencies.addontemplate]]
+    modId="minecraft"
+    mandatory=true
+# This version range declares a minimum of the current minecraft version up to but not including the next major version
+    versionRange="[1.18.2,1.19)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.addontemplate]]
+    modId="create"
+    mandatory=true
+    versionRange="[0.5.0.d,)"
+    ordering="NONE"
+    side="BOTH"
