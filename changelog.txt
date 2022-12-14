@@ -191,7 +191,7 @@
            Tag-enabled registries must now be registered to vanilla's root registry. See RegistryBuilder#hasTags.
            Modded tag-enabled registries have to use the format `data/<namespace>/tags/<registrynamespace>/<registryname>/<tag>.json`
            This format is to prevent conflicts for registries with the same path but different namespaces
-           EX: Registry name `AddonTemplate:shoe`, tag name `blue_shoes` would be `data/<namespace>/tags/AddonTemplate/shoe/blue_shoes.json`
+           EX: Registry name `extendedbogeys:shoe`, tag name `blue_shoes` would be `data/<namespace>/tags/extendedbogeys/shoe/blue_shoes.json`
            RegistryEvent.NewRegistry has been moved and renamed to NewRegistryEvent.
            RegistryBuilder#create has been made private. See NewRegistryEvent#create
            Created new ITagManager system for looking up Forge tags. See IForgeRegistry#tags.

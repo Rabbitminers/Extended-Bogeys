@@ -1,11 +1,11 @@
-package com.rabbitminers.addontemplate.index;
+package com.rabbitminers.extendedbogeys.index;
 
-import com.rabbitminers.addontemplate.AddonTemplate;
+import com.rabbitminers.extendedbogeys.ExtendedBogeys;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 
 public class AddonBlocks {
-    private static final CreateRegistrate REGISTRATE = AddonTemplate.registrate().creativeModeTab(
-            () -> AddonTemplate.itemGroup
+    private static final CreateRegistrate REGISTRATE = ExtendedBogeys.registrate().creativeModeTab(
+            () -> ExtendedBogeys.itemGroup
     );
 
     // See create git for how to register blocks

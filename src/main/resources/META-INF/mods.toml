@@ -6,7 +6,7 @@ license="All rights reserved"
 
 [[mods]] #mandatory
 
-modId="addontemplate" #mandatory
+modId="extendedbogeys" #mandatory
 
 # If you prefer this can be manually set
 version="${file.jarVersion}" #mandatory
@@ -14,7 +14,7 @@ version="${file.jarVersion}" #mandatory
 # TODO: Add your mods name
 displayName="Create Addon Template" #mandatory
 
-logoFile="AddonTemplate.png" #optional
+logoFile="extendedbogeys.png" #optional
 
 credits="Rabbitminers" #optional
 
@@ -26,7 +26,7 @@ description='''
 A template for create addons on Create 0.5.d
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
-[[dependencies.addontemplate]] #optional
+[[dependencies.extendedbogeys]] #optional
     # the modid of the dependency
     modId="forge" #mandatory
     # Does this dependency have to exist - if not, ordering below must be specified
@@ -38,7 +38,7 @@ A template for create addons on Create 0.5.d
     # Side this dependency is applied on - BOTH, CLIENT or SERVER
     side="BOTH"
 # Here's another dependency
-[[dependencies.addontemplate]]
+[[dependencies.extendedbogeys]]
     modId="minecraft"
     mandatory=true
 # This version range declares a minimum of the current minecraft version up to but not including the next major version
@@ -46,7 +46,7 @@ A template for create addons on Create 0.5.d
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.addontemplate]]
+[[dependencies.extendedbogeys]]
     modId="create"
     mandatory=true
     versionRange="[0.5.0.d,)"
