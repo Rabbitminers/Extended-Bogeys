@@ -2,10 +2,12 @@ package com.rabbitminers.extendedbogeys.index;
 
 import com.jozufozu.flywheel.core.PartialModel;
 import com.rabbitminers.extendedbogeys.ExtendedBogeys;
+import com.simibubi.create.AllBlockPartials;
 
 public class BogeyPartials {
     public static final PartialModel
-    TWO_WHEEL_BOGEY_ROD = block("twowheelbogeyrod")
+    TWO_WHEEL_BOGEY_ROD = block("twowheelbogeyrod"),
+    THREE_WHEEL_BOGEY_ROD = block("threewheelbogeyrod")
     ;
 
     private static PartialModel block(String path) {
