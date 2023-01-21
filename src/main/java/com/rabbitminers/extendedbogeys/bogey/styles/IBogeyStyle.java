@@ -48,6 +48,9 @@ public interface IBogeyStyle {
     default boolean shouldRenderDefault(boolean isLarge) {
         return false;
     }
+    default float getMinimumTurnRadius() {
+        return 0.0f;
+    }
     default List<ModelData> getAllCustomModelComponents() {
         return new ArrayList<>();
     }
