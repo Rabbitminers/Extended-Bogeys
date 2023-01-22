@@ -26,7 +26,6 @@ import org.slf4j.Logger;
 public class ExtendedBogeys {
     public static final String MODID = "extendedbogeys";
     private static final NonNullSupplier<CreateRegistrate> registrate = CreateRegistrate.lazy(ExtendedBogeys.MODID);
-    // Directly reference a slf4j logger
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public ExtendedBogeys() {
@@ -43,6 +42,7 @@ public class ExtendedBogeys {
     private void clientSetup(final FMLClientSetupEvent event) {
         BogeyStyles.addBogeyStyle(TwoWheelBogey.class);
         BogeyStyles.addBogeyStyle(ThreeWheelBogey.class);
+        LOGGER.info("Registered bogey types from: " + ExtendedBogeys.MODID);
     }
     private void setup(final FMLCommonSetupEvent event) {}
 
