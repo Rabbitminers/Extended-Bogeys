@@ -147,6 +147,11 @@ public class ThreeWheelBogey implements IBogeyStyle {
     }
 
     @Override
+    public float getMinimumTurnRadius() {
+        return IBogeyStyle.super.getMinimumTurnRadius();
+    }
+
+    @Override
     public int getStyleId() {
         return STYLE_ID;
     }
