@@ -32,7 +32,7 @@ public class SingleAxisBogey implements IBogeyStyle {
         ms.pushPose();
 
         CachedBufferer.partial(AllBlockPartials.SMALL_BOGEY_WHEELS, air)
-                .translate(0, 12 / 16f, -0.25)
+                .translate(0, 12 / 16f, -1)
                 .rotateX(wheelAngle)
                 .light(light)
                 .renderInto(ms, vb);

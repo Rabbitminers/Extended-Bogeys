@@ -3,7 +3,7 @@
   "loader": "forge:obj",
   "flip-v": true,
   "textures": {
-    "frame": "extendedbogeys/textures/block/single/frame.png"
+    "frame": "extendedbogeys:block/single/frame"
   },
   "model": "extendedbogeys:models/block/single/single_axel_leading_truck_frame.obj"
 }
