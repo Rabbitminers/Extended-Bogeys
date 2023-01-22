@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ThreeWheelBogey implements IBogeyStyle {
+    // TODO: Use language keys
     private final int STYLE_ID = 2;
     private final String STYLE_NAME = "Three Wheel Bogey";
     private ModelData threeWheelBogeyRod;

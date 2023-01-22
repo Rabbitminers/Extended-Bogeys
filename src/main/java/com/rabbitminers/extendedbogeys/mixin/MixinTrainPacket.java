@@ -1,6 +1,7 @@
 package com.rabbitminers.extendedbogeys.mixin;
 
 import com.rabbitminers.extendedbogeys.mixin_interface.ICarriageBogeyStyle;
+import com.simibubi.create.content.contraptions.goggles.GoggleOverlayRenderer;
 import com.simibubi.create.content.logistics.trains.entity.Carriage;
 import com.simibubi.create.content.logistics.trains.entity.CarriageBogey;
 import com.simibubi.create.content.logistics.trains.entity.Train;
