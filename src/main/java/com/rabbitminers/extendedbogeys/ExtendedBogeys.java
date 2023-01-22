@@ -2,6 +2,7 @@ package com.rabbitminers.extendedbogeys;
 
 import com.mojang.logging.LogUtils;
 import com.rabbitminers.extendedbogeys.bogey.styles.BogeyStyles;
+import com.rabbitminers.extendedbogeys.bogey.styles.SingleAxisBogey;
 import com.rabbitminers.extendedbogeys.bogey.styles.ThreeWheelBogey;
 import com.rabbitminers.extendedbogeys.bogey.styles.TwoWheelBogey;
 import com.rabbitminers.extendedbogeys.index.BogeyPartials;
@@ -42,6 +43,7 @@ public class ExtendedBogeys {
     private void clientSetup(final FMLClientSetupEvent event) {
         BogeyStyles.addBogeyStyle(TwoWheelBogey.class);
         BogeyStyles.addBogeyStyle(ThreeWheelBogey.class);
+        BogeyStyles.addBogeyStyle(SingleAxisBogey.class);
         LOGGER.info("Registered bogey types from: " + ExtendedBogeys.MODID);
     }
     private void setup(final FMLCommonSetupEvent event) {}

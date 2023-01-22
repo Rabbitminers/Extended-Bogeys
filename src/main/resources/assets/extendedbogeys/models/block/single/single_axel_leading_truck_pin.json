@@ -5,5 +5,5 @@
   "textures": {
     "bolt": "extendedbogeys/textures/block/single/bolt.png"
   },
-  "model": "extendedbogeys:models/block/single/singleAxelLeadingTruckPin.obj"
+  "model": "extendedbogeys:models/block/single/single_axel_leading_truck_pin.obj"
 }

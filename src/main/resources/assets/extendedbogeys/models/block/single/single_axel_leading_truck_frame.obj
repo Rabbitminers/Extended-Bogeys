@@ -1,5 +1,5 @@
 # Made in Blockbench 4.6.0
-mtllib singleAxelLeadingTruckFrame.mtl
+mtllib single_axel_leading_truck_frame.mtl
 
 o cube
 v 0.75 0.9375 -0.75

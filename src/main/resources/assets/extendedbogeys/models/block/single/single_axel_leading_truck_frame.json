@@ -5,5 +5,5 @@
   "textures": {
     "frame": "extendedbogeys/textures/block/single/frame.png"
   },
-  "model": "extendedbogeys:models/block/single/singleAxelLeadingTruckFrame.obj"
+  "model": "extendedbogeys:models/block/single/single_axel_leading_truck_frame.obj"
 }
