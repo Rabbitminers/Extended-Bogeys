@@ -44,7 +44,7 @@ public class MixinCarriageBogey implements ICarriageBogeyStyle {
             if (!(carriageBogey instanceof ICarriageBogeyStyle styledCarriageBogey))
                 return;
             styledCarriageBogey.setStyle(style);
-            cir.setReturnValue(carriageBogey);
+            cir.setReturnValue((CarriageBogey) styledCarriageBogey);
         }
     }
     @Inject(at = @At("RETURN"), method = "write", remap = false, cancellable = true)
