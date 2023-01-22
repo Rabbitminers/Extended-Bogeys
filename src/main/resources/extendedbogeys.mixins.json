@@ -9,7 +9,8 @@
     "MixinBogeyFrame",
     "MixinCarriageBogey",
     "MixinStandardBogeyBlock",
-    "MixinStationTileEntity"
+    "MixinStationTileEntity",
+    "MixinTrainPacket"
   ],
   "client": [
   ]
