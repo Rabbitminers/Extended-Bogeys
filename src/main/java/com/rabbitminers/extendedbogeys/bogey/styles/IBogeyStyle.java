@@ -8,6 +8,7 @@ import com.jozufozu.flywheel.core.materials.model.ModelData;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simibubi.create.AllBlockPartials;
+import com.simibubi.create.foundation.gui.element.GuiGameElement;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
@@ -27,6 +28,9 @@ public interface IBogeyStyle {
     }
     public default void renderInContraption(boolean isLarge, MaterialManager materialManager) {
         if (isLarge) renderLargeInContraption(materialManager); else renderSmallInContraption(materialManager);
+    }
+    public default List<GuiGameElement.GuiRenderBuilder> renderInGuiOverlay(boolean isLarge) {
+        if (isLarge) return renderLargeInGuiOverlay(); else return renderSmallInGuiOverlay();
     }
     public default void beginFrame(boolean isLarge, float wheelAngle, PoseStack ms) {
         if (isLarge) beginFrameLarge(wheelAngle, ms); else beginFrameSmall(wheelAngle, ms);
@@ -54,6 +58,8 @@ public interface IBogeyStyle {
     default List<ModelData> getAllCustomModelComponents() {
         return new ArrayList<>();
     }
+    default List<GuiGameElement.GuiRenderBuilder> renderLargeInGuiOverlay() {return new ArrayList<>();}
+    default List<GuiGameElement.GuiRenderBuilder> renderSmallInGuiOverlay() {return new ArrayList<>();}
     default void beginFrameLarge(float wheelAngle, PoseStack ms) {}
     default void beginFrameSmall(float wheelAngle, PoseStack ms) {}
     default void renderLargeInWorld(float wheelAngle, PoseStack ms, int light, VertexConsumer vb, BlockState air) {}

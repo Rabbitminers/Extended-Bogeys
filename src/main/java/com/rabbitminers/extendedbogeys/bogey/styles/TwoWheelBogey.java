@@ -7,9 +7,14 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.rabbitminers.extendedbogeys.index.BogeyPartials;
 import com.simibubi.create.AllBlockPartials;
 import com.simibubi.create.content.logistics.trains.track.StandardBogeyBlock;
+import com.simibubi.create.foundation.gui.element.GuiGameElement;
 import com.simibubi.create.foundation.render.CachedBufferer;
 import com.simibubi.create.foundation.utility.Iterate;
 import net.minecraft.world.level.block.state.BlockState;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class TwoWheelBogey implements IBogeyStyle {
     private final int STYLE_ID = 1;
@@ -59,6 +64,15 @@ public class TwoWheelBogey implements IBogeyStyle {
         }
 
         IBogeyStyle.super.renderSmallInWorld(wheelAngle, ms, light, vb, air);
+    }
+
+    @Override
+    public List<GuiGameElement.GuiRenderBuilder> renderLargeInGuiOverlay() {
+        GuiGameElement.GuiRenderBuilder
+                frame = GuiGameElement.of(AllBlockPartials.BOGEY_FRAME),
+                front_wheel = GuiGameElement.of(AllBlockPartials.LARGE_BOGEY_WHEELS).atLocal(-1, 0, 0),
+                back_wheel = GuiGameElement.of(AllBlockPartials.LARGE_BOGEY_WHEELS).atLocal(1, 0, 0);
+        return new ArrayList<>(Arrays.asList(frame, front_wheel, back_wheel));
     }
 
     @Override
