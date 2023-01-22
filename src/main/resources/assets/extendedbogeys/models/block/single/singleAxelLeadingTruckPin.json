@@ -1,0 +1,9 @@
+{
+  "parent": "block/block",
+  "loader": "forge:obj",
+  "flip-v": true,
+  "textures": {
+    "bolt": "extendedbogeys/textures/block/single/bolt.png"
+  },
+  "model": "extendedbogeys:models/block/single/singleAxelLeadingTruckPin.obj"
+}

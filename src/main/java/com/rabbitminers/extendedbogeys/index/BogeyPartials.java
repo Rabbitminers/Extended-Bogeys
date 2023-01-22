@@ -6,6 +6,8 @@ import com.simibubi.create.AllBlockPartials;
 
 public class BogeyPartials {
     public static final PartialModel
+    SINGLE_AXEL_LEADING_TRUCK_FRAME = block("single/singleAxelLeadingTruckFrame"),
+    SINGLE_AXEL_LEADING_TRUCK_PIN = block("single/singleAxelLeadingTruckPin"),
     TWO_WHEEL_BOGEY_ROD = block("twowheelbogeyrod"),
     THREE_WHEEL_BOGEY_ROD = block("threewheelbogeyrod")
     ;
