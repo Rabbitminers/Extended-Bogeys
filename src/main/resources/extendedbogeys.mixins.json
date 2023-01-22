@@ -7,6 +7,7 @@
   "mixins": [
     "MixinBogeyDrive",
     "MixinBogeyFrame",
+    "MixinBogeyInstance",
     "MixinCarriageBogey",
     "MixinStandardBogeyBlock",
     "MixinStationTileEntity",

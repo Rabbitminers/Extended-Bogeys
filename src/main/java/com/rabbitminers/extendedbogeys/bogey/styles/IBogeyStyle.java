@@ -49,6 +49,7 @@ public interface IBogeyStyle {
         for (ModelData customModelComponent : getAllCustomModelComponents())
             customModelComponent.delete();
     }
+    default boolean shouldRenderInnerShaft() { return true; }
     default boolean shouldRenderDefault(boolean isLarge) {
         return false;
     }

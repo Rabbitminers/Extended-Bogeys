@@ -20,6 +20,7 @@ public class SingleAxisBogey implements IBogeyStyle {
     @Override
     public void renderSmallInWorld(float wheelAngle, PoseStack ms, int light, VertexConsumer vb, BlockState air) {
         CachedBufferer.partial(BogeyPartials.SINGLE_AXEL_LEADING_TRUCK_FRAME, air)
+                .translate(0, -0.1, 0)
                 .scale(1 - 1/512f)
                 .light(light)
                 .renderInto(ms, vb);
@@ -39,6 +40,12 @@ public class SingleAxisBogey implements IBogeyStyle {
 
         ms.popPose();
     }
+
+    @Override
+    public boolean shouldRenderInnerShaft() {
+        return false;
+    }
+
     @Override
     public String getStyleName() {
         return STYLE_NAME;
