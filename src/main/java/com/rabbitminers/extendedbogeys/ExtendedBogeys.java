@@ -33,20 +33,18 @@ public class ExtendedBogeys {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT,
                 () -> BogeyPartials::init);
-        eventBus.addListener(this::clientSetup);
+        eventBus.addListener(this::setup);
         MinecraftForge.EVENT_BUS.register(this);
     }
     public static ResourceLocation asResource(String path) {
         return new ResourceLocation(MODID, path);
     }
-
-    private void clientSetup(final FMLClientSetupEvent event) {
+    private void setup(final FMLCommonSetupEvent event) {
         BogeyStyles.addBogeyStyle(TwoWheelBogey.class);
         BogeyStyles.addBogeyStyle(ThreeWheelBogey.class);
         BogeyStyles.addBogeyStyle(SingleAxisBogey.class);
         LOGGER.info("Registered bogey types from: " + ExtendedBogeys.MODID);
     }
-    private void setup(final FMLCommonSetupEvent event) {}
 
     public static CreateRegistrate registrate() {
         return registrate.get();
