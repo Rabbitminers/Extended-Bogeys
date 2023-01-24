@@ -103,17 +103,19 @@ public class MixinStandardBogeyBlock extends Block {
         VertexConsumer vb = buffers.getBuffer(RenderType.cutoutMipped());
         BlockState air = Blocks.AIR.defaultBlockState();
 
-        for (int i : Iterate.zeroAndOne)
-            CachedBufferer.block(AllBlocks.SHAFT.getDefaultState()
-                            .setValue(ShaftBlock.AXIS, Direction.Axis.Z))
-                    .translate(-.5f, .25f, i * -1)
-                    .centre()
-                    .rotateZ(wheelAngle)
-                    .unCentre()
-                    .light(light)
-                    .renderInto(ms, vb);
-
         IBogeyStyle bogeyStyle = BogeyStyles.getBogeyStyle(style);
+
+        if (bogeyStyle.shouldRenderInnerShaft())
+            for (int i : Iterate.zeroAndOne)
+                CachedBufferer.block(AllBlocks.SHAFT.getDefaultState()
+                                .setValue(ShaftBlock.AXIS, Direction.Axis.Z))
+                        .translate(-.5f, .25f, i * -1)
+                        .centre()
+                        .rotateZ(wheelAngle)
+                        .unCentre()
+                        .light(light)
+                        .renderInto(ms, vb);
+
         bogeyStyle.renderInWorld(large, wheelAngle, ms, light, vb, air);
     }
 }
