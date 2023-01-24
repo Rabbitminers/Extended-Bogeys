@@ -5,7 +5,6 @@ import com.jozufozu.flywheel.core.materials.model.ModelData;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.rabbitminers.extendedbogeys.bogey.styles.BogeyStyles;
 import com.rabbitminers.extendedbogeys.bogey.styles.IBogeyStyle;
-import com.rabbitminers.extendedbogeys.bogey.styles.TwoWheelBogey;
 import com.rabbitminers.extendedbogeys.mixin_interface.ICarriageBogeyStyle;
 import com.simibubi.create.content.logistics.trains.entity.BogeyInstance;
 import com.simibubi.create.content.logistics.trains.entity.CarriageBogey;
@@ -14,7 +13,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(BogeyInstance.Frame.class)
@@ -50,7 +48,7 @@ public class MixinBogeyFrame {
                 return;
             }
 
-            bogeyStyle.beginFrameSmall(wheelAngle, ms);
+            bogeyStyle.animateSmallBogeyInContraption(wheelAngle, ms);
             callbackInfo.cancel();
         }
     }

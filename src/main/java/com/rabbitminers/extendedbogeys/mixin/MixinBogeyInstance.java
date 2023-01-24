@@ -26,7 +26,10 @@ public class MixinBogeyInstance {
 
     @Inject(method = "beginFrame", at=@At("HEAD"), cancellable = true, remap = false)
     public void beginFrame(float wheelAngle, PoseStack ms, CallbackInfo cir) {
-        if (!style.shouldRenderInnerShaft())
+        System.out.println("Trying to cancel");
+        if (!style.shouldRenderInnerShaft()) {
+            System.out.println("Canceled!");
             cir.cancel();
+        }
     }
 }

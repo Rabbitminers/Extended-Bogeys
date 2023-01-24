@@ -7,7 +7,6 @@ import com.rabbitminers.extendedbogeys.bogey.styles.IBogeyStyle;
 import com.rabbitminers.extendedbogeys.mixin_interface.ICarriageBogeyStyle;
 import com.simibubi.create.content.logistics.trains.entity.BogeyInstance;
 import com.simibubi.create.content.logistics.trains.entity.CarriageBogey;
-import com.simibubi.create.content.logistics.trains.entity.Train;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -45,7 +44,7 @@ public class MixinBogeyDrive {
                 return;
             }
 
-            bogeyStyle.beginFrameLarge(wheelAngle, ms);
+            bogeyStyle.animateLargeBogeyInContraption(wheelAngle, ms);
             callbackInfo.cancel();
         }
     }
