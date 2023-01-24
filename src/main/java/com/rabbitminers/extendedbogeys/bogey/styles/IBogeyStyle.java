@@ -28,17 +28,18 @@ public interface IBogeyStyle {
         if (isLarge) return renderLargeInGuiOverlay(); else return renderSmallInGuiOverlay();
     }
     public default void beginFrame(boolean isLarge, float wheelAngle, PoseStack ms) {
-        if (isLarge) animateLargeBogeyInContraption(wheelAngle, ms); else animateSmallBogeyInContraption(wheelAngle, ms);
+        if (isLarge) renderLargeInContraption(wheelAngle, ms); else renderSmallInContraption(wheelAngle, ms);
     }
     default void setEmptyTransforms() {
         for (ModelData customModelComponent : getAllCustomModelComponents())
             customModelComponent.setEmptyTransform();
     }
     default void updateLight(int blockLight, int skyLight) {
-        for (ModelData customModelComponent : getAllCustomModelComponents())
-            customModelComponent
-                    .setSkyLight(skyLight)
-                    .setBlockLight(blockLight);
+        for (ModelData customModelComponent : getAllCustomModelComponents()) {
+            assert customModelComponent != null;
+            customModelComponent.setSkyLight(skyLight)
+                                .setBlockLight(blockLight);
+        }
     }
     default void removeAllModelData() {
         for (ModelData customModelComponent : getAllCustomModelComponents())
@@ -59,8 +60,8 @@ public interface IBogeyStyle {
     }
     default List<GuiGameElement.GuiRenderBuilder> renderLargeInGuiOverlay() {return new ArrayList<>();}
     default List<GuiGameElement.GuiRenderBuilder> renderSmallInGuiOverlay() {return new ArrayList<>();}
-    default void animateLargeBogeyInContraption(float wheelAngle, PoseStack ms) {}
-    default void animateSmallBogeyInContraption(float wheelAngle, PoseStack ms) {}
+    default void renderLargeInContraption(float wheelAngle, PoseStack ms) {}
+    default void renderSmallInContraption(float wheelAngle, PoseStack ms) {}
     default void renderLargeInWorld(float wheelAngle, PoseStack ms, int light, VertexConsumer vb, BlockState air) {}
     default void renderSmallInWorld(float wheelAngle, PoseStack ms, int light,  VertexConsumer vb, BlockState air) {}
     default void registerLargeBogeyModelData(MaterialManager materialManager) {}

@@ -48,7 +48,7 @@ public class MixinBogeyFrame {
                 return;
             }
 
-            bogeyStyle.animateSmallBogeyInContraption(wheelAngle, ms);
+            bogeyStyle.renderSmallInContraption(wheelAngle, ms);
             callbackInfo.cancel();
         }
     }

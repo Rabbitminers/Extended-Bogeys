@@ -44,7 +44,7 @@ public class MixinBogeyDrive {
                 return;
             }
 
-            bogeyStyle.animateLargeBogeyInContraption(wheelAngle, ms);
+            bogeyStyle.renderLargeInContraption(wheelAngle, ms);
             callbackInfo.cancel();
         }
     }
