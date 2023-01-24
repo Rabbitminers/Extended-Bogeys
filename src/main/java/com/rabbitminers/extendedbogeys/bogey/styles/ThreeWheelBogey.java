@@ -2,16 +2,12 @@ package com.rabbitminers.extendedbogeys.bogey.styles;
 
 import com.jozufozu.flywheel.api.MaterialManager;
 import com.jozufozu.flywheel.core.Materials;
-import com.jozufozu.flywheel.core.PartialModel;
 import com.jozufozu.flywheel.core.materials.model.ModelData;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.rabbitminers.extendedbogeys.index.BogeyPartials;
 import com.simibubi.create.AllBlockPartials;
-import com.simibubi.create.content.logistics.trains.entity.BogeyInstance;
-import com.simibubi.create.content.logistics.trains.track.StandardBogeyBlock;
 import com.simibubi.create.foundation.render.CachedBufferer;
-import com.simibubi.create.foundation.utility.Iterate;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.ArrayList;
@@ -80,7 +76,7 @@ public class ThreeWheelBogey implements IBogeyStyle {
     }
 
     @Override
-    public void beginFrameLarge(float wheelAngle, PoseStack ms) {
+    public void animateLargeBogeyInContraption(float wheelAngle, PoseStack ms) {
         for (int side = -1; side < 2; side++) {
             wheels[side + 1].setTransform(ms)
                     .translate(0, 12 / 16f, side * 1.75)
@@ -95,11 +91,11 @@ public class ThreeWheelBogey implements IBogeyStyle {
 
         frame.setTransform(ms);
 
-        IBogeyStyle.super.beginFrameLarge(wheelAngle, ms);
+        IBogeyStyle.super.animateLargeBogeyInContraption(wheelAngle, ms);
     }
 
     @Override
-    public void beginFrameSmall(float wheelAngle, PoseStack ms) {
+    public void animateSmallBogeyInContraption(float wheelAngle, PoseStack ms) {
         for (int side = -1; side < 2; side++) {
             wheels[side + 1].setTransform(ms)
                     .translate(0, 12 / 16f, side * 1.25)
@@ -108,11 +104,11 @@ public class ThreeWheelBogey implements IBogeyStyle {
 
         frame.setTransform(ms);
 
-        IBogeyStyle.super.beginFrameSmall(wheelAngle, ms);
+        IBogeyStyle.super.animateSmallBogeyInContraption(wheelAngle, ms);
     }
 
     @Override
-    public void renderLargeInContraption(MaterialManager materialManager) {
+    public void registerLargeBogeyModelData(MaterialManager materialManager) {
         frame = materialManager.defaultSolid().material(Materials.TRANSFORMED)
                 .getModel(AllBlockPartials.BOGEY_FRAME)
                 .createInstance();
@@ -130,7 +126,7 @@ public class ThreeWheelBogey implements IBogeyStyle {
     }
 
     @Override
-    public void renderSmallInContraption(MaterialManager materialManager) {
+    public void registerSmallBogeyModelData(MaterialManager materialManager) {
         frame = materialManager.defaultSolid().material(Materials.TRANSFORMED)
                 .getModel(AllBlockPartials.BOGEY_FRAME)
                 .createInstance();

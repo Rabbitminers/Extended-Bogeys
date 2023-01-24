@@ -1,12 +1,10 @@
 package com.rabbitminers.extendedbogeys.bogey.styles;
 
 import com.jozufozu.flywheel.api.MaterialManager;
-import com.jozufozu.flywheel.core.PartialModel;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.rabbitminers.extendedbogeys.index.BogeyPartials;
 import com.simibubi.create.AllBlockPartials;
-import com.simibubi.create.content.logistics.trains.track.StandardBogeyBlock;
 import com.simibubi.create.foundation.gui.element.GuiGameElement;
 import com.simibubi.create.foundation.render.CachedBufferer;
 import com.simibubi.create.foundation.utility.Iterate;
@@ -67,6 +65,16 @@ public class TwoWheelBogey implements IBogeyStyle {
     }
 
     @Override
+    public List<GuiGameElement.GuiRenderBuilder> renderSmallInGuiOverlay() {
+        return IBogeyStyle.super.renderSmallInGuiOverlay();
+    }
+
+    @Override
+    public List<GuiGameElement.GuiRenderBuilder> renderInGuiOverlay(boolean isLarge) {
+        return IBogeyStyle.super.renderInGuiOverlay(isLarge);
+    }
+
+    @Override
     public List<GuiGameElement.GuiRenderBuilder> renderLargeInGuiOverlay() {
         GuiGameElement.GuiRenderBuilder
                 frame = GuiGameElement.of(AllBlockPartials.BOGEY_FRAME),
@@ -76,13 +84,13 @@ public class TwoWheelBogey implements IBogeyStyle {
     }
 
     @Override
-    public void renderLargeInContraption(MaterialManager materialManager) {
-        IBogeyStyle.super.renderLargeInContraption(materialManager);
+    public void registerLargeBogeyModelData(MaterialManager materialManager) {
+        IBogeyStyle.super.registerLargeBogeyModelData(materialManager);
     }
 
     @Override
-    public void renderSmallInContraption(MaterialManager materialManager) {
-        IBogeyStyle.super.renderSmallInContraption(materialManager);
+    public void registerSmallBogeyModelData(MaterialManager materialManager) {
+        IBogeyStyle.super.registerSmallBogeyModelData(materialManager);
     }
 
     @Override
