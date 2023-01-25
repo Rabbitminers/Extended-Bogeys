@@ -24,6 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class MixinCarriageBogey implements ICarriageBogeyStyle {
     @Shadow private IBogeyBlock type;
     private int style = 0;
+    private boolean isFacingForward = true;
     @Override
     public void setStyle(int style) {
         this.style = style;
@@ -32,6 +33,16 @@ public class MixinCarriageBogey implements ICarriageBogeyStyle {
     public int getStyle() {
         return style;
     }
+
+    @Override
+    public void setFacingForward(boolean isFacingForward) {
+        this.isFacingForward = isFacingForward;
+    }
+    @Override
+    public boolean isFacingForward() {
+        return isFacingForward;
+    }
+
     @Inject(at = @At("RETURN"), method = "read", cancellable = true, remap = false)
     private static void read(CompoundTag tag, TrackGraph graph, DimensionPalette dimensions, CallbackInfoReturnable<CarriageBogey> cir) {
         if (tag.contains("Style")) {
@@ -39,11 +50,13 @@ public class MixinCarriageBogey implements ICarriageBogeyStyle {
             IBogeyBlock type = (IBogeyBlock) ForgeRegistries.BLOCKS.getValue(location);
             Couple<TravellingPoint> points = Couple.deserializeEach(tag.getList("Points", Tag.TAG_COMPOUND),
                     c -> TravellingPoint.read(c, graph, dimensions));
+            boolean isFacingForward = tag.getBoolean("IsFacingForward");
             int style = tag.getInt("Style");
             CarriageBogey carriageBogey = cir.getReturnValue();
             if (!(carriageBogey instanceof ICarriageBogeyStyle styledCarriageBogey))
                 return;
             styledCarriageBogey.setStyle(style);
+            styledCarriageBogey.setFacingForward(isFacingForward);
             cir.setReturnValue((CarriageBogey) styledCarriageBogey);
         }
     }
@@ -51,6 +64,7 @@ public class MixinCarriageBogey implements ICarriageBogeyStyle {
     public void write(DimensionPalette dimensions, CallbackInfoReturnable<CompoundTag> cir) {
         CompoundTag tag = cir.getReturnValue();
         tag.putInt("Style", style);
+        tag.putBoolean("IsFacingForward", isFacingForward);
         cir.setReturnValue(tag);
     }
 }

@@ -11,12 +11,10 @@ import com.simibubi.create.foundation.render.CachedBufferer;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class SingleAxisBogey implements IBogeyStyle {
     private static final String STYLE_NAME = "Single Axis";
-
     private ModelData frame;
     private ModelData pin;
     private ModelData wheels;

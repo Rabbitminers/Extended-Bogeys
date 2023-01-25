@@ -9,6 +9,8 @@ import com.rabbitminers.extendedbogeys.bogey.styles.IBogeyStyle;
 import com.rabbitminers.extendedbogeys.mixin_interface.BlockStates;
 import com.rabbitminers.extendedbogeys.mixin_interface.ICarriageBogeyStyle;
 import com.simibubi.create.AllBlocks;
+import com.simibubi.create.content.contraptions.components.structureMovement.bearing.MechanicalBearingBlock;
+import com.simibubi.create.content.contraptions.relays.elementary.CogwheelBlockItem;
 import com.simibubi.create.content.contraptions.relays.elementary.ShaftBlock;
 import com.simibubi.create.content.contraptions.wrench.WrenchItem;
 import com.simibubi.create.content.logistics.trains.entity.BogeyInstance;
@@ -26,13 +28,14 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.api.distmarker.Dist;
@@ -46,16 +49,19 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Function;
+import java.util.EnumSet;
+import java.util.List;
 
 import static com.simibubi.create.content.logistics.trains.track.StandardBogeyBlock.AXIS;
 
 @Mixin(StandardBogeyBlock.class)
-public class MixinStandardBogeyBlock extends Block {
+public abstract class MixinStandardBogeyBlock extends Block {
     @Shadow @Final private boolean large;
+
+    @Shadow public abstract EnumSet<Direction> getStickySurfaces(BlockGetter world, BlockPos pos, BlockState state);
+
     private static final Property<Integer> STYLE = BlockStates.STYLE;
+    private static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public MixinStandardBogeyBlock(Properties pProperties) {
         super(pProperties);
     }
@@ -63,13 +69,25 @@ public class MixinStandardBogeyBlock extends Block {
     @Inject(at = @At("HEAD"), method = "createBlockStateDefinition", remap = false)
     public void createBlockStateDefenition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo ci) {
         builder.add(STYLE);
+        builder.add(FACING);
     }
 
     @Override
     public @NotNull InteractionResult use(BlockState state, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+
+        if (player.isShiftKeyDown() && level.isClientSide && interactionHand == InteractionHand.MAIN_HAND) {
+            EnumSet<Direction> stickySurfaces = getStickySurfaces(level, blockPos, state);
+            Direction facing = state.getValue(FACING);
+
+            level.setBlock(blockPos, state.setValue(FACING, facing), 3);
+
+            return InteractionResult.CONSUME;
+        }
+
         if (!level.isClientSide && player.getMainHandItem().getItem() instanceof WrenchItem wrenchItem
                 && !player.getCooldowns().isOnCooldown(wrenchItem) && interactionHand == InteractionHand.MAIN_HAND) {
             player.getCooldowns().addCooldown(wrenchItem, 20);
+
             int bogeyStyle = state.getValue(STYLE);
             bogeyStyle = bogeyStyle >= BogeyStyles.getNumberOfBogeyStyleVariations() ? 0 : bogeyStyle + 1;
 
@@ -80,7 +98,6 @@ public class MixinStandardBogeyBlock extends Block {
         }
         return InteractionResult.PASS;
     }
-
 
     /**
      * @author Rabbitminers / Extended Bogeys
@@ -108,7 +125,7 @@ public class MixinStandardBogeyBlock extends Block {
         if (bogeyStyle.shouldRenderInnerShaft())
             for (int i : Iterate.zeroAndOne)
                 CachedBufferer.block(AllBlocks.SHAFT.getDefaultState()
-                                .setValue(ShaftBlock.AXIS, Direction.Axis.Z))
+                        .setValue(ShaftBlock.AXIS, Direction.Axis.Z))
                         .translate(-.5f, .25f, i * -1)
                         .centre()
                         .rotateZ(wheelAngle)

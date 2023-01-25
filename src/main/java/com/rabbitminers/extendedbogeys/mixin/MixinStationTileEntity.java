@@ -10,8 +10,11 @@ import com.simibubi.create.content.logistics.trains.entity.Train;
 import com.simibubi.create.content.logistics.trains.management.edgePoint.station.StationTileEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -60,7 +63,10 @@ public class MixinStationTileEntity {
         if (secondBogey != null) {
             BlockPos secondBogeyPos = contraption.getSecondBogeyPos();
             BlockState secondBogeyState = level.getBlockState(secondBogeyPos);
+
             int secondBogeyStyle = secondBogeyState.getValue(BlockStates.STYLE);
+            boolean isSecondBogeyFacingForward;
+
             if (secondBogey instanceof ICarriageBogeyStyle styledCustomBogey) {
                 styledCustomBogey.setStyle(secondBogeyStyle);
                 return (CarriageBogey) styledCustomBogey;
