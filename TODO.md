@@ -18,6 +18,7 @@ These are given in the following format Started  : Completed
 - ☒ ☒ GUI Bogey Renderer
 - ☒ ☐ Developer Wiki
 - ☒ ☒ Disable Default Bogey Components (e.g Shaft)
+- ☒ ☐ Unlinked/"Disabled" Bogeys
 
 ## Bogey Styles
 These are given in the following format Modeled  : Textured : Implemented

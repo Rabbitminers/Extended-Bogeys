@@ -6,6 +6,8 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 import com.rabbitminers.extendedbogeys.bogey.styles.BogeyStyles;
 import com.rabbitminers.extendedbogeys.bogey.styles.IBogeyStyle;
+import com.rabbitminers.extendedbogeys.bogey.unlinked.UnlinkedStandardBogeyBlock;
+import com.rabbitminers.extendedbogeys.index.ExtendedBogeysBlocks;
 import com.rabbitminers.extendedbogeys.mixin_interface.BlockStates;
 import com.rabbitminers.extendedbogeys.mixin_interface.ICarriageBogeyStyle;
 import com.simibubi.create.AllBlocks;
@@ -75,11 +77,12 @@ public abstract class MixinStandardBogeyBlock extends Block {
     @Override
     public @NotNull InteractionResult use(BlockState state, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
 
-        if (player.isShiftKeyDown() && level.isClientSide && interactionHand == InteractionHand.MAIN_HAND) {
-            EnumSet<Direction> stickySurfaces = getStickySurfaces(level, blockPos, state);
-            Direction facing = state.getValue(FACING);
+        if (player.isShiftKeyDown() && !level.isClientSide && interactionHand == InteractionHand.MAIN_HAND) {
+            // EnumSet<Direction> stickySurfaces = getStickySurfaces(level, blockPos, state);
+            // Direction facing = state.getValue(FACING);
+            BlockState unlinkedBlockState = large ? ExtendedBogeysBlocks.LARGE_UNLINKED_BOGEY.getDefaultState() : ExtendedBogeysBlocks.SMALL_UNLINKED_BOGEY.getDefaultState();
 
-            level.setBlock(blockPos, state.setValue(FACING, facing), 3);
+            level.setBlock(blockPos, unlinkedBlockState.setValue(STYLE, state.getValue(STYLE)), 3);
 
             return InteractionResult.CONSUME;
         }
