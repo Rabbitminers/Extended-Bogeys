@@ -5,13 +5,12 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 import com.rabbitminers.extendedbogeys.bogey.styles.BogeyStyles;
 import com.rabbitminers.extendedbogeys.bogey.styles.IBogeyStyle;
-import com.rabbitminers.extendedbogeys.index.ExtendedBogeysBlocks;
+import com.rabbitminers.extendedbogeys.index.ExtendedBogeysTileEntities;
 import com.rabbitminers.extendedbogeys.mixin_interface.BlockStates;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllTileEntities;
+import com.simibubi.create.content.contraptions.components.actors.DrillRenderer;
 import com.simibubi.create.content.contraptions.relays.elementary.ShaftBlock;
-import com.simibubi.create.content.contraptions.wrench.IWrenchable;
-import com.simibubi.create.content.logistics.trains.track.StandardBogeyBlock;
 import com.simibubi.create.content.logistics.trains.track.StandardBogeyTileEntity;
 import com.simibubi.create.content.schematics.ISpecialBlockItemRequirement;
 import com.simibubi.create.content.schematics.ItemRequirement;
@@ -29,7 +28,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Rotation;
@@ -49,7 +47,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.EnumSet;
 
 public class UnlinkedStandardBogeyBlock extends Block
-        implements ProperWaterloggedBlock, ISpecialBlockItemRequirement, IWrenchable {
+        implements ITE<UnlinkedBogeyTileEntity>, ProperWaterloggedBlock, ISpecialBlockItemRequirement, IUnlinkedBogeyBlock {
 
     public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.HORIZONTAL_AXIS;
     public static final IntegerProperty STYLE = BlockStates.STYLE;
@@ -134,5 +132,15 @@ public class UnlinkedStandardBogeyBlock extends Block
     @Override
     public ItemRequirement getRequiredItems(BlockState state, BlockEntity te) {
         return new ItemRequirement(ItemRequirement.ItemUseType.CONSUME, AllBlocks.RAILWAY_CASING.asStack());
+    }
+
+    @Override
+    public Class<UnlinkedBogeyTileEntity> getTileEntityClass() {
+        return UnlinkedBogeyTileEntity.class;
+    }
+
+    @Override
+    public BlockEntityType<? extends UnlinkedBogeyTileEntity> getTileEntityType() {
+        return ExtendedBogeysTileEntities.UNLINKED_BOGEY_TILE_ENTITY.get();
     }
 }
