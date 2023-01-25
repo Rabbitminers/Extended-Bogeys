@@ -31,9 +31,8 @@ public class MixinTrainPacket {
     public void readBogeyStylesFromByteBuf(FriendlyByteBuf buffer, CallbackInfo ci, UUID owner, List carriages, List carriageSpacing, int size, boolean doubleEnded) {
         for (Carriage carriage : train.carriages) {
             carriage.bogeys.forEach(bogey -> {
-                int bufValue = buffer.readInt();
-                System.out.println("Reading from packet: " + bufValue);
-                ((ICarriageBogeyStyle) bogey).setStyle(bufValue);
+                if (bogey != null)
+                    ((ICarriageBogeyStyle) bogey).setStyle(buffer.readInt());
             });
         }
     }
@@ -42,8 +41,8 @@ public class MixinTrainPacket {
     public void writeBogeyStyleToByteBuf(FriendlyByteBuf buffer, CallbackInfo ci) {
         for (Carriage carriage : train.carriages) {
             carriage.bogeys.forEach(bogey -> {
-                System.out.println("Writing to packet: " + ((ICarriageBogeyStyle) bogey).getStyle());
-                buffer.writeInt(((ICarriageBogeyStyle) bogey).getStyle());
+                if (bogey != null)
+                    buffer.writeInt(((ICarriageBogeyStyle) bogey).getStyle());
             });
         }
     }
