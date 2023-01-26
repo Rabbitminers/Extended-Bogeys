@@ -44,8 +44,6 @@ If you have any requests please contact us and ask.
 - ☒ ☐ ☐ Eight Wheel Driver (Large) - Note this may be moved to the core mod
 - ☐ ☐ ☐ Ten Wheel (Small)
 - ☒ ☐ ☐ Ten Wheel Driver (Large)
-- ☐ ☐ ☐ ? Eleven Wheel (Small) 
-- ☐ ☐ ☐ ? Eleven Wheel Driver (Large)
 - ☐ ☐ ☐ ? Twelve Wheel (Small)
 - ☐ ☐ ☐ ? Twelve  Wheel Driver (Large)
 
@@ -55,5 +53,8 @@ If you have any requests please contact us and ask.
 
 #### Oddities Addon? (For the more 'unique' bogeys out there)
 
-- ☒ ☐ ☐ ? The 'Monstrocity_Bogey' (Large)
+- ☒ ☐ ☐ ? The 'Monstrocity Bogey' (Large)
 - ☒ ☐ ☐ ? Cattle Catchers
+- ☒ ☐ ☐ ? Cattle Catchers
+- ☐ ☐ ☐ ? Eleven Wheel (Small)
+- ☐ ☐ ☐ ? Eleven Wheel Driver (Large)
