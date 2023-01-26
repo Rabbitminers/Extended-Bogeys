@@ -1,6 +1,7 @@
 package com.rabbitminers.extendedbogeys.index;
 
 import com.rabbitminers.extendedbogeys.ExtendedBogeys;
+import com.rabbitminers.extendedbogeys.bogey.unlinked.UnlinkedBogeyCarriageMovementBehaviour;
 import com.rabbitminers.extendedbogeys.bogey.unlinked.UnlinkedStandardBogeyBlock;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllTags;
@@ -10,6 +11,8 @@ import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.MaterialColor;
+
+import static com.simibubi.create.AllMovementBehaviours.movementBehaviour;
 
 public class ExtendedBogeysBlocks {
     private static final CreateRegistrate REGISTRATE = ExtendedBogeys.registrate();
@@ -23,6 +26,7 @@ public class ExtendedBogeysBlocks {
                     .blockstate((c, p) -> BlockStateGen.horizontalAxisBlock(c, p, s -> p.models()
                             .getExistingFile(p.modLoc("block/track/bogey/top"))))
                     .loot((p, l) -> p.dropOther(l, AllBlocks.RAILWAY_CASING.get()))
+                    .onRegister(movementBehaviour(new UnlinkedBogeyCarriageMovementBehaviour()))
                     .register();
 
     public static final BlockEntry<UnlinkedStandardBogeyBlock> LARGE_UNLINKED_BOGEY =
@@ -34,6 +38,7 @@ public class ExtendedBogeysBlocks {
                     .blockstate((c, p) -> BlockStateGen.horizontalAxisBlock(c, p, s -> p.models()
                             .getExistingFile(p.modLoc("block/track/bogey/top"))))
                     .loot((p, l) -> p.dropOther(l, AllBlocks.RAILWAY_CASING.get()))
+                    .onRegister(movementBehaviour(new UnlinkedBogeyCarriageMovementBehaviour()))
                     .register();
 
     public static void register() {}
