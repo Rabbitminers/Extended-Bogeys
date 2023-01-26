@@ -6,6 +6,8 @@ import com.rabbitminers.extendedbogeys.bogey.styles.SingleAxisBogey;
 import com.rabbitminers.extendedbogeys.bogey.styles.ThreeWheelBogey;
 import com.rabbitminers.extendedbogeys.bogey.styles.TwoWheelBogey;
 import com.rabbitminers.extendedbogeys.index.BogeyPartials;
+import com.rabbitminers.extendedbogeys.index.ExtendedBogeysBlocks;
+import com.rabbitminers.extendedbogeys.index.ExtendedBogeysTileEntities;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
@@ -33,6 +35,8 @@ public class ExtendedBogeys {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT,
                 () -> BogeyPartials::init);
+        ExtendedBogeysBlocks.register();
+        ExtendedBogeysTileEntities.register();
         eventBus.addListener(this::setup);
         MinecraftForge.EVENT_BUS.register(this);
     }
