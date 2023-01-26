@@ -21,6 +21,7 @@ import com.simibubi.create.content.logistics.trains.track.StandardBogeyBlock;
 import com.simibubi.create.content.logistics.trains.track.StandardBogeyTileEntity;
 import com.simibubi.create.foundation.render.CachedBufferer;
 import com.simibubi.create.foundation.utility.Iterate;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
@@ -38,6 +39,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.api.distmarker.Dist;
@@ -62,6 +64,7 @@ public abstract class MixinStandardBogeyBlock extends Block {
 
     @Shadow public abstract EnumSet<Direction> getStickySurfaces(BlockGetter world, BlockPos pos, BlockState state);
 
+    @Shadow @Final public static EnumProperty<Direction.Axis> AXIS;
     private static final Property<Integer> STYLE = BlockStates.STYLE;
     private static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public MixinStandardBogeyBlock(Properties pProperties) {
@@ -82,7 +85,11 @@ public abstract class MixinStandardBogeyBlock extends Block {
             // Direction facing = state.getValue(FACING);
             BlockState unlinkedBlockState = large ? ExtendedBogeysBlocks.LARGE_UNLINKED_BOGEY.getDefaultState() : ExtendedBogeysBlocks.SMALL_UNLINKED_BOGEY.getDefaultState();
 
-            level.setBlock(blockPos, unlinkedBlockState.setValue(STYLE, state.getValue(STYLE)), 3);
+            level.setBlock(blockPos, unlinkedBlockState
+                    .setValue(STYLE, state.getValue(STYLE))
+                    .setValue(AXIS, state.getValue(AXIS)), 3);
+
+            player.displayClientMessage(new TextComponent("Unlinked Bogey!"), true);
 
             return InteractionResult.CONSUME;
         }

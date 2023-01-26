@@ -18,10 +18,12 @@ import com.simibubi.create.foundation.block.ITE;
 import com.simibubi.create.foundation.block.ProperWaterloggedBlock;
 import com.simibubi.create.foundation.render.CachedBufferer;
 import com.simibubi.create.foundation.utility.Iterate;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -76,7 +78,9 @@ public class UnlinkedStandardBogeyBlock extends Block
                     ? AllBlocks.LARGE_BOGEY.getDefaultState()
                     : AllBlocks.SMALL_BOGEY.getDefaultState();
 
-            level.setBlock(blockPos, unlinkedBlockState.setValue(STYLE, state.getValue(STYLE)), 3);
+            level.setBlock(blockPos, unlinkedBlockState.setValue(STYLE, state.getValue(STYLE)).setValue(AXIS, state.getValue(AXIS)), 3);
+
+            player.displayClientMessage(new TextComponent("Linked Bogey!").withStyle(ChatFormatting.GREEN), true);
 
             return InteractionResult.CONSUME;
         }
