@@ -21,14 +21,14 @@ public interface IBogeyStyle {
     public default void renderInWorld(boolean isLarge, boolean isFacingForward, float wheelAngle, PoseStack ms, int light, VertexConsumer vb, BlockState air) {
         if (isLarge) renderLargeInWorld(wheelAngle, isFacingForward, ms, light, vb, air); else renderSmallInWorld(wheelAngle, isFacingForward, ms, light, vb, air);
     }
-    public default void renderInContraption(boolean isLarge, MaterialManager materialManager) {
+    public default void registerBogeyModelData(boolean isLarge, MaterialManager materialManager) {
         if (isLarge) registerLargeBogeyModelData(materialManager); else registerSmallBogeyModelData(materialManager);
     }
     public default List<GuiGameElement.GuiRenderBuilder> renderInGuiOverlay(boolean isLarge) {
         if (isLarge) return renderLargeInGuiOverlay(); else return renderSmallInGuiOverlay();
     }
-    public default void beginFrame(boolean isLarge, float wheelAngle, PoseStack ms) {
-        if (isLarge) renderLargeInContraption(wheelAngle, ms); else renderSmallInContraption(wheelAngle, ms);
+    public default void beginFrame(boolean isLarge, boolean isFacingForward, float wheelAngle, PoseStack ms) {
+        if (isLarge) renderLargeInContraption(wheelAngle, isFacingForward, ms); else renderSmallInContraption(wheelAngle, isFacingForward, ms);
     }
     default void setEmptyTransforms() {
         for (ModelData customModelComponent : getAllCustomModelComponents())
@@ -60,8 +60,8 @@ public interface IBogeyStyle {
     }
     default List<GuiGameElement.GuiRenderBuilder> renderLargeInGuiOverlay() {return new ArrayList<>();}
     default List<GuiGameElement.GuiRenderBuilder> renderSmallInGuiOverlay() {return new ArrayList<>();}
-    default void renderLargeInContraption(float wheelAngle, PoseStack ms) {}
-    default void renderSmallInContraption(float wheelAngle, PoseStack ms) {}
+    default void renderLargeInContraption(float wheelAngle, boolean isFacingForward, PoseStack ms) {}
+    default void renderSmallInContraption(float wheelAngle, boolean isFacingForward, PoseStack ms) {}
     default void renderLargeInWorld(float wheelAngle, boolean isFacingForward, PoseStack ms, int light, VertexConsumer vb, BlockState air) {}
     default void renderSmallInWorld(float wheelAngle, boolean isFacingForward, PoseStack ms, int light,  VertexConsumer vb, BlockState air) {}
     default void registerLargeBogeyModelData(MaterialManager materialManager) {}
