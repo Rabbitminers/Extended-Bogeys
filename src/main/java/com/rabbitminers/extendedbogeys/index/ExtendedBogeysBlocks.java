@@ -24,7 +24,7 @@ public class ExtendedBogeysBlocks {
                     .properties(p -> p.noOcclusion())
                     .transform(AllTags.pickaxeOnly())
                     .blockstate((c, p) -> BlockStateGen.horizontalAxisBlock(c, p, s -> p.models()
-                            .getExistingFile(p.modLoc("block/track/bogey/top"))))
+                            .getExistingFile(p.modLoc("block/track/bogey/unlinked_top"))))
                     .loot((p, l) -> p.dropOther(l, AllBlocks.RAILWAY_CASING.get()))
                     .onRegister(movementBehaviour(new UnlinkedBogeyCarriageMovementBehaviour()))
                     .register();
@@ -36,7 +36,7 @@ public class ExtendedBogeysBlocks {
                     .properties(p -> p.noOcclusion())
                     .transform(AllTags.pickaxeOnly())
                     .blockstate((c, p) -> BlockStateGen.horizontalAxisBlock(c, p, s -> p.models()
-                            .getExistingFile(p.modLoc("block/track/bogey/top"))))
+                            .getExistingFile(p.modLoc("block/track/bogey/unlinked_top"))))
                     .loot((p, l) -> p.dropOther(l, AllBlocks.RAILWAY_CASING.get()))
                     .onRegister(movementBehaviour(new UnlinkedBogeyCarriageMovementBehaviour()))
                     .register();
