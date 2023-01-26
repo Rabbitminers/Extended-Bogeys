@@ -14,11 +14,11 @@ These are given in the following format Started  : Completed
 - ☒ ☐ Style Selection Interface/Menu
 - ☒ ☐ Configurable Turn De-railment
 - ☒ ☐ Configurable Speed Limits/Modifications
-- ☒ ☐ Bogey Rotation
+- ☒ ☒ Bogey Rotation
 - ☒ ☒ GUI Bogey Renderer
 - ☒ ☐ Developer Wiki
 - ☒ ☒ Disable Default Bogey Components (e.g Shaft)
-- ☒ ☐ Unlinked/"Disabled" Bogeys
+- ☒ ☒ Unlinked/"Disabled" Bogeys
 
 ## Bogey Styles
 These are given in the following format Modeled  : Textured : Implemented
