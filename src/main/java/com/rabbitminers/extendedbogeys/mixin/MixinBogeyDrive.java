@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(BogeyInstance.Drive.class)
 public class MixinBogeyDrive {
+    private boolean isFacingForward = true;
     private boolean isFrontBogey;
     private boolean shouldRenderDefault;
     IBogeyStyle bogeyStyle;
@@ -21,9 +22,13 @@ public class MixinBogeyDrive {
     @Inject(at = @At("TAIL"), method = "<init>", remap = false)
     public void BogeyInstanceInit(CarriageBogey bogey, MaterialManager materialManager, CallbackInfo ci) {
         isFrontBogey = (bogey == bogey.carriage.bogeys.get(true));
-        int style = bogey instanceof ICarriageBogeyStyle styledCarriageBogey ? styledCarriageBogey.getStyle() : 0;
+        int style = 0;
+        if (bogey instanceof ICarriageBogeyStyle styledCarriageBogey) {
+            styledCarriageBogey.getStyle();
+            isFacingForward = styledCarriageBogey.isFacingForward();
+        }
         bogeyStyle = BogeyStyles.getBogeyStyle(style);
-        bogeyStyle.renderInContraption(true, materialManager);
+        bogeyStyle.registerBogeyModelData(true, materialManager);
         shouldRenderDefault = bogeyStyle.shouldRenderDefault(true);
     }
 
@@ -44,7 +49,7 @@ public class MixinBogeyDrive {
                 return;
             }
 
-            bogeyStyle.renderLargeInContraption(wheelAngle, ms);
+            bogeyStyle.renderLargeInContraption(wheelAngle, isFacingForward, ms);
             callbackInfo.cancel();
         }
     }

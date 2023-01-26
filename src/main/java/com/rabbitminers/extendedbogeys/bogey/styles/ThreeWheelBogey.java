@@ -76,7 +76,7 @@ public class ThreeWheelBogey implements IBogeyStyle {
     }
 
     @Override
-    public void renderLargeInContraption(float wheelAngle, PoseStack ms) {
+    public void renderLargeInContraption(float wheelAngle, boolean isFacingForward, PoseStack ms) {
         for (int side = -1; side < 2; side++) {
             wheels[side + 1].setTransform(ms)
                     .translate(0, 12 / 16f, side * 1.75)
@@ -91,11 +91,11 @@ public class ThreeWheelBogey implements IBogeyStyle {
 
         frame.setTransform(ms);
 
-        IBogeyStyle.super.renderLargeInContraption(wheelAngle, ms);
+        IBogeyStyle.super.renderLargeInContraption(wheelAngle, isFacingForward, ms);
     }
 
     @Override
-    public void renderSmallInContraption(float wheelAngle, PoseStack ms) {
+    public void renderSmallInContraption(float wheelAngle, boolean isFacingForward, PoseStack ms) {
         for (int side = -1; side < 2; side++) {
             wheels[side + 1].setTransform(ms)
                     .translate(0, 12 / 16f, side * 1.25)
@@ -104,7 +104,7 @@ public class ThreeWheelBogey implements IBogeyStyle {
 
         frame.setTransform(ms);
 
-        IBogeyStyle.super.renderSmallInContraption(wheelAngle, ms);
+        IBogeyStyle.super.renderSmallInContraption(wheelAngle, isFacingForward, ms);
     }
 
     @Override

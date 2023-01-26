@@ -12,6 +12,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
@@ -46,8 +47,10 @@ public class MixinStationTileEntity {
         if (firstBogey instanceof ICarriageBogeyStyle styledCustomBogey) {
             BlockPos firstBogeyBlockPos = contraption.anchor;
             BlockState state = level.getBlockState(firstBogeyBlockPos);
+            boolean isFirstBogeyFacingForward = state.getValue(BlockStates.IS_FACING_FOWARD);
             int firstBogeyStyle = state.getValue(BlockStates.STYLE);
             styledCustomBogey.setStyle(firstBogeyStyle);
+            styledCustomBogey.setFacingForward(isFirstBogeyFacingForward);
             return (CarriageBogey) styledCustomBogey;
         }
 
@@ -65,10 +68,11 @@ public class MixinStationTileEntity {
             BlockState secondBogeyState = level.getBlockState(secondBogeyPos);
 
             int secondBogeyStyle = secondBogeyState.getValue(BlockStates.STYLE);
-            boolean isSecondBogeyFacingForward;
+            boolean isSecondBogeyFacingForward = secondBogeyState.getValue(BlockStates.IS_FACING_FOWARD);
 
             if (secondBogey instanceof ICarriageBogeyStyle styledCustomBogey) {
                 styledCustomBogey.setStyle(secondBogeyStyle);
+                styledCustomBogey.setFacingForward(isSecondBogeyFacingForward);
                 return (CarriageBogey) styledCustomBogey;
             }
         }

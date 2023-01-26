@@ -57,16 +57,17 @@ public class SingleAxisBogey implements IBogeyStyle {
                 .createInstance();
     }
     @Override
-    public void renderSmallInContraption(float wheelAngle, PoseStack ms) {
+    public void renderSmallInContraption(float wheelAngle, boolean isFacingForward, PoseStack ms) {
         wheels.setTransform(ms)
+                .rotateY(isFacingForward ? 0 : 180)
                 .translate(0, 12 / 16f, -1)
                 .rotateX(wheelAngle);
 
-        frame.setTransform(ms).translate(0, 0.1, 0);
+        frame.setTransform(ms).rotateY(isFacingForward ? 0 : 180).translate(0, 0.1, 0);
 
-        pin.setTransform(ms);
+        pin.setTransform(ms).rotateY(isFacingForward ? 0 : 180);
 
-        IBogeyStyle.super.renderSmallInContraption(wheelAngle, ms);
+        IBogeyStyle.super.renderSmallInContraption(wheelAngle, isFacingForward, ms);
     }
 
     @Override
