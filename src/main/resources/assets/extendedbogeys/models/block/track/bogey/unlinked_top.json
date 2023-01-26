@@ -3,7 +3,7 @@
   "parent": "block/block",
   "textures": {
     "3": "create:block/brass_block",
-    "4": "create:block/bogey/top",
+    "4": "extendedbogeys:block/bogey/glueless_top",
     "particle": "create:block/bogey/particle"
   },
   "elements": [
