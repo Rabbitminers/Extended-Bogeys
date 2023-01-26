@@ -18,8 +18,8 @@ public interface IBogeyStyle {
     default String getStyleName() {
         return "Invalid Style";
     }
-    public default void renderInWorld(boolean isLarge, float wheelAngle, PoseStack ms, int light, VertexConsumer vb, BlockState air) {
-        if (isLarge) renderLargeInWorld(wheelAngle, ms, light, vb, air); else renderSmallInWorld(wheelAngle, ms, light, vb, air);
+    public default void renderInWorld(boolean isLarge, boolean isFacingForward, float wheelAngle, PoseStack ms, int light, VertexConsumer vb, BlockState air) {
+        if (isLarge) renderLargeInWorld(wheelAngle, isFacingForward, ms, light, vb, air); else renderSmallInWorld(wheelAngle, isFacingForward, ms, light, vb, air);
     }
     public default void renderInContraption(boolean isLarge, MaterialManager materialManager) {
         if (isLarge) registerLargeBogeyModelData(materialManager); else registerSmallBogeyModelData(materialManager);
@@ -62,8 +62,8 @@ public interface IBogeyStyle {
     default List<GuiGameElement.GuiRenderBuilder> renderSmallInGuiOverlay() {return new ArrayList<>();}
     default void renderLargeInContraption(float wheelAngle, PoseStack ms) {}
     default void renderSmallInContraption(float wheelAngle, PoseStack ms) {}
-    default void renderLargeInWorld(float wheelAngle, PoseStack ms, int light, VertexConsumer vb, BlockState air) {}
-    default void renderSmallInWorld(float wheelAngle, PoseStack ms, int light,  VertexConsumer vb, BlockState air) {}
+    default void renderLargeInWorld(float wheelAngle, boolean isFacingForward, PoseStack ms, int light, VertexConsumer vb, BlockState air) {}
+    default void renderSmallInWorld(float wheelAngle, boolean isFacingForward, PoseStack ms, int light,  VertexConsumer vb, BlockState air) {}
     default void registerLargeBogeyModelData(MaterialManager materialManager) {}
     default void registerSmallBogeyModelData(MaterialManager materialManager) {}
 }

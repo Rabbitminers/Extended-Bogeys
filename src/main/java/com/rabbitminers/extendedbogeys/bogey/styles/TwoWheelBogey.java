@@ -20,7 +20,7 @@ public class TwoWheelBogey implements IBogeyStyle {
     private final String STYLE_NAME = "Two Wheel";
 
     @Override
-    public void renderLargeInWorld(float wheelAngle, PoseStack ms, int light, VertexConsumer vb, BlockState air) {
+    public void renderLargeInWorld(float wheelAngle, boolean isFacingForward, PoseStack ms, int light, VertexConsumer vb, BlockState air) {
         CachedBufferer.partial(AllBlockPartials.BOGEY_FRAME, air)
                 .scale(1 - 1 / 512f)
                 .light(light)
@@ -41,11 +41,11 @@ public class TwoWheelBogey implements IBogeyStyle {
             ms.popPose();
         }
 
-        IBogeyStyle.super.renderSmallInWorld(wheelAngle, ms, light, vb, air);
+        IBogeyStyle.super.renderSmallInWorld(wheelAngle, isFacingForward, ms, light, vb, air);
     }
 
     @Override
-    public void renderSmallInWorld(float wheelAngle, PoseStack ms, int light, VertexConsumer vb, BlockState air) {
+    public void renderSmallInWorld(float wheelAngle, boolean isFacingForward, PoseStack ms, int light, VertexConsumer vb, BlockState air) {
         CachedBufferer.partial(AllBlockPartials.BOGEY_FRAME, air)
                 .scale(1 - 1 / 512f)
                 .light(light)
@@ -61,7 +61,7 @@ public class TwoWheelBogey implements IBogeyStyle {
             ms.popPose();
         }
 
-        IBogeyStyle.super.renderSmallInWorld(wheelAngle, ms, light, vb, air);
+        IBogeyStyle.super.renderSmallInWorld(wheelAngle, isFacingForward, ms, light, vb, air);
     }
 
     @Override

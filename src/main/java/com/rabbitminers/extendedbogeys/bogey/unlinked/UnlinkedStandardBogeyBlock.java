@@ -105,6 +105,8 @@ public class UnlinkedStandardBogeyBlock extends Block
         int styleId = state.getValue(BlockStates.STYLE);
         IBogeyStyle style = BogeyStyles.getBogeyStyle(styleId);
 
+        boolean isFacingForward = state.getValue(BlockStates.IS_FACING_FOWARD);
+
         if (style.shouldRenderInnerShaft())
             for (int i : Iterate.zeroAndOne)
                 CachedBufferer.block(AllBlocks.SHAFT.getDefaultState()
@@ -116,7 +118,7 @@ public class UnlinkedStandardBogeyBlock extends Block
                         .light(light)
                         .renderInto(ms, vb);
 
-        style.renderInWorld(large, wheelAngle, ms, light, vb, air);
+        style.renderInWorld(large, isFacingForward,wheelAngle, ms, light, vb, air);
     }
 
     @Override

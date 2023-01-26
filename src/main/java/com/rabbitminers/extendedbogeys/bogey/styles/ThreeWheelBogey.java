@@ -32,7 +32,7 @@ public class ThreeWheelBogey implements IBogeyStyle {
     }
 
     @Override
-    public void renderLargeInWorld(float wheelAngle, PoseStack ms, int light, VertexConsumer vb, BlockState air) {
+    public void renderLargeInWorld(float wheelAngle, boolean isFacingForward, PoseStack ms, int light, VertexConsumer vb, BlockState air) {
         CachedBufferer.partial(AllBlockPartials.BOGEY_FRAME, air)
                 .scale(1 - 1 / 512f)
                 .light(light)
@@ -53,11 +53,11 @@ public class ThreeWheelBogey implements IBogeyStyle {
             ms.popPose();
         }
 
-        IBogeyStyle.super.renderSmallInWorld(wheelAngle, ms, light, vb, air);
+        IBogeyStyle.super.renderSmallInWorld(wheelAngle, isFacingForward, ms, light, vb, air);
     }
 
     @Override
-    public void renderSmallInWorld(float wheelAngle, PoseStack ms, int light, VertexConsumer vb, BlockState air) {
+    public void renderSmallInWorld(float wheelAngle, boolean isFacingForward, PoseStack ms, int light, VertexConsumer vb, BlockState air) {
         CachedBufferer.partial(AllBlockPartials.BOGEY_FRAME, air)
                 .scale(1 - 1 / 512f)
                 .light(light)
@@ -72,7 +72,7 @@ public class ThreeWheelBogey implements IBogeyStyle {
                     .renderInto(ms, vb);
             ms.popPose();
         }
-        IBogeyStyle.super.renderSmallInWorld(wheelAngle, ms, light, vb, air);
+        IBogeyStyle.super.renderSmallInWorld(wheelAngle, isFacingForward, ms, light, vb, air);
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 import com.rabbitminers.extendedbogeys.bogey.styles.BogeyStyles;
 import com.rabbitminers.extendedbogeys.bogey.styles.IBogeyStyle;
+import com.rabbitminers.extendedbogeys.bogey.unlinked.UnlinkedBogeyTileEntity;
 import com.rabbitminers.extendedbogeys.bogey.unlinked.UnlinkedStandardBogeyBlock;
 import com.rabbitminers.extendedbogeys.index.ExtendedBogeysBlocks;
 import com.rabbitminers.extendedbogeys.mixin_interface.BlockStates;
@@ -31,16 +32,15 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.AirItem;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -61,12 +61,10 @@ import static com.simibubi.create.content.logistics.trains.track.StandardBogeyBl
 @Mixin(StandardBogeyBlock.class)
 public abstract class MixinStandardBogeyBlock extends Block {
     @Shadow @Final private boolean large;
-
     @Shadow public abstract EnumSet<Direction> getStickySurfaces(BlockGetter world, BlockPos pos, BlockState state);
-
     @Shadow @Final public static EnumProperty<Direction.Axis> AXIS;
     private static final Property<Integer> STYLE = BlockStates.STYLE;
-    private static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    private static final Property<Boolean> IS_FACING_FORWARD = BlockStates.IS_FACING_FOWARD;
     public MixinStandardBogeyBlock(Properties pProperties) {
         super(pProperties);
     }
@@ -74,15 +72,14 @@ public abstract class MixinStandardBogeyBlock extends Block {
     @Inject(at = @At("HEAD"), method = "createBlockStateDefinition", remap = false)
     public void createBlockStateDefenition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo ci) {
         builder.add(STYLE);
-        builder.add(FACING);
+        builder.add(IS_FACING_FORWARD);
     }
 
     @Override
-    public @NotNull InteractionResult use(BlockState state, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
-
-        if (player.isShiftKeyDown() && !level.isClientSide && interactionHand == InteractionHand.MAIN_HAND) {
-            // EnumSet<Direction> stickySurfaces = getStickySurfaces(level, blockPos, state);
-            // Direction facing = state.getValue(FACING);
+    public @NotNull InteractionResult use(BlockState state, Level level, BlockPos blockPos, Player player,
+                                          InteractionHand interactionHand, BlockHitResult blockHitResult) {
+        if (player.isShiftKeyDown() && !level.isClientSide && interactionHand == InteractionHand.MAIN_HAND
+                && player.getMainHandItem().getItem() == Items.AIR) {
             BlockState unlinkedBlockState = large ? ExtendedBogeysBlocks.LARGE_UNLINKED_BOGEY.getDefaultState() : ExtendedBogeysBlocks.SMALL_UNLINKED_BOGEY.getDefaultState();
 
             level.setBlock(blockPos, unlinkedBlockState
@@ -91,6 +88,14 @@ public abstract class MixinStandardBogeyBlock extends Block {
 
             player.displayClientMessage(new TextComponent("Unlinked Bogey!"), true);
 
+            return InteractionResult.CONSUME;
+        }
+
+        if (!player.isShiftKeyDown() && !level.isClientSide && interactionHand == InteractionHand.MAIN_HAND
+                && player.getMainHandItem().getItem() == Items.AIR) {
+            boolean facing = state.getValue(IS_FACING_FORWARD);
+            level.setBlock(blockPos, state.setValue(IS_FACING_FORWARD, !facing), 3);
+            player.displayClientMessage(new TextComponent("Rotated Bogey!"), true);
             return InteractionResult.CONSUME;
         }
 
@@ -117,11 +122,13 @@ public abstract class MixinStandardBogeyBlock extends Block {
     @Overwrite(remap = false)
     public void render(BlockState state, float wheelAngle, PoseStack ms, float partialTicks, MultiBufferSource buffers,
                        int light, int overlay) {
+        boolean isFacingForward = true;
         int style = 0;
         if (state != null) {
             ms.translate(.5f, .5f, .5f);
             if (state.getValue(AXIS) == Direction.Axis.X)
                 ms.mulPose(Vector3f.YP.rotationDegrees(90));
+            isFacingForward = state.getValue(IS_FACING_FORWARD);
             style = state.getValue(STYLE);
         }
 
@@ -143,6 +150,6 @@ public abstract class MixinStandardBogeyBlock extends Block {
                         .light(light)
                         .renderInto(ms, vb);
 
-        bogeyStyle.renderInWorld(large, wheelAngle, ms, light, vb, air);
+        bogeyStyle.renderInWorld(large, isFacingForward, wheelAngle, ms, light, vb, air);
     }
 }

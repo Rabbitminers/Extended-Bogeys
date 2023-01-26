@@ -58,11 +58,6 @@ public class UnlinkedBogeyTileEntityRenderer<T extends BlockEntity> extends Safe
 
         System.out.println(angle);
 
-        ms.pushPose();
-
-        bogeyStyle.renderInWorld(isLarge, angle, ms, light, builder, Blocks.AIR.defaultBlockState());
-
-        ms.popPose();
     }
 
 }

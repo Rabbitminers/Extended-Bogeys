@@ -70,18 +70,20 @@ public class SingleAxisBogey implements IBogeyStyle {
     }
 
     @Override
-    public void renderLargeInWorld(float wheelAngle, PoseStack ms, int light, VertexConsumer vb, BlockState air) {
-        IBogeyStyle.super.renderLargeInWorld(wheelAngle, ms, light, vb, air);
+    public void renderLargeInWorld(float wheelAngle, boolean isFacingForward, PoseStack ms, int light, VertexConsumer vb, BlockState air) {
+        IBogeyStyle.super.renderLargeInWorld(wheelAngle, isFacingForward, ms, light, vb, air);
     }
     @Override
-    public void renderSmallInWorld(float wheelAngle, PoseStack ms, int light, VertexConsumer vb, BlockState air) {
+    public void renderSmallInWorld(float wheelAngle, boolean isFacingForward, PoseStack ms, int light, VertexConsumer vb, BlockState air) {
         CachedBufferer.partial(BogeyPartials.SINGLE_AXEL_LEADING_TRUCK_FRAME, air)
+                .rotateY(isFacingForward ? 180 : 0)
                 .translate(0, 0.1, 0)
                 .scale(1 - 1/512f)
                 .light(light)
                 .renderInto(ms, vb);
 
         CachedBufferer.partial(BogeyPartials.SINGLE_AXEL_LEADING_TRUCK_PIN, air)
+                .rotateY(isFacingForward ? 180 : 0)
                 .scale(1 - 1 / 512f)
                 .light(light)
                 .renderInto(ms, vb);
@@ -89,6 +91,7 @@ public class SingleAxisBogey implements IBogeyStyle {
         ms.pushPose();
 
         CachedBufferer.partial(AllBlockPartials.SMALL_BOGEY_WHEELS, air)
+                .rotateY(isFacingForward ? 180 : 0)
                 .translate(0, 12 / 16f, -1)
                 .rotateX(wheelAngle)
                 .light(light)
