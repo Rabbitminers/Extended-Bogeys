@@ -13,7 +13,7 @@ These are given in the following format Started  : Completed
 - ☒ ☒ Cycle Styles With Wrench
 - ☒ ☐ Style Selection Interface/Menu
 - ☒ ☐ Configurable Turn De-railment
-- ☒ ☐ Configurable Speed Limits/Modifications
+- ☒ ☒ Configurable Speed Limits/Modifications
 - ☒ ☒ Bogey Rotation
 - ☒ ☒ GUI Bogey Renderer
 - ☒ ☐ Developer Wiki
