@@ -1,7 +1,7 @@
 # Features
-These are given in the following format Started  : Completed
+These are given in the following format **Started  : Completed**
 
-(Please note this list may be missing the odd feature, theres alot of them to keep track of)
+(Please note this list may be missing the odd feature, there's alot of them to keep track of)
 
 - ☒ ☒ Render Custom Bogey Styles In World
 - ☒ ☒ Render Custom Bogey Styles In Contraptions
@@ -22,9 +22,11 @@ These are given in the following format Started  : Completed
 - ☒ ☒ Unlinked/"Disabled" Bogeys
 - ☒ ☒ Config For Different For Features
 - ☒ ☐ Paintable / Dyeable Bogeys Interface
+- ☒ ☐ Fuel Requirements For Train To Run
+- ☒ ☐ Water Requirements For Trian to Run
 
 ## Bogey Styles
-These are given in the following format Modeled  : Textured : Implemented
+These are given in the following format **Modeled  : Textured : Implemented**
 
 Styles marked with ? are features under consideration and could be added.
 
@@ -57,7 +59,6 @@ If you have any requests please contact us and ask.
 #### Oddities Addon? (For the more 'unique' bogeys out there)
 
 - ☒ ☐ ☐ ? The 'Monstrocity Bogey' (Large)
-- ☒ ☐ ☐ ? Cattle Catchers
 - ☒ ☐ ☐ ? Cattle Catchers
 - ☐ ☐ ☐ ? Eleven Wheel (Small)
 - ☐ ☐ ☐ ? Eleven Wheel Driver (Large)
