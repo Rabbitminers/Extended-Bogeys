@@ -38,6 +38,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
@@ -53,6 +54,7 @@ public class UnlinkedStandardBogeyBlock extends Block
 
     public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.HORIZONTAL_AXIS;
     public static final IntegerProperty STYLE = BlockStates.STYLE;
+    public static final BooleanProperty IS_FACING_FORWARD = BlockStates.IS_FACING_FOWARD;
     private final boolean large;
 
     static final EnumSet<Direction> STICKY_X = EnumSet.of(Direction.EAST, Direction.WEST);
@@ -67,6 +69,7 @@ public class UnlinkedStandardBogeyBlock extends Block
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(AXIS);
         builder.add(STYLE);
+        builder.add(IS_FACING_FORWARD);
         super.createBlockStateDefinition(builder);
     }
 
