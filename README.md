@@ -9,5 +9,10 @@
 # Extended Bogeys
 [Forge 1.18.2 & 1.19.2] A forge mod to add new bogey types to the Create Mod aswell as providing a simple API for other mods to add their own easily and without conflict
 
+## Features
+Extended Bogeys primarily adds new types of bogey aswell as an Interface for other mods to do the same, ontop of this a new Unlinked bogey as been added alowing for more than two bogeys per carriage. Configurably, (disabled by default) speed, acceleration and minimum turn radii can be applied to each bogey making each one more unique.
+
+A <sup>somewhat</sup> complete list of both features and styles both implemented and planned can be found <a href="https://github.com/Rabbitminers/Extended-Bogeys/blob/rewrite/TODO.md">Here</a> please feel free to make any requests at the contacts above.
+
 ## How can I add my own bogey?
 Extended Bogeys has a wiki detailing how you can integrate Extended Bogeys into your project aswell as details on creating, rendering and customising your own bogey. You can find the docs <a href="https://github.com/Rabbitminers/Extended-Bogeys/wiki">Here</a>
