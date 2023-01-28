@@ -13,12 +13,15 @@ These are given in the following format Started  : Completed
 - ☒ ☒ Cycle Styles With Wrench
 - ☒ ☐ Style Selection Interface/Menu
 - ☒ ☐ Configurable Turn De-railment
+- ☒ ☐ Configurable Bogey Acceleration
 - ☒ ☒ Configurable Speed Limits/Modifications
 - ☒ ☒ Bogey Rotation
 - ☒ ☒ GUI Bogey Renderer
 - ☒ ☐ Developer Wiki
 - ☒ ☒ Disable Default Bogey Components (e.g Shaft)
 - ☒ ☒ Unlinked/"Disabled" Bogeys
+- ☒ ☒ Config For Different For Features
+- ☒ ☐ Paintable / Dyeable Bogeys Interface
 
 ## Bogey Styles
 These are given in the following format Modeled  : Textured : Implemented
