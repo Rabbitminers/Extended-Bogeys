@@ -1,10 +1,7 @@
 package com.rabbitminers.extendedbogeys;
 
 import com.mojang.logging.LogUtils;
-import com.rabbitminers.extendedbogeys.bogey.styles.BogeyStyles;
-import com.rabbitminers.extendedbogeys.bogey.styles.SingleAxisBogey;
-import com.rabbitminers.extendedbogeys.bogey.styles.ThreeWheelBogey;
-import com.rabbitminers.extendedbogeys.bogey.styles.TwoWheelBogey;
+import com.rabbitminers.extendedbogeys.bogey.styles.*;
 import com.rabbitminers.extendedbogeys.config.ExtendedBogeysConfig;
 import com.rabbitminers.extendedbogeys.index.BogeyPartials;
 import com.rabbitminers.extendedbogeys.index.ExtendedBogeysBlocks;
@@ -52,6 +49,7 @@ public class ExtendedBogeys {
         BogeyStyles.addBogeyStyle(TwoWheelBogey.class);
         BogeyStyles.addBogeyStyle(ThreeWheelBogey.class);
         BogeyStyles.addBogeyStyle(SingleAxisBogey.class);
+        BogeyStyles.addBogeyStyle(FourWheelBogey.class);
         LOGGER.info("Registered bogey types from: " + ExtendedBogeys.MODID);
     }
 
