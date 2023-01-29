@@ -35,7 +35,7 @@ If you have any requests please contact us and ask.
 #### Core:
 
 - ☒ ☒ ☒ Two Axel Trailor (Small)
-- ☒ ☐ ☐ Four Wheel Driver (Large)
+- ☒ ☒ ☒ Four Wheel Driver (Large)
 - ☒ ☐ ☐ ? Encased Four Wheel Driver (Large)
 - ☒ ☐ ☐ Six Wheel (Small)
 - ☒ ☐ ☐ Six Wheel (Large)
