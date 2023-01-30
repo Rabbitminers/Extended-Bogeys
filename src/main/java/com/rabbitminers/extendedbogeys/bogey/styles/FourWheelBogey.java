@@ -28,6 +28,9 @@ public class FourWheelBogey implements IBogeyStyle {
 
         CachedBufferer.partial(BogeyPartials.FOUR_WHEEL_CONNECTING_ROD, air)
                 .rotateY(isFacingForward ? 180 : 0)
+                .rotateX(wheelAngle)
+                .translate(0, 1 / 4f, 0)
+                .rotateX(-wheelAngle)
                 .scale(1 - 1/512f)
                 .light(light)
                 .renderInto(ms, vb);
