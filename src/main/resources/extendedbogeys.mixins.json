@@ -9,6 +9,7 @@
     "MixinBogeyFrame",
     "MixinBogeyInstance",
     "MixinCarriageBogey",
+    "MixinCarriageContraptionEntity",
     "MixinStandardBogeyBlock",
     "MixinStationTileEntity",
     "MixinTrain",

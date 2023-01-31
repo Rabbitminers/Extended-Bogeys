@@ -1,11 +1,19 @@
 package com.rabbitminers.extendedbogeys.bogey.unlinked;
 
+import com.jozufozu.flywheel.core.virtual.VirtualRenderWorld;
+import com.rabbitminers.extendedbogeys.mixin_interface.ICarriageContraptionEntity;
 import com.simibubi.create.content.contraptions.components.actors.DrillRenderer;
 import com.simibubi.create.content.contraptions.components.structureMovement.MovementBehaviour;
 import com.simibubi.create.content.contraptions.components.structureMovement.MovementContext;
+import com.simibubi.create.content.contraptions.components.structureMovement.render.ContraptionMatrices;
+import com.simibubi.create.content.logistics.trains.entity.CarriageContraptionEntity;
 import com.simibubi.create.foundation.utility.AnimationTickHolder;
+import com.simibubi.create.foundation.utility.VecHelper;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.Map;
 
@@ -22,6 +30,7 @@ public class UnlinkedBogeyCarriageMovementBehaviour implements MovementBehaviour
         return unlinkedBogeyTileEntity;
     }
 
+
     @Override
     public void tick(MovementContext context) {
         if (!context.world.isClientSide || !isActive(context))
@@ -33,7 +42,17 @@ public class UnlinkedBogeyCarriageMovementBehaviour implements MovementBehaviour
         float time = AnimationTickHolder.getRenderTime() / 20;
         float angle = (float) (((time * speed) % 360));
 
-        unlinkedBogeyTileEntity.setRotationAngle(angle);
+        if (!(context.contraption.entity instanceof CarriageContraptionEntity cce) || unlinkedBogeyTileEntity == null)
+            return;
+
+        double xo = cce.getX();
+        double yo = cce.getY();
+        double zo = cce.getZ();
+
+        double distanceTo = 0;
+        if (cce instanceof ICarriageContraptionEntity carriageContraptionEntityInterface)
+            distanceTo = carriageContraptionEntityInterface.getDistanceTo();
+        unlinkedBogeyTileEntity.updateAngles(cce, distanceTo);
 
         MovementBehaviour.super.tick(context);
     }

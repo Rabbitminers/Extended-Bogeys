@@ -19,7 +19,6 @@ import com.simibubi.create.content.contraptions.wrench.WrenchItem;
 import com.simibubi.create.content.logistics.trains.entity.BogeyInstance;
 import com.simibubi.create.content.logistics.trains.entity.CarriageBogey;
 import com.simibubi.create.content.logistics.trains.track.StandardBogeyBlock;
-import com.simibubi.create.content.logistics.trains.track.StandardBogeyTileEntity;
 import com.simibubi.create.foundation.render.CachedBufferer;
 import com.simibubi.create.foundation.utility.Iterate;
 import net.minecraft.ChatFormatting;
@@ -33,6 +32,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AirItem;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -54,9 +54,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.EnumSet;
-import java.util.List;
-
-import static com.simibubi.create.content.logistics.trains.track.StandardBogeyBlock.AXIS;
 
 @Mixin(StandardBogeyBlock.class)
 public abstract class MixinStandardBogeyBlock extends Block {
@@ -65,6 +62,7 @@ public abstract class MixinStandardBogeyBlock extends Block {
     @Shadow @Final public static EnumProperty<Direction.Axis> AXIS;
     private static final Property<Integer> STYLE = BlockStates.STYLE;
     private static final Property<Boolean> IS_FACING_FORWARD = BlockStates.IS_FACING_FOWARD;
+    private static final EnumProperty<DyeColor> PAINT_COLOUR = BlockStates.PAINT_COLOUR;
     public MixinStandardBogeyBlock(Properties pProperties) {
         super(pProperties);
     }
@@ -73,6 +71,7 @@ public abstract class MixinStandardBogeyBlock extends Block {
     public void createBlockStateDefenition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo ci) {
         builder.add(STYLE);
         builder.add(IS_FACING_FORWARD);
+
     }
 
     @Override
@@ -97,6 +96,11 @@ public abstract class MixinStandardBogeyBlock extends Block {
             level.setBlock(blockPos, state.setValue(IS_FACING_FORWARD, !facing), 3);
             player.displayClientMessage(new TextComponent("Rotated Bogey!"), true);
             return InteractionResult.CONSUME;
+        }
+
+        if (!player.isShiftKeyDown() && !level.isClientSide && interactionHand == InteractionHand.MAIN_HAND
+                && DyeColor.getColor(player.getMainHandItem()) != null) {
+
         }
 
         if (!level.isClientSide && player.getMainHandItem().getItem() instanceof WrenchItem wrenchItem
