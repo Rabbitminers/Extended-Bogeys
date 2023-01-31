@@ -32,26 +32,20 @@ public class UnlinkedBogeyCarriageMovementBehaviour implements MovementBehaviour
 
 
     @Override
-    public void tick(MovementContext context) {
+    public void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld, ContraptionMatrices matrices, MultiBufferSource buffer) {
         if (!context.world.isClientSide || !isActive(context))
             return;
 
         UnlinkedBogeyTileEntity unlinkedBogeyTileEntity = getTileEntity(context);
 
-        float speed = context.getAnimationSpeed();
-        float time = AnimationTickHolder.getRenderTime() / 20;
-        float angle = (float) (((time * speed) % 360));
-
         if (!(context.contraption.entity instanceof CarriageContraptionEntity cce) || unlinkedBogeyTileEntity == null)
             return;
 
-        double xo = cce.getX();
-        double yo = cce.getY();
-        double zo = cce.getZ();
-
         double distanceTo = 0;
+
         if (cce instanceof ICarriageContraptionEntity carriageContraptionEntityInterface)
             distanceTo = carriageContraptionEntityInterface.getDistanceTo();
+
         unlinkedBogeyTileEntity.updateAngles(cce, distanceTo);
 
         MovementBehaviour.super.tick(context);
