@@ -9,6 +9,8 @@ import com.simibubi.create.content.contraptions.components.structureMovement.ren
 import com.simibubi.create.content.logistics.trains.entity.CarriageContraptionEntity;
 import com.simibubi.create.foundation.utility.AnimationTickHolder;
 import com.simibubi.create.foundation.utility.VecHelper;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -30,9 +32,8 @@ public class UnlinkedBogeyCarriageMovementBehaviour implements MovementBehaviour
         return unlinkedBogeyTileEntity;
     }
 
-
     @Override
-    public void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld, ContraptionMatrices matrices, MultiBufferSource buffer) {
+    public void tick(MovementContext context) {
         if (!context.world.isClientSide || !isActive(context))
             return;
 
@@ -41,13 +42,18 @@ public class UnlinkedBogeyCarriageMovementBehaviour implements MovementBehaviour
         if (!(context.contraption.entity instanceof CarriageContraptionEntity cce) || unlinkedBogeyTileEntity == null)
             return;
 
+        if (Minecraft.getInstance().isPaused())
+            return;
+
         double distanceTo = 0;
 
         if (cce instanceof ICarriageContraptionEntity carriageContraptionEntityInterface)
             distanceTo = carriageContraptionEntityInterface.getDistanceTo();
 
         unlinkedBogeyTileEntity.updateAngles(cce, distanceTo);
+    }
 
-        MovementBehaviour.super.tick(context);
+    @Override
+    public void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld, ContraptionMatrices matrices, MultiBufferSource buffer) {
     }
 }

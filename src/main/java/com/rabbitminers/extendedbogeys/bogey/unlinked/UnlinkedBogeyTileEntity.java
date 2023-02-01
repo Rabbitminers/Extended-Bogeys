@@ -3,6 +3,7 @@ package com.rabbitminers.extendedbogeys.bogey.unlinked;
 import com.simibubi.create.content.logistics.trains.entity.CarriageContraptionEntity;
 import com.simibubi.create.foundation.tileEntity.CachedRenderBBTileEntity;
 import com.simibubi.create.foundation.utility.AngleHelper;
+import com.simibubi.create.foundation.utility.AnimationTickHolder;
 import com.simibubi.create.foundation.utility.Iterate;
 import com.simibubi.create.foundation.utility.animation.LerpedFloat;
 import net.minecraft.core.BlockPos;
@@ -25,7 +26,8 @@ public class UnlinkedBogeyTileEntity extends CachedRenderBBTileEntity {
     }
 
     public float getAngle() {
-        return this.wheelAngle.getValue();
+        float partialTicks = AnimationTickHolder.getPartialTicks();
+        return this.wheelAngle.getValue(partialTicks);
     }
 
     public void updateAngles(CarriageContraptionEntity entity, double distanceMoved) {
