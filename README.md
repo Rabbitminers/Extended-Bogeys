@@ -16,3 +16,7 @@ A <sup>somewhat</sup> complete list of both features and styles both implemented
 
 ## How can I add my own bogey?
 Extended Bogeys has a wiki detailing how you can integrate Extended Bogeys into your project aswell as details on creating, rendering and customising your own bogey. You can find the docs <a href="https://github.com/Rabbitminers/Extended-Bogeys/wiki">Here</a>
+
+<img src="https://user-images.githubusercontent.com/79579164/215903175-7acbd4f6-b221-4e2f-9305-efaf1c621ad0.png"
+     alt="Extended bogeys showcase"
+     style="float: left; border-radius: 10px" />
