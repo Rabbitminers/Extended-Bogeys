@@ -24,7 +24,7 @@ public class MixinBogeyDrive {
         isFrontBogey = (bogey == bogey.carriage.bogeys.get(true));
         int style = 0;
         if (bogey instanceof ICarriageBogeyStyle styledCarriageBogey) {
-            styledCarriageBogey.getStyle();
+            style = styledCarriageBogey.getStyle();
             isFacingForward = styledCarriageBogey.isFacingForward();
         }
         bogeyStyle = BogeyStyles.getBogeyStyle(style);
