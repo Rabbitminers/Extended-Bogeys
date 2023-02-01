@@ -46,6 +46,7 @@ public class ExtendedBogeys {
         return new ResourceLocation(MODID, path);
     }
     private void setup(final FMLCommonSetupEvent event) {
+        BogeyStyles.addBogeyStyle(DefaultStyle.class);
         BogeyStyles.addBogeyStyle(TwoWheelBogey.class);
         BogeyStyles.addBogeyStyle(ThreeWheelBogey.class);
         BogeyStyles.addBogeyStyle(SingleAxisBogey.class);
