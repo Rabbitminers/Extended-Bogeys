@@ -8,6 +8,7 @@ import com.rabbitminers.extendedbogeys.bogey.styles.BogeyStyles;
 import com.rabbitminers.extendedbogeys.bogey.styles.IBogeyStyle;
 import com.rabbitminers.extendedbogeys.bogey.unlinked.UnlinkedBogeyTileEntity;
 import com.rabbitminers.extendedbogeys.bogey.unlinked.UnlinkedStandardBogeyBlock;
+import com.rabbitminers.extendedbogeys.bogey.util.LanguageKey;
 import com.rabbitminers.extendedbogeys.index.ExtendedBogeysBlocks;
 import com.rabbitminers.extendedbogeys.mixin_interface.BlockStates;
 import com.rabbitminers.extendedbogeys.mixin_interface.ICarriageBogeyStyle;
@@ -28,6 +29,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -60,6 +62,11 @@ public abstract class MixinStandardBogeyBlock extends Block {
     @Shadow @Final private boolean large;
     @Shadow public abstract EnumSet<Direction> getStickySurfaces(BlockGetter world, BlockPos pos, BlockState state);
     @Shadow @Final public static EnumProperty<Direction.Axis> AXIS;
+
+    @Shadow protected abstract void renderBogey(float wheelAngle, PoseStack ms, int light, VertexConsumer vb, BlockState air);
+
+    @Shadow protected abstract void renderLargeBogey(float wheelAngle, PoseStack ms, int light, VertexConsumer vb, BlockState air);
+
     private static final Property<Integer> STYLE = BlockStates.STYLE;
     private static final Property<Boolean> IS_FACING_FORWARD = BlockStates.IS_FACING_FOWARD;
     private static final EnumProperty<DyeColor> PAINT_COLOUR = BlockStates.PAINT_COLOUR;
@@ -85,7 +92,7 @@ public abstract class MixinStandardBogeyBlock extends Block {
                     .setValue(STYLE, state.getValue(STYLE))
                     .setValue(AXIS, state.getValue(AXIS)), 3);
 
-            player.displayClientMessage(new TextComponent("Unlinked Bogey!"), true);
+            player.displayClientMessage(new TranslatableComponent("extendedbogeys.tooltips.unlink"), true);
 
             return InteractionResult.CONSUME;
         }
@@ -94,7 +101,7 @@ public abstract class MixinStandardBogeyBlock extends Block {
                 && player.getMainHandItem().getItem() == Items.AIR) {
             boolean facing = state.getValue(IS_FACING_FORWARD);
             level.setBlock(blockPos, state.setValue(IS_FACING_FORWARD, !facing), 3);
-            player.displayClientMessage(new TextComponent("Rotated Bogey!"), true);
+            player.displayClientMessage(new TranslatableComponent("extendedbogeys.tooltips.rotation"), true);
             return InteractionResult.CONSUME;
         }
 
@@ -110,8 +117,10 @@ public abstract class MixinStandardBogeyBlock extends Block {
             int bogeyStyle = state.getValue(STYLE);
             bogeyStyle = bogeyStyle >= BogeyStyles.getNumberOfBogeyStyleVariations() ? 0 : bogeyStyle + 1;
 
+            IBogeyStyle style = BogeyStyles.getBogeyStyle(bogeyStyle);
+
             level.setBlock(blockPos, state.setValue(STYLE, bogeyStyle), 3);
-            player.displayClientMessage(new TextComponent("Bogey Style: " + bogeyStyle), true);
+            player.displayClientMessage(new TextComponent("Bogey Style: " + bogeyStyle + " \"" + style.getStyleName() + "\""), true);
 
             return InteractionResult.CONSUME;
         }
@@ -154,6 +163,12 @@ public abstract class MixinStandardBogeyBlock extends Block {
                         .light(light)
                         .renderInto(ms, vb);
 
-        bogeyStyle.renderInWorld(large, isFacingForward, wheelAngle, ms, light, vb, air);
+        if (!bogeyStyle.shouldRenderDefault(large)) {
+            bogeyStyle.renderInWorld(large, isFacingForward, wheelAngle, ms, light, vb, air);
+        } else if (large) {
+            renderLargeBogey(wheelAngle, ms, light, vb, air);
+        } else {
+            renderBogey(wheelAngle, ms, light, vb, air);
+        }
     }
 }
