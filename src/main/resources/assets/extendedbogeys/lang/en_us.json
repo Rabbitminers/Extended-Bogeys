@@ -1,0 +1,10 @@
+{
+  "extendedbogeys.tooltips.rotation": "Rotated Bogey!",
+  "extendedbogeys.tooltips.link": "Linked Bogey!",
+  "extendedbogeys.tooltips.unlink": "Unlinked Bogey!",
+  "extendedbogeys.tooltips.style": "Bogey Style: ",
+
+  "extendedbogeys.bogeys.styles.default": "Default Bogey",
+  "extendedbogeys.bogeys.styles.singleaxis": "Single Axis Bogey",
+  "extendedbogeys.bogeys.styles.fourwheel": "Four Wheel Bogey"
+}

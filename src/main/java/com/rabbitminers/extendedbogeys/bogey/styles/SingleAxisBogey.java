@@ -5,6 +5,7 @@ import com.jozufozu.flywheel.core.Materials;
 import com.jozufozu.flywheel.core.materials.model.ModelData;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.rabbitminers.extendedbogeys.bogey.util.LanguageKey;
 import com.rabbitminers.extendedbogeys.index.BogeyPartials;
 import com.simibubi.create.AllBlockPartials;
 import com.simibubi.create.foundation.render.CachedBufferer;
@@ -14,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SingleAxisBogey implements IBogeyStyle {
-    private static final String STYLE_NAME = "Single Axis";
     private ModelData frame;
     private ModelData pin;
     private ModelData wheels;
@@ -102,12 +102,17 @@ public class SingleAxisBogey implements IBogeyStyle {
     }
 
     @Override
+    public float getMaximumSpeed() {
+        return 16;
+    }
+
+    @Override
     public boolean shouldRenderInnerShaft() {
         return false;
     }
 
     @Override
     public String getStyleName() {
-        return STYLE_NAME;
+        return LanguageKey.translateDirect("bogeys.styles.singleaxis").getString();
     }
 }

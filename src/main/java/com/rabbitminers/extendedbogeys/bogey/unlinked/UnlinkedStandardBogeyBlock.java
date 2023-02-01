@@ -24,6 +24,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -83,7 +84,7 @@ public class UnlinkedStandardBogeyBlock extends Block
 
             level.setBlock(blockPos, unlinkedBlockState.setValue(STYLE, state.getValue(STYLE)).setValue(AXIS, state.getValue(AXIS)), 3);
 
-            player.displayClientMessage(new TextComponent("Linked Bogey!").withStyle(ChatFormatting.GREEN), true);
+            player.displayClientMessage(new TranslatableComponent("extendedbogeys.tooltips.unlink").withStyle(ChatFormatting.GREEN), true);
 
             return InteractionResult.CONSUME;
         }
