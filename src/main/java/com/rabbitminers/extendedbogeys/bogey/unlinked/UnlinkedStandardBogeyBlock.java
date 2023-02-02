@@ -84,7 +84,7 @@ public class UnlinkedStandardBogeyBlock extends Block
 
             level.setBlock(blockPos, unlinkedBlockState.setValue(STYLE, state.getValue(STYLE)).setValue(AXIS, state.getValue(AXIS)), 3);
 
-            player.displayClientMessage(new TranslatableComponent("extendedbogeys.tooltips.unlink").withStyle(ChatFormatting.GREEN), true);
+            player.displayClientMessage(new TranslatableComponent("extendedbogeys.tooltips.link").withStyle(ChatFormatting.GREEN), true);
 
             return InteractionResult.CONSUME;
         }
