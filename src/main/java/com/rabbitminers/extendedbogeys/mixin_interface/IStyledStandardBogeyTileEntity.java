@@ -1,11 +1,13 @@
 package com.rabbitminers.extendedbogeys.mixin_interface;
 
+import net.minecraft.nbt.CompoundTag;
+
 public interface IStyledStandardBogeyTileEntity {
-    default boolean getIsFacingForwards() { return true; }
+    default boolean getIsFacingForwards(CompoundTag tileData) { return true; }
 
-    default void setIsFacingForwards(boolean isFacingForwards) {}
+    default void setIsFacingForwards(CompoundTag tileData, boolean isFacingForwards) {}
 
-    default int getBogeyStyle() { return 0; }
+    default int getBogeyStyle(CompoundTag tileData) { return 0; }
 
-    default void setBogeyStyle(int bogeyStyle) {}
+    default void setBogeyStyle(CompoundTag tileData, int bogeyStyle) {}
 }

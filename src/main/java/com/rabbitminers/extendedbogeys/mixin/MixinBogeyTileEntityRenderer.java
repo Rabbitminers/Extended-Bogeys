@@ -21,11 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MixinBogeyTileEntityRenderer {
     @Inject(
         method = "renderSafe",
-        at = @At(
-            value="INVOKE",
-            target = "Lnet/minecraft/world/level/block/entity/BlockEntity;getBlockState()Lnet/minecraft/world/level/block/state/BlockState;",
-            shift = At.Shift.AFTER
-        ),
+        at = @At("HEAD"),
         cancellable = true,
         remap = false
     )

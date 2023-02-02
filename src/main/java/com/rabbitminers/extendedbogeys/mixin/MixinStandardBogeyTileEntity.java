@@ -3,29 +3,32 @@ package com.rabbitminers.extendedbogeys.mixin;
 import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyTileEntity;
 import com.simibubi.create.content.logistics.trains.track.StandardBogeyBlock;
 import com.simibubi.create.content.logistics.trains.track.StandardBogeyTileEntity;
+import net.minecraft.nbt.CompoundTag;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(StandardBogeyTileEntity.class)
 public class MixinStandardBogeyTileEntity implements IStyledStandardBogeyTileEntity {
-    private boolean isFacingForwards = true;
-    private int bogeyStyle = 0;
     @Override
-    public void setIsFacingForwards(boolean isFacingForwards) {
-        this.isFacingForwards = isFacingForwards;
+    public void setIsFacingForwards(CompoundTag tileData, boolean isFacingForwards) {
+        tileData.putBoolean("IsFacingForwards", isFacingForwards);
     }
 
     @Override
-    public boolean getIsFacingForwards() {
-        return this.isFacingForwards;
+    public boolean getIsFacingForwards(CompoundTag tileData) {
+        if (tileData.contains("IsFacingForwards"))
+            return tileData.getBoolean("IsFacingForwards");
+        return true;
     }
 
     @Override
-    public void setBogeyStyle(int bogeyStyle) {
-        this.bogeyStyle = bogeyStyle;
+    public void setBogeyStyle(CompoundTag tileData, int bogeyStyle) {
+        tileData.putInt("Style", bogeyStyle);
     }
 
     @Override
-    public int getBogeyStyle() {
-        return this.bogeyStyle;
+    public int getBogeyStyle(CompoundTag tileData) {
+        if (tileData.contains("Style"))
+            return tileData.getInt("Style");
+        return 0;
     }
 }

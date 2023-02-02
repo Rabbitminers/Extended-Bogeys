@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
@@ -30,6 +31,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.*;
@@ -77,6 +79,7 @@ public abstract class MixinStandardBogeyBlock extends Block implements IStyledSt
         IStyledStandardBogeyTileEntity te = (IStyledStandardBogeyTileEntity) level.getBlockEntity(blockPos);
         if (te == null)
             return InteractionResult.FAIL;
+        CompoundTag tileData = ((BlockEntity) te).getTileData();
 
         if (player.isShiftKeyDown() && !level.isClientSide && interactionHand == InteractionHand.MAIN_HAND
                 && player.getMainHandItem().getItem() == Items.AIR) {
@@ -95,7 +98,7 @@ public abstract class MixinStandardBogeyBlock extends Block implements IStyledSt
                 && player.getMainHandItem().getItem() == Items.AIR) {
             boolean facing = state.getValue(IS_FACING_FORWARD);
 
-            te.setIsFacingForwards(!te.getIsFacingForwards());
+            te.setIsFacingForwards(tileData, !te.getIsFacingForwards(tileData));
 
             level.setBlock(blockPos, state.setValue(IS_FACING_FORWARD, !facing), 3);
             player.displayClientMessage(new TranslatableComponent("extendedbogeys.tooltips.rotation"), true);
@@ -111,12 +114,12 @@ public abstract class MixinStandardBogeyBlock extends Block implements IStyledSt
                 && !player.getCooldowns().isOnCooldown(wrenchItem) && interactionHand == InteractionHand.MAIN_HAND) {
             player.getCooldowns().addCooldown(wrenchItem, 20);
 
-            int bogeyStyle = te.getBogeyStyle();
+            int bogeyStyle = te.getBogeyStyle(tileData);
             bogeyStyle = bogeyStyle >= BogeyStyles.getNumberOfBogeyStyleVariations()-1 ? 0 : bogeyStyle + 1;
 
             IBogeyStyle style = BogeyStyles.getBogeyStyle(bogeyStyle);
 
-            te.setBogeyStyle(bogeyStyle);
+            te.setBogeyStyle(tileData, bogeyStyle);
             player.displayClientMessage(new TextComponent("Bogey Style: " + bogeyStyle + " \"" + style.getStyleName() + "\""), true);
 
             return InteractionResult.CONSUME;
@@ -133,9 +136,10 @@ public abstract class MixinStandardBogeyBlock extends Block implements IStyledSt
             if (state.getValue(AXIS) == Direction.Axis.X)
                 ms.mulPose(Vector3f.YP.rotationDegrees(90));
         }
+        CompoundTag tileData = ((BlockEntity) te).getTileData();
 
-        boolean isFacingForward = te.getIsFacingForwards();
-        int style = te.getBogeyStyle();
+        boolean isFacingForward = te.getIsFacingForwards(tileData);
+        int style = te.getBogeyStyle(tileData);
 
         ms.translate(0, -1.5 - 1 / 128f, 0);
 

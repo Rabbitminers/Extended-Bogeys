@@ -12,8 +12,10 @@ import com.simibubi.create.content.logistics.trains.management.edgePoint.station
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
@@ -49,8 +51,12 @@ public class MixinStationTileEntity {
             BlockPos firstBogeyBlockPos = contraption.anchor;
 
             IStyledStandardBogeyTileEntity firstBogeyTe = (IStyledStandardBogeyTileEntity) level.getBlockEntity(firstBogeyBlockPos);
-            boolean isFirstBogeyFacingForward = firstBogeyTe.getIsFacingForwards();
-            int firstBogeyStyle = firstBogeyTe.getBogeyStyle();
+            assert firstBogeyTe != null;
+
+            CompoundTag tileData = ((BlockEntity) firstBogeyTe).getTileData();
+
+            boolean isFirstBogeyFacingForward = firstBogeyTe.getIsFacingForwards(tileData);
+            int firstBogeyStyle = firstBogeyTe.getBogeyStyle(tileData);
 
             styledCustomBogey.setStyle(firstBogeyStyle);
             styledCustomBogey.setFacingForward(isFirstBogeyFacingForward);
@@ -73,8 +79,10 @@ public class MixinStationTileEntity {
             IStyledStandardBogeyTileEntity secondBogeyTe = (IStyledStandardBogeyTileEntity) level.getBlockEntity(secondBogeyPos);
             assert secondBogeyTe != null;
 
-            int secondBogeyStyle = secondBogeyTe.getBogeyStyle();
-            boolean isSecondBogeyFacingForward = secondBogeyTe.getIsFacingForwards();
+            CompoundTag tileData = ((BlockEntity) secondBogeyTe).getTileData();
+
+            int secondBogeyStyle = secondBogeyTe.getBogeyStyle(tileData);
+            boolean isSecondBogeyFacingForward = secondBogeyTe.getIsFacingForwards(tileData);
 
             if (secondBogey instanceof ICarriageBogeyStyle styledCustomBogey) {
                 styledCustomBogey.setStyle(secondBogeyStyle);
