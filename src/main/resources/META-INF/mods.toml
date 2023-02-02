@@ -19,11 +19,11 @@ logoFile="extendedbogeys.png" #optional
 credits="Rabbitminers" #optional
 
 # TODO: Add your name here
-authors="yourname" #optional
+authors="Rabbitminers, RailFanNate, Keanes" #optional
 # The description text for the mod (multi line!) (#mandatory)
 # TODO: Describe your mod
 description='''
-A template for create addons on Create 0.5.d
+Adding new Bogeys To The Create Mod
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.extendedbogeys]] #optional
@@ -49,6 +49,6 @@ A template for create addons on Create 0.5.d
 [[dependencies.extendedbogeys]]
     modId="create"
     mandatory=true
-    versionRange="[0.5.0.d,)"
+    versionRange="[0.5.0.h,)"
     ordering="NONE"
     side="BOTH"

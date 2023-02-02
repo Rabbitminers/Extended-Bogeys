@@ -38,7 +38,7 @@ If you have any requests please contact us and ask.
 - ☒ ☒ ☒ Four Wheel Driver (Large)
 - ☒ ☐ ☐ ? Encased Four Wheel Driver (Large)
 - ☒ ☐ ☐ Six Wheel (Small)
-- ☒ ☐ ☐ Six Wheel (Large)
+- ☒ ☒ ☐ Six Wheel (Large)
 - ☒ ☐ ☐ Flywheel Scale Driver (Large)
 
 (Some planned styles are missing, we need to put together a co-ordinated list)
