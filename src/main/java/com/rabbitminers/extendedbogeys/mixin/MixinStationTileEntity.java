@@ -2,6 +2,7 @@ package com.rabbitminers.extendedbogeys.mixin;
 
 import com.rabbitminers.extendedbogeys.mixin_interface.BlockStates;
 import com.rabbitminers.extendedbogeys.mixin_interface.ICarriageBogeyStyle;
+import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyTileEntity;
 import com.simibubi.create.content.logistics.trains.*;
 import com.simibubi.create.content.logistics.trains.entity.Carriage;
 import com.simibubi.create.content.logistics.trains.entity.CarriageBogey;
@@ -46,11 +47,14 @@ public class MixinStationTileEntity {
 
         if (firstBogey instanceof ICarriageBogeyStyle styledCustomBogey) {
             BlockPos firstBogeyBlockPos = contraption.anchor;
-            BlockState state = level.getBlockState(firstBogeyBlockPos);
-            boolean isFirstBogeyFacingForward = state.getValue(BlockStates.IS_FACING_FOWARD);
-            int firstBogeyStyle = state.getValue(BlockStates.STYLE);
+
+            IStyledStandardBogeyTileEntity firstBogeyTe = (IStyledStandardBogeyTileEntity) level.getBlockEntity(firstBogeyBlockPos);
+            boolean isFirstBogeyFacingForward = firstBogeyTe.getIsFacingForwards();
+            int firstBogeyStyle = firstBogeyTe.getBogeyStyle();
+
             styledCustomBogey.setStyle(firstBogeyStyle);
             styledCustomBogey.setFacingForward(isFirstBogeyFacingForward);
+
             return (CarriageBogey) styledCustomBogey;
         }
 
@@ -65,10 +69,12 @@ public class MixinStationTileEntity {
 
         if (secondBogey != null) {
             BlockPos secondBogeyPos = contraption.getSecondBogeyPos();
-            BlockState secondBogeyState = level.getBlockState(secondBogeyPos);
 
-            int secondBogeyStyle = secondBogeyState.getValue(BlockStates.STYLE);
-            boolean isSecondBogeyFacingForward = secondBogeyState.getValue(BlockStates.IS_FACING_FOWARD);
+            IStyledStandardBogeyTileEntity secondBogeyTe = (IStyledStandardBogeyTileEntity) level.getBlockEntity(secondBogeyPos);
+            assert secondBogeyTe != null;
+
+            int secondBogeyStyle = secondBogeyTe.getBogeyStyle();
+            boolean isSecondBogeyFacingForward = secondBogeyTe.getIsFacingForwards();
 
             if (secondBogey instanceof ICarriageBogeyStyle styledCustomBogey) {
                 styledCustomBogey.setStyle(secondBogeyStyle);

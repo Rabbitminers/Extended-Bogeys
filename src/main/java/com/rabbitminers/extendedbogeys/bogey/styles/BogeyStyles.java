@@ -26,7 +26,7 @@ public class BogeyStyles {
             if (cls == null) return DefaultStyle.class.newInstance();
             return (IBogeyStyle) cls.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
-            ExtendedBogeys.LOGGER.error("Invalid bogey style added, this may be due to a broken mod");
+            ExtendedBogeys.LOGGER.error("Invalid bogey style added, this may be due to a broken mod, contact the author");
             return new DefaultStyle();
         }
     }
