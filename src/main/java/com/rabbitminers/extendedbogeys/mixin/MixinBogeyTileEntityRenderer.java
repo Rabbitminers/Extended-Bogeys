@@ -31,7 +31,6 @@ public class MixinBogeyTileEntityRenderer {
     )
     public <T extends BlockEntity> void renderWithTileEntity(T te, float partialTicks, PoseStack ms, MultiBufferSource buffer,
                                                              int light, int overlay, CallbackInfo ci) {
-        System.out.println("recieved te = " + te);
         BlockState blockState = te.getBlockState();
         if (te instanceof IStyledStandardBogeyTileEntity ssbte
                 && blockState.getBlock() instanceof IStyledStandardBogeyBlock bogey) {

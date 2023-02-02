@@ -117,7 +117,6 @@ public abstract class MixinStandardBogeyBlock extends Block implements IStyledSt
             IBogeyStyle style = BogeyStyles.getBogeyStyle(bogeyStyle);
 
             te.setBogeyStyle(bogeyStyle);
-            System.out.println("te = " + te);
             player.displayClientMessage(new TextComponent("Bogey Style: " + bogeyStyle + " \"" + style.getStyleName() + "\""), true);
 
             return InteractionResult.CONSUME;
@@ -127,8 +126,8 @@ public abstract class MixinStandardBogeyBlock extends Block implements IStyledSt
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void renderWithTileEntity(BlockState state, IStyledStandardBogeyTileEntity te, float wheelAngle, PoseStack ms, float partialTicks, MultiBufferSource buffers, int light, int overlay) {
-
+    public void renderWithTileEntity(BlockState state, IStyledStandardBogeyTileEntity te, float wheelAngle, PoseStack ms,
+                                     float partialTicks, MultiBufferSource buffers, int light, int overlay) {
         if (state != null) {
             ms.translate(.5f, .5f, .5f);
             if (state.getValue(AXIS) == Direction.Axis.X)
@@ -141,6 +140,7 @@ public abstract class MixinStandardBogeyBlock extends Block implements IStyledSt
         ms.translate(0, -1.5 - 1 / 128f, 0);
 
         VertexConsumer vb = buffers.getBuffer(RenderType.cutoutMipped());
+
         BlockState air = Blocks.AIR.defaultBlockState();
         IBogeyStyle bogeyStyle = BogeyStyles.getBogeyStyle(style);
 
