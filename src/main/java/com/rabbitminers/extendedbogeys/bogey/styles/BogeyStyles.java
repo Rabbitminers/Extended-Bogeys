@@ -12,7 +12,7 @@ import java.util.Map;
 public class BogeyStyles {
     private static Map<Integer, Class<? extends IBogeyStyle>> bogeyStyleMap = new HashMap<>();
     public static void addBogeyStyle(Class<? extends IBogeyStyle> customBogeyStyle) {
-        bogeyStyleMap.put(bogeyStyleMap.size()-1, customBogeyStyle);
+        bogeyStyleMap.put(bogeyStyleMap.size(), customBogeyStyle);
     }
     public static Collection<Class<? extends IBogeyStyle>> getAllBogeyStyles() {
         return bogeyStyleMap.values();

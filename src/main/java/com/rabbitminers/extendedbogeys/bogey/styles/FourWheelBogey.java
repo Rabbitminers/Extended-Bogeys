@@ -166,7 +166,7 @@ public class FourWheelBogey implements IBogeyStyle {
             ms.pushPose();
             CachedBufferer.partial(AllBlockPartials.LARGE_BOGEY_WHEELS, air)
                     .translate(0, 1, side)
-                    .rotateX(-wheelAngle)
+                    .rotateX(wheelAngle)
                     .light(light)
                     .renderInto(ms, vb);
             ms.popPose();
