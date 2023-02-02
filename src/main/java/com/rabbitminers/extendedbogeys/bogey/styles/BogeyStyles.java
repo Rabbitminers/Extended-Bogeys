@@ -23,11 +23,11 @@ public class BogeyStyles {
     public static IBogeyStyle getBogeyStyle(int id) {
         try {
             Class<? extends IBogeyStyle> cls = bogeyStyleMap.get(id);
-            if (cls == null) return TwoWheelBogey.class.newInstance();
+            if (cls == null) return DefaultStyle.class.newInstance();
             return (IBogeyStyle) cls.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
             ExtendedBogeys.LOGGER.error("Invalid bogey style added, this may be due to a broken mod");
-            return new TwoWheelBogey();
+            return new DefaultStyle();
         }
     }
 }

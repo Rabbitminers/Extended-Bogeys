@@ -47,8 +47,6 @@ public class ExtendedBogeys {
     }
     private void setup(final FMLCommonSetupEvent event) {
         BogeyStyles.addBogeyStyle(DefaultStyle.class);
-        BogeyStyles.addBogeyStyle(TwoWheelBogey.class);
-        BogeyStyles.addBogeyStyle(ThreeWheelBogey.class);
         BogeyStyles.addBogeyStyle(SingleAxisBogey.class);
         BogeyStyles.addBogeyStyle(FourWheelBogey.class);
         LOGGER.info("Registered bogey types from: " + ExtendedBogeys.MODID);

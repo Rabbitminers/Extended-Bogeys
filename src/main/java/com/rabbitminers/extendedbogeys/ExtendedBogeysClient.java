@@ -16,7 +16,7 @@ public class ExtendedBogeysClient {
 
     @SubscribeEvent
     public static void clientSetup(FMLClientSetupEvent event) {
-        registerOverlays();
+        // registerOverlays();
     }
 
     private static void registerOverlays() {
