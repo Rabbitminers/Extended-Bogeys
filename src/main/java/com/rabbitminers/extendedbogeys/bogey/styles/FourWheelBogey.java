@@ -100,7 +100,7 @@ public class FourWheelBogey implements IBogeyStyle {
         for (int side : Iterate.positiveAndNegative) {
             wheels[(side+1) / 2].setTransform(ms)
                 .translate(0, 1, side)
-                .rotateX(-wheelAngle);
+                .rotateX(isFacingForward ? wheelAngle : -wheelAngle);
         }
 
         connectingRod.setTransform(ms)
@@ -114,12 +114,12 @@ public class FourWheelBogey implements IBogeyStyle {
                 .rotateY(isFacingForward ? 0 : 180);
 
         driveRod.setTransform(ms)
-                .translateZ(-0.6)
+                .translateZ(isFacingForward ? 0.6 : -0.6)
                 .translateY(0.85)
+                .rotateY(isFacingForward ? 180 : 0)
                 .rotateX(offSetScaleFactor*20-10)
                 .translateZ(1/4f * Math.sin(Math.toRadians(wheelAngle)))
-                .rotateY(isFacingForward ? 0 : 180);
-
+                .scale(1 - 1/512f);
 
         frame.setTransform(ms);
 
@@ -153,7 +153,7 @@ public class FourWheelBogey implements IBogeyStyle {
                 .renderInto(ms, vb);
 
         CachedBufferer.partial(BogeyPartials.FOUR_WHEEL_DRIVE_ROD, air)
-                .translateZ(0.6)
+                .translateZ(isFacingForward ? 0.6 : -0.6)
                 .translateY(0.85)
                 .rotateY(isFacingForward ? 180 : 0)
                 .rotateX(offSetScaleFactor*20-10)
@@ -166,7 +166,7 @@ public class FourWheelBogey implements IBogeyStyle {
             ms.pushPose();
             CachedBufferer.partial(AllBlockPartials.LARGE_BOGEY_WHEELS, air)
                     .translate(0, 1, side)
-                    .rotateX(wheelAngle)
+                    .rotateX(isFacingForward ? -wheelAngle : wheelAngle)
                     .light(light)
                     .renderInto(ms, vb);
             ms.popPose();
