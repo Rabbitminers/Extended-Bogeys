@@ -15,6 +15,7 @@ import com.simibubi.create.content.contraptions.wrench.WrenchItem;
 import com.simibubi.create.content.logistics.trains.track.StandardBogeyBlock;
 import com.simibubi.create.foundation.render.CachedBufferer;
 import com.simibubi.create.foundation.utility.Iterate;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
@@ -58,36 +59,23 @@ public abstract class MixinStandardBogeyBlock extends Block implements IStyledSt
     @Shadow protected abstract void renderBogey(float wheelAngle, PoseStack ms, int light, VertexConsumer vb, BlockState air);
 
     @Shadow protected abstract void renderLargeBogey(float wheelAngle, PoseStack ms, int light, VertexConsumer vb, BlockState air);
-
-    private static final Property<Integer> STYLE = BlockStates.STYLE;
-    private static final Property<Boolean> IS_FACING_FORWARD = BlockStates.IS_FACING_FOWARD;
-    private static final EnumProperty<DyeColor> PAINT_COLOUR = BlockStates.PAINT_COLOUR;
     public MixinStandardBogeyBlock(Properties pProperties) {
         super(pProperties);
-    }
-
-    @Inject(at = @At("HEAD"), method = "createBlockStateDefinition")
-    public void createBlockStateDefenition(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo ci) {
-        builder.add(STYLE);
-        builder.add(IS_FACING_FORWARD);
     }
 
     @Override
     public @NotNull InteractionResult use(BlockState state, Level level, BlockPos blockPos, Player player,
                                           InteractionHand interactionHand, BlockHitResult blockHitResult) {
 
-        IStyledStandardBogeyTileEntity te = (IStyledStandardBogeyTileEntity) level.getBlockEntity(blockPos);
-        if (te == null)
+        BlockEntity be = level.getBlockEntity(blockPos);
+        IStyledStandardBogeyTileEntity te = (IStyledStandardBogeyTileEntity) be;
+        if (be == null)
             return InteractionResult.FAIL;
-        CompoundTag tileData = ((BlockEntity) te).getTileData();
+        CompoundTag tileData = be.getTileData();
 
         if (player.isShiftKeyDown() && !level.isClientSide && interactionHand == InteractionHand.MAIN_HAND
                 && player.getMainHandItem().getItem() == Items.AIR) {
             BlockState unlinkedBlockState = large ? ExtendedBogeysBlocks.LARGE_UNLINKED_BOGEY.getDefaultState() : ExtendedBogeysBlocks.SMALL_UNLINKED_BOGEY.getDefaultState();
-
-            level.setBlock(blockPos, unlinkedBlockState
-                    .setValue(STYLE, state.getValue(STYLE))
-                    .setValue(AXIS, state.getValue(AXIS)), 3);
 
             player.displayClientMessage(new TranslatableComponent("extendedbogeys.tooltips.unlink"), true);
 
@@ -96,11 +84,10 @@ public abstract class MixinStandardBogeyBlock extends Block implements IStyledSt
 
         if (!player.isShiftKeyDown() && !level.isClientSide && interactionHand == InteractionHand.MAIN_HAND
                 && player.getMainHandItem().getItem() == Items.AIR) {
-            boolean facing = state.getValue(IS_FACING_FORWARD);
 
             te.setIsFacingForwards(tileData, !te.getIsFacingForwards(tileData));
+            be.setChanged();
 
-            level.setBlock(blockPos, state.setValue(IS_FACING_FORWARD, !facing), 3);
             player.displayClientMessage(new TranslatableComponent("extendedbogeys.tooltips.rotation"), true);
             return InteractionResult.CONSUME;
         }
@@ -120,6 +107,8 @@ public abstract class MixinStandardBogeyBlock extends Block implements IStyledSt
             IBogeyStyle style = BogeyStyles.getBogeyStyle(bogeyStyle);
 
             te.setBogeyStyle(tileData, bogeyStyle);
+            be.setChanged();
+
             player.displayClientMessage(new TextComponent("Bogey Style: " + bogeyStyle + " \"" + style.getStyleName() + "\""), true);
 
             return InteractionResult.CONSUME;
@@ -129,17 +118,31 @@ public abstract class MixinStandardBogeyBlock extends Block implements IStyledSt
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void renderWithTileEntity(BlockState state, IStyledStandardBogeyTileEntity te, float wheelAngle, PoseStack ms,
+    public void renderWithTileEntity(BlockState state, BlockPos blockPos, float wheelAngle, PoseStack ms,
                                      float partialTicks, MultiBufferSource buffers, int light, int overlay) {
         if (state != null) {
             ms.translate(.5f, .5f, .5f);
             if (state.getValue(AXIS) == Direction.Axis.X)
                 ms.mulPose(Vector3f.YP.rotationDegrees(90));
         }
-        CompoundTag tileData = ((BlockEntity) te).getTileData();
+        Minecraft mc = Minecraft.getInstance();
+        Level level = mc.level;
 
-        boolean isFacingForward = te.getIsFacingForwards(tileData);
-        int style = te.getBogeyStyle(tileData);
+        assert level != null;
+
+        BlockEntity te = level.getBlockEntity(blockPos);
+
+        if (te == null)
+            return;
+
+        CompoundTag tileData = te.getTileData();
+
+        IStyledStandardBogeyTileEntity ssbte = (IStyledStandardBogeyTileEntity) te;
+
+        boolean isFacingForward = ssbte.getIsFacingForwards(tileData);
+        int style = ssbte.getBogeyStyle(tileData);
+
+        System.out.println(style);
 
         ms.translate(0, -1.5 - 1 / 128f, 0);
 
@@ -152,51 +155,6 @@ public abstract class MixinStandardBogeyBlock extends Block implements IStyledSt
             for (int i : Iterate.zeroAndOne)
                 CachedBufferer.block(AllBlocks.SHAFT.getDefaultState()
                                 .setValue(ShaftBlock.AXIS, Direction.Axis.Z))
-                        .translate(-.5f, .25f, i * -1)
-                        .centre()
-                        .rotateZ(wheelAngle)
-                        .unCentre()
-                        .light(light)
-                        .renderInto(ms, vb);
-
-        if (!bogeyStyle.shouldRenderDefault(large)) {
-            bogeyStyle.renderInWorld(large, isFacingForward, wheelAngle, ms, light, vb, air);
-        } else if (large) {
-            renderLargeBogey(wheelAngle, ms, light, vb, air);
-        } else {
-            renderBogey(wheelAngle, ms, light, vb, air);
-        }
-    }
-
-    /**
-     * @author Rabbitminers / Extended Bogeys
-     * @reason Replace rendering with style based system
-     */
-    @OnlyIn(Dist.CLIENT)
-    // @Overwrite(remap = false)
-    public void render(BlockState state, float wheelAngle, PoseStack ms, float partialTicks, MultiBufferSource buffers,
-                       int light, int overlay) {
-        boolean isFacingForward = true;
-
-        int style = 0;
-        if (state != null) {
-            ms.translate(.5f, .5f, .5f);
-            if (state.getValue(AXIS) == Direction.Axis.X)
-                ms.mulPose(Vector3f.YP.rotationDegrees(90));
-            isFacingForward = state.getValue(IS_FACING_FORWARD);
-            style = state.getValue(STYLE);
-        }
-
-        ms.translate(0, -1.5 - 1 / 128f, 0);
-
-        VertexConsumer vb = buffers.getBuffer(RenderType.cutoutMipped());
-        BlockState air = Blocks.AIR.defaultBlockState();
-        IBogeyStyle bogeyStyle = BogeyStyles.getBogeyStyle(style);
-
-        if (bogeyStyle.shouldRenderInnerShaft())
-            for (int i : Iterate.zeroAndOne)
-                CachedBufferer.block(AllBlocks.SHAFT.getDefaultState()
-                        .setValue(ShaftBlock.AXIS, Direction.Axis.Z))
                         .translate(-.5f, .25f, i * -1)
                         .centre()
                         .rotateZ(wheelAngle)
