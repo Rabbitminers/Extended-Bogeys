@@ -7,6 +7,8 @@ import com.rabbitminers.extendedbogeys.bogey.styles.BogeyStyles;
 import com.rabbitminers.extendedbogeys.bogey.styles.IBogeyStyle;
 import com.rabbitminers.extendedbogeys.index.ExtendedBogeysTileEntities;
 import com.rabbitminers.extendedbogeys.mixin_interface.BlockStates;
+import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyBlock;
+import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyTileEntity;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllTileEntities;
 import com.simibubi.create.content.contraptions.components.actors.DrillRenderer;
@@ -19,10 +21,12 @@ import com.simibubi.create.foundation.block.ProperWaterloggedBlock;
 import com.simibubi.create.foundation.render.CachedBufferer;
 import com.simibubi.create.foundation.utility.Iterate;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
@@ -50,12 +54,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.EnumSet;
 
-public class UnlinkedStandardBogeyBlock extends Block
-        implements ITE<UnlinkedBogeyTileEntity>, ProperWaterloggedBlock, ISpecialBlockItemRequirement, IUnlinkedBogeyBlock {
-
+public class UnlinkedStandardBogeyBlock extends Block implements ITE<UnlinkedBogeyTileEntity>, ProperWaterloggedBlock,
+        ISpecialBlockItemRequirement, IUnlinkedBogeyBlock, IStyledStandardBogeyBlock {
     public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.HORIZONTAL_AXIS;
-    public static final IntegerProperty STYLE = BlockStates.STYLE;
-    public static final BooleanProperty IS_FACING_FORWARD = BlockStates.IS_FACING_FOWARD;
     private final boolean large;
 
     static final EnumSet<Direction> STICKY_X = EnumSet.of(Direction.EAST, Direction.WEST);
@@ -69,26 +70,76 @@ public class UnlinkedStandardBogeyBlock extends Block
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(AXIS);
-        builder.add(STYLE);
-        builder.add(IS_FACING_FORWARD);
         super.createBlockStateDefinition(builder);
     }
 
     @Override
     public @NotNull InteractionResult use(BlockState state, Level level, BlockPos blockPos, Player player,
                                           InteractionHand interactionHand, BlockHitResult blockHitResult) {
+        BlockEntity be = level.getBlockEntity(blockPos);
+        IStyledStandardBogeyTileEntity te = (IStyledStandardBogeyTileEntity) be;
+        if (be == null)
+            return InteractionResult.FAIL;
+        CompoundTag tileData = be.getTileData();
+
         if (player.isShiftKeyDown() && !level.isClientSide && interactionHand == InteractionHand.MAIN_HAND) {
             BlockState unlinkedBlockState = large
                     ? AllBlocks.LARGE_BOGEY.getDefaultState()
                     : AllBlocks.SMALL_BOGEY.getDefaultState();
 
-            level.setBlock(blockPos, unlinkedBlockState.setValue(STYLE, state.getValue(STYLE)).setValue(AXIS, state.getValue(AXIS)), 3);
+            level.setBlock(blockPos, unlinkedBlockState.setValue(AXIS, state.getValue(AXIS)), 3);
+            IStyledStandardBogeyTileEntity linkedStandardBogeyTileEntity =
+                    (IStyledStandardBogeyTileEntity) level.getBlockEntity(blockPos);
+
+            CompoundTag unlinkedTileData =
+                    ((BlockEntity) linkedStandardBogeyTileEntity).getTileData();
+            linkedStandardBogeyTileEntity
+                    .setBogeyStyle(unlinkedTileData, te.getBogeyStyle(tileData));
+            linkedStandardBogeyTileEntity
+                    .setIsFacingForwards(unlinkedTileData, te.getIsFacingForwards(tileData));
 
             player.displayClientMessage(new TranslatableComponent("extendedbogeys.tooltips.link").withStyle(ChatFormatting.GREEN), true);
 
             return InteractionResult.CONSUME;
         }
         return InteractionResult.PASS;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @Override
+    public void renderWithTileEntity(BlockState state, BlockEntity be, float wheelAngle, PoseStack ms, float partialTicks, MultiBufferSource buffers, int light, int overlay) {
+        if (state != null) {
+            ms.translate(.5f, .5f, .5f);
+            if (state.getValue(AXIS) == Direction.Axis.X)
+                ms.mulPose(Vector3f.YP.rotationDegrees(90));
+        }
+
+        ms.translate(0, -1.5 - 1 / 128f, 0);
+
+        VertexConsumer vb = buffers.getBuffer(RenderType.cutoutMipped());
+        BlockState air = Blocks.AIR.defaultBlockState();
+
+        CompoundTag tileData = be.getTileData();
+
+        IStyledStandardBogeyTileEntity te = (IStyledStandardBogeyTileEntity) be;
+
+        boolean isFacingForward = te.getIsFacingForwards(tileData);
+
+        int styleId = te.getBogeyStyle(tileData);
+        IBogeyStyle style = BogeyStyles.getBogeyStyle(styleId);
+
+        if (style.shouldRenderInnerShaft())
+            for (int i : Iterate.zeroAndOne)
+                CachedBufferer.block(AllBlocks.SHAFT.getDefaultState()
+                                .setValue(ShaftBlock.AXIS, Direction.Axis.Z))
+                        .translate(-.5f, .25f, i * -1)
+                        .centre()
+                        .rotateZ(wheelAngle)
+                        .unCentre()
+                        .light(light)
+                        .renderInto(ms, vb);
+
+        style.renderInWorld(large, isFacingForward,wheelAngle, ms, light, vb, air);
     }
 
     @OnlyIn(Dist.CLIENT)

@@ -29,7 +29,7 @@ public class MixinBogeyTileEntityRenderer {
             if (te instanceof StandardBogeyTileEntity sbte)
                 angle = sbte.getVirtualAngle(partialTicks);
 
-            bogey.renderWithTileEntity(blockState, te.getBlockPos(), angle, ms, partialTicks, buffer, light, overlay);
+            bogey.renderWithTileEntity(blockState, te, angle, ms, partialTicks, buffer, light, overlay);
             ci.cancel();
         }
     }

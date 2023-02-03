@@ -22,17 +22,13 @@ apply plugin: 'org.spongepowered.mixin'
 
 
 
-version = '0.1.9-1.18.2-0.5.0.h'
-// TODO: update group and archive name
+version = '0.1.11-1.18.2-0.5.0.h'
 group = 'com.rabbitminers.extendedbogeys' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'extendedbogeys'
 
 // Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
-
-
-// TODO: Replace update runs (swap extendedbogeys for your mod id)
 println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
 minecraft {
     mappings channel: 'official', version: '1.18.2'

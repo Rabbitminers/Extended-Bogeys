@@ -75,7 +75,19 @@ public abstract class MixinStandardBogeyBlock extends Block implements IStyledSt
 
         if (player.isShiftKeyDown() && !level.isClientSide && interactionHand == InteractionHand.MAIN_HAND
                 && player.getMainHandItem().getItem() == Items.AIR) {
-            BlockState unlinkedBlockState = large ? ExtendedBogeysBlocks.LARGE_UNLINKED_BOGEY.getDefaultState() : ExtendedBogeysBlocks.SMALL_UNLINKED_BOGEY.getDefaultState();
+            BlockState unlinkedBlockState = large
+                    ? ExtendedBogeysBlocks.LARGE_UNLINKED_BOGEY.getDefaultState()
+                    : ExtendedBogeysBlocks.SMALL_UNLINKED_BOGEY.getDefaultState();
+
+            level.setBlock(blockPos, unlinkedBlockState
+                    .setValue(AXIS, state.getValue(AXIS)), 3);
+
+            IStyledStandardBogeyTileEntity usbte =
+                    (IStyledStandardBogeyTileEntity) level.getBlockEntity(blockPos);
+
+            CompoundTag unlinkedTileData = ((BlockEntity) usbte).getTileData();
+            usbte.setBogeyStyle(unlinkedTileData, te.getBogeyStyle(tileData));
+            usbte.setIsFacingForwards(unlinkedTileData, te.getIsFacingForwards(tileData));
 
             player.displayClientMessage(new TranslatableComponent("extendedbogeys.tooltips.unlink"), true);
 
@@ -118,20 +130,13 @@ public abstract class MixinStandardBogeyBlock extends Block implements IStyledSt
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void renderWithTileEntity(BlockState state, BlockPos blockPos, float wheelAngle, PoseStack ms,
+    public void renderWithTileEntity(BlockState state, BlockEntity te, float wheelAngle, PoseStack ms,
                                      float partialTicks, MultiBufferSource buffers, int light, int overlay) {
         if (state != null) {
             ms.translate(.5f, .5f, .5f);
             if (state.getValue(AXIS) == Direction.Axis.X)
                 ms.mulPose(Vector3f.YP.rotationDegrees(90));
         }
-        Minecraft mc = Minecraft.getInstance();
-        Level level = mc.level;
-
-        assert level != null;
-
-        BlockEntity te = level.getBlockEntity(blockPos);
-
         if (te == null)
             return;
 
@@ -141,8 +146,6 @@ public abstract class MixinStandardBogeyBlock extends Block implements IStyledSt
 
         boolean isFacingForward = ssbte.getIsFacingForwards(tileData);
         int style = ssbte.getBogeyStyle(tileData);
-
-        System.out.println(style);
 
         ms.translate(0, -1.5 - 1 / 128f, 0);
 
