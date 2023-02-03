@@ -13,6 +13,7 @@ import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllTileEntities;
 import com.simibubi.create.content.contraptions.components.actors.DrillRenderer;
 import com.simibubi.create.content.contraptions.relays.elementary.ShaftBlock;
+import com.simibubi.create.content.contraptions.wrench.WrenchItem;
 import com.simibubi.create.content.logistics.trains.track.StandardBogeyTileEntity;
 import com.simibubi.create.content.schematics.ISpecialBlockItemRequirement;
 import com.simibubi.create.content.schematics.ItemRequirement;
@@ -32,7 +33,9 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -99,6 +102,38 @@ public class UnlinkedStandardBogeyBlock extends Block implements ITE<UnlinkedBog
                     .setIsFacingForwards(unlinkedTileData, te.getIsFacingForwards(tileData));
 
             player.displayClientMessage(new TranslatableComponent("extendedbogeys.tooltips.link").withStyle(ChatFormatting.GREEN), true);
+
+            return InteractionResult.CONSUME;
+        }
+
+        if (!player.isShiftKeyDown() && !level.isClientSide && interactionHand == InteractionHand.MAIN_HAND
+                && player.getMainHandItem().getItem() == Items.AIR) {
+
+            te.setIsFacingForwards(tileData, !te.getIsFacingForwards(tileData));
+            be.setChanged();
+
+            player.displayClientMessage(new TranslatableComponent("extendedbogeys.tooltips.rotation"), true);
+            return InteractionResult.CONSUME;
+        }
+
+        if (!player.isShiftKeyDown() && !level.isClientSide && interactionHand == InteractionHand.MAIN_HAND
+                && DyeColor.getColor(player.getMainHandItem()) != null) {
+
+        }
+
+        if (!level.isClientSide && player.getMainHandItem().getItem() instanceof WrenchItem wrenchItem
+                && !player.getCooldowns().isOnCooldown(wrenchItem) && interactionHand == InteractionHand.MAIN_HAND) {
+            player.getCooldowns().addCooldown(wrenchItem, 20);
+
+            int bogeyStyle = te.getBogeyStyle(tileData);
+            bogeyStyle = bogeyStyle >= BogeyStyles.getNumberOfBogeyStyleVariations()-1 ? 0 : bogeyStyle + 1;
+
+            IBogeyStyle style = BogeyStyles.getBogeyStyle(bogeyStyle);
+
+            te.setBogeyStyle(tileData, bogeyStyle);
+            be.setChanged();
+
+            player.displayClientMessage(new TextComponent("Bogey Style: " + bogeyStyle + " \"" + style.getStyleName() + "\""), true);
 
             return InteractionResult.CONSUME;
         }
