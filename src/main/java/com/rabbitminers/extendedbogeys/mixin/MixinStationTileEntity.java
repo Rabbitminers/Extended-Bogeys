@@ -2,6 +2,7 @@ package com.rabbitminers.extendedbogeys.mixin;
 
 import com.rabbitminers.extendedbogeys.mixin_interface.BlockStates;
 import com.rabbitminers.extendedbogeys.mixin_interface.ICarriageBogeyStyle;
+import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyTileEntity;
 import com.simibubi.create.content.logistics.trains.*;
 import com.simibubi.create.content.logistics.trains.entity.Carriage;
 import com.simibubi.create.content.logistics.trains.entity.CarriageBogey;
@@ -11,8 +12,10 @@ import com.simibubi.create.content.logistics.trains.management.edgePoint.station
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
@@ -46,11 +49,18 @@ public class MixinStationTileEntity {
 
         if (firstBogey instanceof ICarriageBogeyStyle styledCustomBogey) {
             BlockPos firstBogeyBlockPos = contraption.anchor;
-            BlockState state = level.getBlockState(firstBogeyBlockPos);
-            boolean isFirstBogeyFacingForward = state.getValue(BlockStates.IS_FACING_FOWARD);
-            int firstBogeyStyle = state.getValue(BlockStates.STYLE);
+
+            IStyledStandardBogeyTileEntity firstBogeyTe = (IStyledStandardBogeyTileEntity) level.getBlockEntity(firstBogeyBlockPos);
+            assert firstBogeyTe != null;
+
+            CompoundTag tileData = ((BlockEntity) firstBogeyTe).getTileData();
+
+            boolean isFirstBogeyFacingForward = firstBogeyTe.getIsFacingForwards(tileData);
+            int firstBogeyStyle = firstBogeyTe.getBogeyStyle(tileData);
+
             styledCustomBogey.setStyle(firstBogeyStyle);
             styledCustomBogey.setFacingForward(isFirstBogeyFacingForward);
+
             return (CarriageBogey) styledCustomBogey;
         }
 
@@ -65,10 +75,14 @@ public class MixinStationTileEntity {
 
         if (secondBogey != null) {
             BlockPos secondBogeyPos = contraption.getSecondBogeyPos();
-            BlockState secondBogeyState = level.getBlockState(secondBogeyPos);
 
-            int secondBogeyStyle = secondBogeyState.getValue(BlockStates.STYLE);
-            boolean isSecondBogeyFacingForward = secondBogeyState.getValue(BlockStates.IS_FACING_FOWARD);
+            IStyledStandardBogeyTileEntity secondBogeyTe = (IStyledStandardBogeyTileEntity) level.getBlockEntity(secondBogeyPos);
+            assert secondBogeyTe != null;
+
+            CompoundTag tileData = ((BlockEntity) secondBogeyTe).getTileData();
+
+            int secondBogeyStyle = secondBogeyTe.getBogeyStyle(tileData);
+            boolean isSecondBogeyFacingForward = secondBogeyTe.getIsFacingForwards(tileData);
 
             if (secondBogey instanceof ICarriageBogeyStyle styledCustomBogey) {
                 styledCustomBogey.setStyle(secondBogeyStyle);

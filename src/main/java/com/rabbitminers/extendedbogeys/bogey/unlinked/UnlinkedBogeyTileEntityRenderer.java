@@ -6,6 +6,8 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.rabbitminers.extendedbogeys.bogey.styles.BogeyStyles;
 import com.rabbitminers.extendedbogeys.bogey.styles.IBogeyStyle;
 import com.rabbitminers.extendedbogeys.mixin_interface.BlockStates;
+import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyBlock;
+import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyTileEntity;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.contraptions.components.deployer.DeployerRenderer;
 import com.simibubi.create.content.contraptions.components.structureMovement.MovementBehaviour;
@@ -31,13 +33,15 @@ public class UnlinkedBogeyTileEntityRenderer<T extends BlockEntity> extends Safe
     protected void renderSafe(T te, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light,
                               int overlay) {
         BlockState blockState = te.getBlockState();
-        float angle = 0;
+        if (blockState.getBlock() instanceof IStyledStandardBogeyBlock bogey &&
+                te instanceof IStyledStandardBogeyTileEntity) {
+            float angle = 0;
 
-        if (te instanceof UnlinkedBogeyTileEntity sbte)
-            angle = sbte.getAngle();
+            if (te instanceof UnlinkedBogeyTileEntity ubte)
+                angle = ubte.getAngle();
 
-        if (blockState.getBlock() instanceof IUnlinkedBogeyBlock bogey)
-            bogey.render(blockState, angle, ms, partialTicks, buffer, light, overlay);
+            bogey.renderWithTileEntity(blockState, te, angle, ms, partialTicks, buffer, light, overlay);
+        }
     }
 
     public static void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld,
