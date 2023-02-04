@@ -6,7 +6,6 @@ import com.mojang.math.Vector3f;
 import com.rabbitminers.extendedbogeys.bogey.styles.BogeyStyles;
 import com.rabbitminers.extendedbogeys.bogey.styles.IBogeyStyle;
 import com.rabbitminers.extendedbogeys.index.ExtendedBogeysTileEntities;
-import com.rabbitminers.extendedbogeys.mixin_interface.BlockStates;
 import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyBlock;
 import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyTileEntity;
 import com.simibubi.create.AllBlockPartials;

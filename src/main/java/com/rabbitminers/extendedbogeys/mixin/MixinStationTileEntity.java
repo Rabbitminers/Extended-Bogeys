@@ -1,6 +1,5 @@
 package com.rabbitminers.extendedbogeys.mixin;
 
-import com.rabbitminers.extendedbogeys.mixin_interface.BlockStates;
 import com.rabbitminers.extendedbogeys.mixin_interface.ICarriageBogeyStyle;
 import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyTileEntity;
 import com.simibubi.create.content.logistics.trains.*;
