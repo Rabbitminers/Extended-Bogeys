@@ -9,6 +9,7 @@ import com.rabbitminers.extendedbogeys.index.ExtendedBogeysTileEntities;
 import com.rabbitminers.extendedbogeys.mixin_interface.BlockStates;
 import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyBlock;
 import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyTileEntity;
+import com.simibubi.create.AllBlockPartials;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllTileEntities;
 import com.simibubi.create.content.contraptions.components.actors.DrillRenderer;
@@ -20,6 +21,7 @@ import com.simibubi.create.content.schematics.ItemRequirement;
 import com.simibubi.create.foundation.block.ITE;
 import com.simibubi.create.foundation.block.ProperWaterloggedBlock;
 import com.simibubi.create.foundation.render.CachedBufferer;
+import com.simibubi.create.foundation.utility.AngleHelper;
 import com.simibubi.create.foundation.utility.Iterate;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -174,7 +176,66 @@ public class UnlinkedStandardBogeyBlock extends Block implements ITE<UnlinkedBog
                         .light(light)
                         .renderInto(ms, vb);
 
-        style.renderInWorld(large, isFacingForward,wheelAngle, ms, light, vb, air);
+        if (!style.shouldRenderDefault(large)) {
+            style.renderInWorld(large, isFacingForward, wheelAngle, ms, light, vb, air);
+        } else if (large) {
+            renderLargeBogey(wheelAngle, ms, light, vb, air);
+        } else {
+            renderBogey(wheelAngle, ms, light, vb, air);
+        }
+    }
+
+    private void renderBogey(float wheelAngle, PoseStack ms, int light, VertexConsumer vb, BlockState air) {
+        CachedBufferer.partial(AllBlockPartials.BOGEY_FRAME, air)
+                .scale(1 - 1 / 512f)
+                .light(light)
+                .renderInto(ms, vb);
+
+        for (int side : Iterate.positiveAndNegative) {
+            ms.pushPose();
+            CachedBufferer.partial(AllBlockPartials.SMALL_BOGEY_WHEELS, air)
+                    .translate(0, 12 / 16f, side)
+                    .rotateX(wheelAngle)
+                    .light(light)
+                    .renderInto(ms, vb);
+            ms.popPose();
+        }
+    }
+
+    private void renderLargeBogey(float wheelAngle, PoseStack ms, int light, VertexConsumer vb, BlockState air) {
+        for (int i : Iterate.zeroAndOne)
+            CachedBufferer.block(AllBlocks.SHAFT.getDefaultState()
+                            .setValue(ShaftBlock.AXIS, Direction.Axis.X))
+                    .translate(-.5f, .25f, .5f + i * -2)
+                    .centre()
+                    .rotateX(wheelAngle)
+                    .unCentre()
+                    .light(light)
+                    .renderInto(ms, vb);
+
+        CachedBufferer.partial(AllBlockPartials.BOGEY_DRIVE, air)
+                .scale(1 - 1 / 512f)
+                .light(light)
+                .renderInto(ms, vb);
+        CachedBufferer.partial(AllBlockPartials.BOGEY_PISTON, air)
+                .translate(0, 0, 1 / 4f * Math.sin(AngleHelper.rad(wheelAngle)))
+                .light(light)
+                .renderInto(ms, vb);
+
+        ms.pushPose();
+        CachedBufferer.partial(AllBlockPartials.LARGE_BOGEY_WHEELS, air)
+                .translate(0, 1, 0)
+                .rotateX(wheelAngle)
+                .light(light)
+                .renderInto(ms, vb);
+        CachedBufferer.partial(AllBlockPartials.BOGEY_PIN, air)
+                .translate(0, 1, 0)
+                .rotateX(wheelAngle)
+                .translate(0, 1 / 4f, 0)
+                .rotateX(-wheelAngle)
+                .light(light)
+                .renderInto(ms, vb);
+        ms.popPose();
     }
 
     @OnlyIn(Dist.CLIENT)
