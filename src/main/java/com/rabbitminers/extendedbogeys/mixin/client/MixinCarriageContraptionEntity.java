@@ -1,4 +1,4 @@
-package com.rabbitminers.extendedbogeys.mixin;
+package com.rabbitminers.extendedbogeys.mixin.client;
 
 import com.rabbitminers.extendedbogeys.mixin_interface.ICarriageContraptionEntity;
 import com.simibubi.create.content.logistics.trains.entity.Carriage;
@@ -34,5 +34,4 @@ public class MixinCarriageContraptionEntity implements ICarriageContraptionEntit
         this.distanceTo = distanceTo;
         return distanceTo;
     }
-
 }

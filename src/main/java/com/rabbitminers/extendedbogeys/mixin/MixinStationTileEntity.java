@@ -72,12 +72,9 @@ public class MixinStationTileEntity {
         Level level = Minecraft.getInstance().level; // Only needs to read data so client side is safe
         if (contraption == null || level == null)
             return secondBogey;
-
-        if (secondBogey != null) {
-            BlockPos secondBogeyPos = contraption.getSecondBogeyPos();
-
-            IStyledStandardBogeyTileEntity secondBogeyTe = (IStyledStandardBogeyTileEntity) level.getBlockEntity(secondBogeyPos);
-            assert secondBogeyTe != null;
+        BlockPos secondBogeyPos = contraption.getSecondBogeyPos();
+        if (level.getBlockEntity(secondBogeyPos) instanceof IStyledStandardBogeyTileEntity secondBogeyTe
+                && secondBogey != null) {
 
             CompoundTag tileData = ((BlockEntity) secondBogeyTe).getTileData();
 
