@@ -2,7 +2,7 @@
   "parent": "block/block",
   "textures": {
     "frame": "extendedbogeys:block/four/small/frame",
-    "bolt": "extendedbogeys:block/four/small/bolt",
+    "pin": "extendedbogeys:block/four/small/bolt",
     "support": "extendedbogeys:block/four/small/support"
   }
 }
