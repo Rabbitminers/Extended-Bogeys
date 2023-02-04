@@ -9,6 +9,7 @@ import com.rabbitminers.extendedbogeys.bogey.util.LanguageKey;
 import com.rabbitminers.extendedbogeys.index.BogeyPartials;
 import com.simibubi.create.AllBlockPartials;
 import com.simibubi.create.foundation.render.CachedBufferer;
+import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.ArrayList;
@@ -57,7 +58,7 @@ public class SingleAxisBogey implements IBogeyStyle {
                 .createInstance();
     }
     @Override
-    public void renderSmallInContraption(float wheelAngle, boolean isFacingForward, PoseStack ms) {
+    public void renderSmallInContraption(float wheelAngle, boolean isFacingForward, PoseStack ms, Direction assemblyDirection) {
         wheels.setTransform(ms)
                 .rotateY(isFacingForward ? 0 : 180)
                 .translate(0, 12 / 16f, -1)
@@ -67,7 +68,7 @@ public class SingleAxisBogey implements IBogeyStyle {
 
         pin.setTransform(ms).rotateY(isFacingForward ? 0 : 180);
 
-        IBogeyStyle.super.renderSmallInContraption(wheelAngle, isFacingForward, ms);
+        IBogeyStyle.super.renderSmallInContraption(wheelAngle, isFacingForward, ms, assemblyDirection);
     }
 
     @Override

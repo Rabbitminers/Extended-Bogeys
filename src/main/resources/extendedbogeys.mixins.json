@@ -5,19 +5,19 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "steampowered.refmap.json",
   "mixins": [
-    "MixinBogeyDrive",
-    "MixinBogeyFrame",
-    "MixinBogeyInstance",
-    "MixinBogeyTileEntityRenderer",
+    "MixinTrain",
+    "MixinTrainPacket",
     "MixinContraption",
     "MixinCarriageBogey",
-    "MixinCarriageContraptionEntity",
     "MixinStandardBogeyBlock",
-    "MixinStandardBogeyTileEntity",
     "MixinStationTileEntity",
-    "MixinTrain",
-    "MixinTrainPacket"
+    "MixinStandardBogeyTileEntity"
   ],
   "client": [
+    "client.MixinBogeyDrive",
+    "client.MixinBogeyFrame",
+    "client.MixinBogeyInstance",
+    "client.MixinBogeyTileEntityRenderer",
+    "client.MixinCarriageContraptionEntity"
   ]
 }

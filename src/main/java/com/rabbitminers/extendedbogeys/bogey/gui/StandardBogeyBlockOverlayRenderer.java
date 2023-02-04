@@ -4,7 +4,6 @@ import com.jozufozu.flywheel.core.PartialModel;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.rabbitminers.extendedbogeys.bogey.styles.BogeyStyles;
 import com.rabbitminers.extendedbogeys.bogey.styles.IBogeyStyle;
-import com.rabbitminers.extendedbogeys.mixin_interface.BlockStates;
 import com.simibubi.create.AllBlockPartials;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.logistics.trains.IBogeyBlock;
@@ -45,12 +44,6 @@ public class StandardBogeyBlockOverlayRenderer {
         BlockHitResult result = (BlockHitResult) objectMouseOver;
         ClientLevel world = mc.level;
         BlockPos pos = result.getBlockPos();
-        BlockState blockState = world.getBlockState(pos);
-
-        if (!(blockState.hasProperty(BlockStates.STYLE)))
-            return;
-
-        boolean isLarge = blockState.getBlock() == AllBlocks.LARGE_BOGEY.get();
 
         int prevHoverTicks = hoverTicks;
         if (lastHovered == null || lastHovered.equals(pos))

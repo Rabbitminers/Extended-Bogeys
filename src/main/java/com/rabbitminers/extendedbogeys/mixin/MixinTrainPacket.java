@@ -8,6 +8,7 @@ import com.simibubi.create.content.logistics.trains.entity.Train;
 import com.simibubi.create.content.logistics.trains.entity.TrainPacket;
 import com.simibubi.create.content.logistics.trains.track.TrackInstance;
 import com.simibubi.create.foundation.utility.Iterate;
+import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
@@ -34,6 +35,7 @@ public class MixinTrainPacket {
                 if (bogey != null) {
                     ((ICarriageBogeyStyle) bogey).setStyle(buffer.readInt());
                     ((ICarriageBogeyStyle) bogey).setFacingForward(buffer.readBoolean());
+                    ((ICarriageBogeyStyle) bogey).setAssemblyDirection(buffer.readEnum(Direction.class));
                 }
             });
         }
@@ -46,6 +48,7 @@ public class MixinTrainPacket {
                 if (bogey != null) {
                     buffer.writeInt(((ICarriageBogeyStyle) bogey).getStyle());
                     buffer.writeBoolean(((ICarriageBogeyStyle) bogey).isFacingForward());
+                    buffer.writeEnum(((ICarriageBogeyStyle) bogey).getAssemblyDirection());
                 }
             });
         }

@@ -5,7 +5,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.rabbitminers.extendedbogeys.bogey.styles.BogeyStyles;
 import com.rabbitminers.extendedbogeys.bogey.styles.IBogeyStyle;
-import com.rabbitminers.extendedbogeys.mixin_interface.BlockStates;
 import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyBlock;
 import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyTileEntity;
 import com.simibubi.create.AllBlocks;
@@ -53,9 +52,6 @@ public class UnlinkedBogeyTileEntityRenderer<T extends BlockEntity> extends Safe
 
         float time = AnimationTickHolder.getRenderTime() / 20;
         float angle = (float) time % 360;
-
-        int style = state.getValue(BlockStates.STYLE);
-        IBogeyStyle bogeyStyle = BogeyStyles.getBogeyStyle(style);
 
         PoseStack ms = matrices.getModel();
         int light = ContraptionRenderDispatcher.getContraptionWorldLight(context, renderWorld);

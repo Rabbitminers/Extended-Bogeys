@@ -1,4 +1,4 @@
-package com.rabbitminers.extendedbogeys.mixin;
+package com.rabbitminers.extendedbogeys.mixin.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyBlock;
