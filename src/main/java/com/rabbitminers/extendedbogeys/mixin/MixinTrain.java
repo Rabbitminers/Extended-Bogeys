@@ -50,4 +50,9 @@ public abstract class MixinTrain {
             IFluidHandler fluidHandler = carriage.storage.getFluids();
         });
     }
+
+    @Inject(method="acceleration", at = @At("RETURN"), remap = false)
+    public void modifyAccelleration(CallbackInfoReturnable<Float> cir) {
+        float defaultAccelleration = cir.getReturnValue();
+    }
 }

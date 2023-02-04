@@ -12,6 +12,7 @@ import com.simibubi.create.content.logistics.trains.entity.BogeyInstance;
 import com.simibubi.create.content.logistics.trains.track.StandardBogeyBlock;
 import com.simibubi.create.foundation.render.CachedBufferer;
 import com.simibubi.create.foundation.utility.Iterate;
+import net.minecraft.client.model.Model;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -44,11 +45,11 @@ public class FourWheelBogey implements IBogeyStyle {
     @Override
     public void registerSmallBogeyModelData(MaterialManager materialManager) {
         frame = materialManager.defaultSolid().material(Materials.TRANSFORMED)
-                .getModel(BogeyPartials.FOUR_WHEEL_DRIVE_FRAME)
+                .getModel(BogeyPartials.SMALL_FOUR_WHEEL_FRAME)
                 .createInstance();
 
         drivePin = materialManager.defaultSolid().material(Materials.TRANSFORMED)
-                .getModel(BogeyPartials.FOUR_WHEEL_DRIVE_PIN)
+                .getModel(BogeyPartials.SMALL_FOUR_WHEEL_PIN)
                 .createInstance();
 
         driveRod = materialManager.defaultSolid().material(Materials.TRANSFORMED)
@@ -59,7 +60,7 @@ public class FourWheelBogey implements IBogeyStyle {
 
         materialManager.defaultSolid()
                 .material(Materials.TRANSFORMED)
-                .getModel(AllBlockPartials.LARGE_BOGEY_WHEELS)
+                .getModel(AllBlockPartials.SMALL_BOGEY_WHEELS)
                 .createInstances(wheels);
 
         connectingRod = materialManager.defaultSolid().material(Materials.TRANSFORMED)
@@ -127,6 +128,25 @@ public class FourWheelBogey implements IBogeyStyle {
     }
 
     @Override
+    public void renderSmallInContraption(float wheelAngle, boolean isFacingForward, PoseStack ms) {
+        for (int side : Iterate.positiveAndNegative) {
+            wheels[(side+1) / 2].setTransform(ms)
+                    .translate(0, 12 / 16f, side + (isFacingForward ? -2 : 2))
+                    .rotateX(isFacingForward ? -wheelAngle : wheelAngle);
+        }
+
+        frame.setTransform(ms)
+                .translateY(0.2)
+                .rotateY(isFacingForward ? 0 : 180);
+
+        drivePin.setTransform(ms)
+                .translateY(0.2)
+                .scale(1 - 1/512f);
+
+        IBogeyStyle.super.renderSmallInContraption(wheelAngle, isFacingForward, ms);
+    }
+
+    @Override
     public void renderLargeInWorld(float wheelAngle, boolean isFacingForward, PoseStack ms, int light, VertexConsumer vb, BlockState air) {
         CachedBufferer.partial(BogeyPartials.FOUR_WHEEL_DRIVE_FRAME, air)
                 .rotateY(isFacingForward ? 180 : 0)
@@ -177,6 +197,29 @@ public class FourWheelBogey implements IBogeyStyle {
 
     @Override
     public void renderSmallInWorld(float wheelAngle, boolean isFacingForward, PoseStack ms, int light, VertexConsumer vb, BlockState air) {
+        CachedBufferer.partial(BogeyPartials.SMALL_FOUR_WHEEL_FRAME, air)
+                .translateY(0.2)
+                .rotateY(isFacingForward ? 180 : 0)
+                .scale(1 - 1/512f)
+                .light(light)
+                .renderInto(ms, vb);
+
+        CachedBufferer.partial(BogeyPartials.SMALL_FOUR_WHEEL_PIN, air)
+                .translateY(0.2)
+                .scale(1 - 1/512f)
+                .light(light)
+                .renderInto(ms, vb);
+
+        for (int side : Iterate.positiveAndNegative) {
+            ms.pushPose();
+            CachedBufferer.partial(AllBlockPartials.SMALL_BOGEY_WHEELS, air)
+                    .translate(0, 12 / 16f, side + (isFacingForward ? 2 : -2))
+                    .rotateX(isFacingForward ? -wheelAngle : wheelAngle)
+                    .light(light)
+                    .renderInto(ms, vb);
+            ms.popPose();
+        }
+
         IBogeyStyle.super.renderSmallInWorld(wheelAngle, isFacingForward, ms, light, vb, air);
     }
 
