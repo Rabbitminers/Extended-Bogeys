@@ -241,35 +241,6 @@ public class UnlinkedStandardBogeyBlock extends Block implements ITE<UnlinkedBog
     @OnlyIn(Dist.CLIENT)
     public void render(BlockState state, float wheelAngle, PoseStack ms, float partialTicks, MultiBufferSource buffers,
                        int light, int overlay) {
-        if (state != null) {
-            ms.translate(.5f, .5f, .5f);
-            if (state.getValue(AXIS) == Direction.Axis.X)
-                ms.mulPose(Vector3f.YP.rotationDegrees(90));
-        }
-
-        ms.translate(0, -1.5 - 1 / 128f, 0);
-
-        VertexConsumer vb = buffers.getBuffer(RenderType.cutoutMipped());
-        BlockState air = Blocks.AIR.defaultBlockState();
-
-        assert state.hasProperty(BlockStates.STYLE);
-        int styleId = state.getValue(BlockStates.STYLE);
-        IBogeyStyle style = BogeyStyles.getBogeyStyle(styleId);
-
-        boolean isFacingForward = state.getValue(BlockStates.IS_FACING_FOWARD);
-
-        if (style.shouldRenderInnerShaft())
-            for (int i : Iterate.zeroAndOne)
-                CachedBufferer.block(AllBlocks.SHAFT.getDefaultState()
-                        .setValue(ShaftBlock.AXIS, Direction.Axis.Z))
-                        .translate(-.5f, .25f, i * -1)
-                        .centre()
-                        .rotateZ(wheelAngle)
-                        .unCentre()
-                        .light(light)
-                        .renderInto(ms, vb);
-
-        style.renderInWorld(large, isFacingForward,wheelAngle, ms, light, vb, air);
     }
 
     @Override
