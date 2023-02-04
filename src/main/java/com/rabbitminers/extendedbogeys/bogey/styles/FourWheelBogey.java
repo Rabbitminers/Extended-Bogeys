@@ -8,11 +8,8 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.rabbitminers.extendedbogeys.bogey.util.LanguageKey;
 import com.rabbitminers.extendedbogeys.index.BogeyPartials;
 import com.simibubi.create.AllBlockPartials;
-import com.simibubi.create.content.logistics.trains.entity.BogeyInstance;
-import com.simibubi.create.content.logistics.trains.track.StandardBogeyBlock;
 import com.simibubi.create.foundation.render.CachedBufferer;
 import com.simibubi.create.foundation.utility.Iterate;
-import net.minecraft.client.model.Model;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -95,7 +92,7 @@ public class FourWheelBogey implements IBogeyStyle {
     }
 
     @Override
-    public void renderLargeInContraption(float wheelAngle, boolean isFacingForward, PoseStack ms) {
+    public void renderLargeInContraption(float wheelAngle, boolean isFacingForward, PoseStack ms, Direction assemblyDirection) {
         float offSetScaleFactor =  Math.max(0f, (1f - Math.abs(Math.abs(wheelAngle) - 180f) / 180f));
 
         for (int side : Iterate.positiveAndNegative) {
@@ -117,18 +114,18 @@ public class FourWheelBogey implements IBogeyStyle {
         driveRod.setTransform(ms)
                 .translateZ(isFacingForward ? 0.6 : -0.6)
                 .translateY(0.85)
-                .rotateY(isFacingForward ? 180 : 0)
+                .rotateY(isFacingForward ? 0 : 180)
                 .rotateX(offSetScaleFactor*20-10)
                 .translateZ(1/4f * Math.sin(Math.toRadians(wheelAngle)))
                 .scale(1 - 1/512f);
 
         frame.setTransform(ms);
 
-        IBogeyStyle.super.renderLargeInContraption(wheelAngle, isFacingForward, ms);
+        IBogeyStyle.super.renderLargeInContraption(wheelAngle, isFacingForward, ms, assemblyDirection);
     }
 
     @Override
-    public void renderSmallInContraption(float wheelAngle, boolean isFacingForward, PoseStack ms) {
+    public void renderSmallInContraption(float wheelAngle, boolean isFacingForward, PoseStack ms, Direction assemblyDirection) {
         for (int side : Iterate.positiveAndNegative) {
             wheels[(side+1) / 2].setTransform(ms)
                     .translate(0, 12 / 16f, side + (isFacingForward ? -2 : 2))
@@ -143,7 +140,7 @@ public class FourWheelBogey implements IBogeyStyle {
                 .translateY(0.2)
                 .scale(1 - 1/512f);
 
-        IBogeyStyle.super.renderSmallInContraption(wheelAngle, isFacingForward, ms);
+        IBogeyStyle.super.renderSmallInContraption(wheelAngle, isFacingForward, ms, assemblyDirection);
     }
 
     @Override

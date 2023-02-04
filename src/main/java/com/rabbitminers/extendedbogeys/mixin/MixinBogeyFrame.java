@@ -6,8 +6,13 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.rabbitminers.extendedbogeys.bogey.styles.BogeyStyles;
 import com.rabbitminers.extendedbogeys.bogey.styles.IBogeyStyle;
 import com.rabbitminers.extendedbogeys.mixin_interface.ICarriageBogeyStyle;
+import com.simibubi.create.content.logistics.trains.GlobalRailwayManager;
+import com.simibubi.create.content.logistics.trains.RailwaySavedData;
 import com.simibubi.create.content.logistics.trains.entity.BogeyInstance;
 import com.simibubi.create.content.logistics.trains.entity.CarriageBogey;
+import com.simibubi.create.content.logistics.trains.entity.CarriageContraption;
+import com.simibubi.create.content.logistics.trains.entity.CarriageContraptionEntity;
+import net.minecraft.core.Direction;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -15,21 +20,25 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.UUID;
+
 @Mixin(BogeyInstance.Frame.class)
 public class MixinBogeyFrame {
     @Shadow @Final private ModelData frame;
     private boolean isFacingForward = true;
-    private boolean isFrontBogey;
+    private Direction assemblyDirection = Direction.NORTH;
+    private CarriageBogey bogey;
     private boolean shouldRenderDefault;
     IBogeyStyle bogeyStyle;
 
     @Inject(at = @At("TAIL"), method = "<init>", remap = false)
     public void BogeyInstanceInit(CarriageBogey bogey, MaterialManager materialManager, CallbackInfo ci) {
-        isFrontBogey = (bogey == bogey.carriage.bogeys.get(true));
+        this.bogey = bogey;
         int style = 0;
         if (bogey instanceof ICarriageBogeyStyle styledCarriageBogey) {
             style = styledCarriageBogey.getStyle();
             isFacingForward = styledCarriageBogey.isFacingForward();
+            assemblyDirection = styledCarriageBogey.getAssemblyDirection();
         }
         bogeyStyle = BogeyStyles.getBogeyStyle(style);
         bogeyStyle.registerBogeyModelData(false, materialManager);
@@ -53,7 +62,7 @@ public class MixinBogeyFrame {
                 return;
             }
 
-            bogeyStyle.renderSmallInContraption(wheelAngle, isFacingForward, ms);
+            bogeyStyle.renderSmallInContraption(wheelAngle, isFacingForward, ms, assemblyDirection);
             callbackInfo.cancel();
         }
     }

@@ -7,6 +7,7 @@ import com.rabbitminers.extendedbogeys.bogey.styles.IBogeyStyle;
 import com.rabbitminers.extendedbogeys.mixin_interface.ICarriageBogeyStyle;
 import com.simibubi.create.content.logistics.trains.entity.BogeyInstance;
 import com.simibubi.create.content.logistics.trains.entity.CarriageBogey;
+import net.minecraft.core.Direction;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -15,17 +16,19 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(BogeyInstance.Drive.class)
 public class MixinBogeyDrive {
     private boolean isFacingForward = true;
-    private boolean isFrontBogey;
     private boolean shouldRenderDefault;
+    private Direction assemblyDirection;
+    private CarriageBogey bogey;
     IBogeyStyle bogeyStyle;
 
     @Inject(at = @At("TAIL"), method = "<init>", remap = false)
     public void BogeyInstanceInit(CarriageBogey bogey, MaterialManager materialManager, CallbackInfo ci) {
-        isFrontBogey = (bogey == bogey.carriage.bogeys.get(true));
+        this.bogey = bogey;
         int style = 0;
         if (bogey instanceof ICarriageBogeyStyle styledCarriageBogey) {
             style = styledCarriageBogey.getStyle();
             isFacingForward = styledCarriageBogey.isFacingForward();
+            assemblyDirection = styledCarriageBogey.getAssemblyDirection();
         }
         bogeyStyle = BogeyStyles.getBogeyStyle(style);
         bogeyStyle.registerBogeyModelData(true, materialManager);
@@ -49,7 +52,7 @@ public class MixinBogeyDrive {
                 return;
             }
 
-            bogeyStyle.renderLargeInContraption(wheelAngle, isFacingForward, ms);
+            bogeyStyle.renderLargeInContraption(wheelAngle, isFacingForward, ms, assemblyDirection);
             callbackInfo.cancel();
         }
     }

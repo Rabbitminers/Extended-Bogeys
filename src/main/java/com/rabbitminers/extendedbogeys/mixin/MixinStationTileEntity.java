@@ -58,6 +58,7 @@ public class MixinStationTileEntity {
             boolean isFirstBogeyFacingForward = firstBogeyTe.getIsFacingForwards(tileData);
             int firstBogeyStyle = firstBogeyTe.getBogeyStyle(tileData);
 
+            styledCustomBogey.setAssemblyDirection(contraption.getAssemblyDirection());
             styledCustomBogey.setStyle(firstBogeyStyle);
             styledCustomBogey.setFacingForward(isFirstBogeyFacingForward);
 
@@ -85,6 +86,7 @@ public class MixinStationTileEntity {
             boolean isSecondBogeyFacingForward = secondBogeyTe.getIsFacingForwards(tileData);
 
             if (secondBogey instanceof ICarriageBogeyStyle styledCustomBogey) {
+                styledCustomBogey.setAssemblyDirection(contraption.getAssemblyDirection());
                 styledCustomBogey.setStyle(secondBogeyStyle);
                 styledCustomBogey.setFacingForward(isSecondBogeyFacingForward);
                 return (CarriageBogey) styledCustomBogey;

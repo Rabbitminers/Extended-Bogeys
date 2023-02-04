@@ -4,9 +4,9 @@ import com.jozufozu.flywheel.api.MaterialManager;
 import com.jozufozu.flywheel.core.materials.model.ModelData;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.simibubi.create.content.logistics.trains.entity.Train;
 import com.simibubi.create.foundation.config.AllConfigs;
 import com.simibubi.create.foundation.gui.element.GuiGameElement;
+import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.ArrayList;
@@ -32,8 +32,8 @@ public interface IBogeyStyle {
         if (isLarge) return renderLargeInGuiOverlay(); else return renderSmallInGuiOverlay();
     }
 
-    public default void beginFrame(boolean isLarge, boolean isFacingForward, float wheelAngle, PoseStack ms) {
-        if (isLarge) renderLargeInContraption(wheelAngle, isFacingForward, ms); else renderSmallInContraption(wheelAngle, isFacingForward, ms);
+    public default void beginFrame(boolean isLarge, boolean isFacingForward, float wheelAngle, PoseStack ms, Direction assemblyDirection) {
+        if (isLarge) renderLargeInContraption(wheelAngle, isFacingForward, ms, assemblyDirection); else renderSmallInContraption(wheelAngle, isFacingForward, ms, assemblyDirection);
     }
 
     default void setEmptyTransforms() {
@@ -80,9 +80,9 @@ public interface IBogeyStyle {
 
     default List<GuiGameElement.GuiRenderBuilder> renderSmallInGuiOverlay() {return new ArrayList<>();}
 
-    default void renderLargeInContraption(float wheelAngle, boolean isFacingForward, PoseStack ms) {}
+    default void renderLargeInContraption(float wheelAngle, boolean isFacingForward, PoseStack ms, Direction assemblyDirection) {}
 
-    default void renderSmallInContraption(float wheelAngle, boolean isFacingForward, PoseStack ms) {}
+    default void renderSmallInContraption(float wheelAngle, boolean isFacingForward, PoseStack ms, Direction assemblyDirection) {}
 
     default void renderLargeInWorld(float wheelAngle, boolean isFacingForward, PoseStack ms, int light, VertexConsumer vb, BlockState air) {}
 
