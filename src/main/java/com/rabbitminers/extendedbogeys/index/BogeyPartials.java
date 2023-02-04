@@ -13,7 +13,9 @@ public class BogeyPartials {
     FOUR_WHEEL_DRIVE_ROD = block("four_wheel/large/driverod"),
     FOUR_WHEEL_DRIVE_PIN = block("four_wheel/large/drivepin"),
     FOUR_WHEEL_CONNECTING_ROD = block("four_wheel/large/connectingrod"),
-    FOUR_WHEEL_DRIVE_FRAME = block("four_wheel/large/frame")
+    FOUR_WHEEL_DRIVE_FRAME = block("four_wheel/large/frame"),
+    SMALL_FOUR_WHEEL_FRAME = block("four_wheel/small/frame"),
+    SMALL_FOUR_WHEEL_PIN = block("four_wheel/small/pin")
 
     ;
 
