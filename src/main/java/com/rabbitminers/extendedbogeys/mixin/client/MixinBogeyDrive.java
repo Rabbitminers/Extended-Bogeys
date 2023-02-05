@@ -37,7 +37,7 @@ public class MixinBogeyDrive {
             paintColour = styledCarriageBogey.getPaintColour();
         }
         bogeyStyle = BogeyStyles.getBogeyStyle(style);
-        bogeyStyle.registerBogeyModelData(true, materialManager);
+        bogeyStyle.registerBogeyModelData(true, materialManager, paintColour);
         shouldRenderDefault = bogeyStyle.shouldRenderDefault(true);
     }
 

@@ -14,8 +14,6 @@ import com.simibubi.create.content.contraptions.wrench.WrenchItem;
 import com.simibubi.create.content.logistics.trains.track.StandardBogeyBlock;
 import com.simibubi.create.foundation.render.CachedBufferer;
 import com.simibubi.create.foundation.utility.Iterate;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
@@ -37,7 +35,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.api.distmarker.Dist;
@@ -45,13 +42,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.text.NumberFormat;
 import java.util.EnumSet;
 
 @Mixin(StandardBogeyBlock.class)
@@ -163,6 +155,7 @@ public abstract class MixinStandardBogeyBlock extends Block implements IStyledSt
 
         boolean isFacingForward = ssbte.getIsFacingForwards(tileData);
         int style = ssbte.getBogeyStyle(tileData);
+        DyeColor dyeColor = ssbte.getPaintColour(tileData);
 
         ms.translate(0, -1.5 - 1 / 128f, 0);
 
@@ -183,7 +176,7 @@ public abstract class MixinStandardBogeyBlock extends Block implements IStyledSt
                         .renderInto(ms, vb);
 
         if (!bogeyStyle.shouldRenderDefault(large)) {
-            bogeyStyle.renderInWorld(large, isFacingForward, wheelAngle, ms, light, vb, air);
+            bogeyStyle.renderInWorld(large, isFacingForward, wheelAngle, ms, light, vb, air, dyeColor);
         } else if (large) {
             renderLargeBogey(wheelAngle, ms, light, vb, air);
         } else {

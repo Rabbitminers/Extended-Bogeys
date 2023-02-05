@@ -10,6 +10,7 @@ import com.rabbitminers.extendedbogeys.index.BogeyPartials;
 import com.simibubi.create.AllBlockPartials;
 import com.simibubi.create.foundation.render.CachedBufferer;
 import net.minecraft.core.Direction;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class SingleAxisBogey implements IBogeyStyle {
         return modelData;
     }
     @Override
-    public void registerSmallBogeyModelData(MaterialManager materialManager) {
+    public void registerSmallBogeyModelData(MaterialManager materialManager, DyeColor paintColour) {
         frame = materialManager.defaultSolid().material(Materials.TRANSFORMED)
                 .getModel(BogeyPartials.SINGLE_AXEL_LEADING_TRUCK_FRAME)
                 .createInstance();
@@ -44,7 +45,7 @@ public class SingleAxisBogey implements IBogeyStyle {
     }
 
     @Override
-    public void registerLargeBogeyModelData(MaterialManager materialManager) {
+    public void registerLargeBogeyModelData(MaterialManager materialManager, DyeColor paintColour) {
         frame = materialManager.defaultSolid().material(Materials.TRANSFORMED)
                 .getModel(BogeyPartials.SINGLE_AXEL_LEADING_TRUCK_FRAME)
                 .createInstance();
@@ -72,11 +73,11 @@ public class SingleAxisBogey implements IBogeyStyle {
     }
 
     @Override
-    public void renderLargeInWorld(float wheelAngle, boolean isFacingForward, PoseStack ms, int light, VertexConsumer vb, BlockState air) {
-        IBogeyStyle.super.renderLargeInWorld(wheelAngle, isFacingForward, ms, light, vb, air);
+    public void renderLargeInWorld(float wheelAngle, boolean isFacingForward, PoseStack ms, int light, VertexConsumer vb, BlockState air, DyeColor paintColour) {
+        IBogeyStyle.super.renderLargeInWorld(wheelAngle, isFacingForward, ms, light, vb, air, paintColour);
     }
     @Override
-    public void renderSmallInWorld(float wheelAngle, boolean isFacingForward, PoseStack ms, int light, VertexConsumer vb, BlockState air) {
+    public void renderSmallInWorld(float wheelAngle, boolean isFacingForward, PoseStack ms, int light, VertexConsumer vb, BlockState air, DyeColor dyeColor) {
         CachedBufferer.partial(BogeyPartials.SINGLE_AXEL_LEADING_TRUCK_FRAME, air)
                 .rotateY(isFacingForward ? 180 : 0)
                 .translate(0, 0.1, 0)

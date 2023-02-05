@@ -6,12 +6,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.rabbitminers.extendedbogeys.bogey.styles.BogeyStyles;
 import com.rabbitminers.extendedbogeys.bogey.styles.IBogeyStyle;
 import com.rabbitminers.extendedbogeys.mixin_interface.ICarriageBogeyStyle;
-import com.simibubi.create.content.logistics.trains.GlobalRailwayManager;
-import com.simibubi.create.content.logistics.trains.RailwaySavedData;
 import com.simibubi.create.content.logistics.trains.entity.BogeyInstance;
 import com.simibubi.create.content.logistics.trains.entity.CarriageBogey;
-import com.simibubi.create.content.logistics.trains.entity.CarriageContraption;
-import com.simibubi.create.content.logistics.trains.entity.CarriageContraptionEntity;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.DyeColor;
 import net.minecraftforge.api.distmarker.Dist;
@@ -22,8 +18,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.util.UUID;
 
 @Mixin(BogeyInstance.Frame.class)
 public class MixinBogeyFrame {
@@ -47,7 +41,7 @@ public class MixinBogeyFrame {
             paintColour = styledCarriageBogey.getPaintColour();
         }
         bogeyStyle = BogeyStyles.getBogeyStyle(style);
-        bogeyStyle.registerBogeyModelData(false, materialManager);
+        bogeyStyle.registerBogeyModelData(false, materialManager, paintColour);
         shouldRenderDefault = bogeyStyle.shouldRenderDefault(false);
     }
 

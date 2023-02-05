@@ -7,6 +7,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.simibubi.create.foundation.config.AllConfigs;
 import com.simibubi.create.foundation.gui.element.GuiGameElement;
 import net.minecraft.core.Direction;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.ArrayList;
@@ -20,12 +21,12 @@ public interface IBogeyStyle {
         return "Invalid Style";
     }
 
-    public default void renderInWorld(boolean isLarge, boolean isFacingForward, float wheelAngle, PoseStack ms, int light, VertexConsumer vb, BlockState air) {
-        if (isLarge) renderLargeInWorld(wheelAngle, isFacingForward, ms, light, vb, air); else renderSmallInWorld(wheelAngle, isFacingForward, ms, light, vb, air);
+    public default void renderInWorld(boolean isLarge, boolean isFacingForward, float wheelAngle, PoseStack ms, int light, VertexConsumer vb, BlockState air, DyeColor dyeColor) {
+        if (isLarge) renderLargeInWorld(wheelAngle, isFacingForward, ms, light, vb, air, dyeColor); else renderSmallInWorld(wheelAngle, isFacingForward, ms, light, vb, air, dyeColor);
     }
 
-    public default void registerBogeyModelData(boolean isLarge, MaterialManager materialManager) {
-        if (isLarge) registerLargeBogeyModelData(materialManager); else registerSmallBogeyModelData(materialManager);
+    public default void registerBogeyModelData(boolean isLarge, MaterialManager materialManager, DyeColor dyeColor) {
+        if (isLarge) registerLargeBogeyModelData(materialManager, dyeColor); else registerSmallBogeyModelData(materialManager, dyeColor);
     }
 
     public default List<GuiGameElement.GuiRenderBuilder> renderInGuiOverlay(boolean isLarge) {
@@ -84,11 +85,11 @@ public interface IBogeyStyle {
 
     default void renderSmallInContraption(float wheelAngle, boolean isFacingForward, PoseStack ms, Direction assemblyDirection) {}
 
-    default void renderLargeInWorld(float wheelAngle, boolean isFacingForward, PoseStack ms, int light, VertexConsumer vb, BlockState air) {}
+    default void renderLargeInWorld(float wheelAngle, boolean isFacingForward, PoseStack ms, int light, VertexConsumer vb, BlockState air, DyeColor paintColour) {}
 
-    default void renderSmallInWorld(float wheelAngle, boolean isFacingForward, PoseStack ms, int light,  VertexConsumer vb, BlockState air) {}
+    default void renderSmallInWorld(float wheelAngle, boolean isFacingForward, PoseStack ms, int light, VertexConsumer vb, BlockState air, DyeColor dyeColor) {}
 
-    default void registerLargeBogeyModelData(MaterialManager materialManager) {}
+    default void registerLargeBogeyModelData(MaterialManager materialManager, DyeColor paintColour) {}
 
-    default void registerSmallBogeyModelData(MaterialManager materialManager) {}
+    default void registerSmallBogeyModelData(MaterialManager materialManager, DyeColor paintColour) {}
 }

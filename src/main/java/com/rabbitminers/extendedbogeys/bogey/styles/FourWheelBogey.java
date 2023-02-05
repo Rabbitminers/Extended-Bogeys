@@ -12,6 +12,7 @@ import com.simibubi.create.AllBlockPartials;
 import com.simibubi.create.foundation.render.CachedBufferer;
 import com.simibubi.create.foundation.utility.Iterate;
 import net.minecraft.core.Direction;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class FourWheelBogey implements IBogeyStyle {
     }
 
     @Override
-    public void registerSmallBogeyModelData(MaterialManager materialManager) {
+    public void registerSmallBogeyModelData(MaterialManager materialManager, DyeColor paintColour) {
         frame = materialManager.defaultSolid().material(Materials.TRANSFORMED)
                 .getModel(BogeyPartials.SMALL_FOUR_WHEEL_FRAME)
                 .createInstance();
@@ -67,7 +68,7 @@ public class FourWheelBogey implements IBogeyStyle {
     }
 
     @Override
-    public void registerLargeBogeyModelData(MaterialManager materialManager) {
+    public void registerLargeBogeyModelData(MaterialManager materialManager, DyeColor paintColour) {
         frame = materialManager.defaultSolid().material(Materials.TRANSFORMED)
                 .getModel(BogeyPartials.FOUR_WHEEL_DRIVE_FRAME)
                 .createInstance();
@@ -173,7 +174,7 @@ public class FourWheelBogey implements IBogeyStyle {
     }
 
     @Override
-    public void renderLargeInWorld(float wheelAngle, boolean isFacingForward, PoseStack ms, int light, VertexConsumer vb, BlockState air) {
+    public void renderLargeInWorld(float wheelAngle, boolean isFacingForward, PoseStack ms, int light, VertexConsumer vb, BlockState air, DyeColor paintColour) {
         CachedBufferer.partial(BogeyPartials.FOUR_WHEEL_DRIVE_FRAME, air)
                 .rotateY(isFacingForward ? 180 : 0)
                 .scale(1 - 1/512f)
@@ -218,11 +219,11 @@ public class FourWheelBogey implements IBogeyStyle {
             ms.popPose();
         }
 
-        IBogeyStyle.super.renderLargeInWorld(wheelAngle, isFacingForward, ms, light, vb, air);
+        IBogeyStyle.super.renderLargeInWorld(wheelAngle, isFacingForward, ms, light, vb, air, paintColour);
     }
 
     @Override
-    public void renderSmallInWorld(float wheelAngle, boolean isFacingForward, PoseStack ms, int light, VertexConsumer vb, BlockState air) {
+    public void renderSmallInWorld(float wheelAngle, boolean isFacingForward, PoseStack ms, int light, VertexConsumer vb, BlockState air, DyeColor dyeColor) {
         CachedBufferer.partial(BogeyPartials.SMALL_FOUR_WHEEL_FRAME, air)
                 .translateY(0.2)
                 .rotateY(isFacingForward ? 180 : 0)
@@ -246,7 +247,7 @@ public class FourWheelBogey implements IBogeyStyle {
             ms.popPose();
         }
 
-        IBogeyStyle.super.renderSmallInWorld(wheelAngle, isFacingForward, ms, light, vb, air);
+        IBogeyStyle.super.renderSmallInWorld(wheelAngle, isFacingForward, ms, light, vb, air, dyeColor);
     }
 
     @Override
