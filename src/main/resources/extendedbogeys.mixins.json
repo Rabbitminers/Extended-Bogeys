@@ -7,7 +7,6 @@
   "mixins": [
     "MixinTrain",
     "MixinTrainPacket",
-    "MixinContraption",
     "MixinCarriageBogey",
     "MixinStandardBogeyBlock",
     "MixinStationTileEntity",
