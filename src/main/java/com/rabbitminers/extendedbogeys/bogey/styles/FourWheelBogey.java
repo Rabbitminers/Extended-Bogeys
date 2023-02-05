@@ -6,6 +6,7 @@ import com.jozufozu.flywheel.core.materials.model.ModelData;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.rabbitminers.extendedbogeys.bogey.util.LanguageKey;
+import com.rabbitminers.extendedbogeys.bogey.util.RotationUtils;
 import com.rabbitminers.extendedbogeys.index.BogeyPartials;
 import com.simibubi.create.AllBlockPartials;
 import com.simibubi.create.foundation.render.CachedBufferer;
@@ -95,31 +96,59 @@ public class FourWheelBogey implements IBogeyStyle {
     public void renderLargeInContraption(float wheelAngle, boolean isFacingForward, PoseStack ms, Direction assemblyDirection) {
         float offSetScaleFactor =  Math.max(0f, (1f - Math.abs(Math.abs(wheelAngle) - 180f) / 180f));
 
-        for (int side : Iterate.positiveAndNegative) {
-            wheels[(side+1) / 2].setTransform(ms)
-                .translate(0, 1, side)
-                .rotateX(isFacingForward ? wheelAngle : -wheelAngle);
+        if (RotationUtils.isDirectionPosotive(assemblyDirection)) {
+            for (int side : Iterate.positiveAndNegative) {
+                wheels[(side+1) / 2].setTransform(ms)
+                        .translate(0, 1, side)
+                        .rotateX(isFacingForward ? wheelAngle : -wheelAngle);
+            }
+
+            connectingRod.setTransform(ms)
+                    .rotateY(isFacingForward ? 0 : 180)
+                    .rotateX(wheelAngle)
+                    .translate(0, 1 / 4f, 0)
+                    .rotateX(-wheelAngle);
+
+            drivePin.setTransform(ms)
+                    .rotateY(isFacingForward ? 0 : 180)
+                    .translateZ(1/4f * Math.sin(Math.toRadians(wheelAngle)));
+
+            driveRod.setTransform(ms)
+                    .translateZ(isFacingForward ? -0.6 : 0.6)
+                    .translateY(0.85)
+                    .rotateY(isFacingForward ? 0 : 180)
+                    .rotateX(offSetScaleFactor*20-10)
+                    .translateZ(1/4f * Math.sin(Math.toRadians(wheelAngle)));
+
+            frame.setTransform(ms)
+                    .rotateY(isFacingForward ? 0 : 180);
+        } else {
+            for (int side : Iterate.positiveAndNegative) {
+                wheels[(side+1) / 2].setTransform(ms)
+                        .translate(0, 1, side)
+                        .rotateX(isFacingForward ? -wheelAngle : wheelAngle);
+            }
+
+            connectingRod.setTransform(ms)
+                    .rotateY(isFacingForward ? 180 : 0)
+                    .rotateX(wheelAngle)
+                    .translate(0, 1 / 4f, 0)
+                    .rotateX(-wheelAngle);
+
+            drivePin.setTransform(ms)
+                    .rotateY(isFacingForward ? 180 : 0)
+                    .translateZ(1/4f * Math.sin(Math.toRadians(wheelAngle)));
+
+            driveRod.setTransform(ms)
+                    .translateZ(isFacingForward ? 0.6 : -0.6)
+                    .translateY(0.85)
+                    .rotateY(isFacingForward ? 180 : 0)
+                    .rotateX(offSetScaleFactor*20-10)
+                    .translateZ(1/4f * Math.sin(Math.toRadians(wheelAngle)));
+
+            frame.setTransform(ms)
+                    .rotateY(isFacingForward ? 180 : 0);
         }
-
-        connectingRod.setTransform(ms)
-                .rotateX(wheelAngle)
-                .translate(0, 1 / 4f, 0)
-                .rotateX(-wheelAngle)
-                .rotateY(isFacingForward ? 0 : 180);
-
-        drivePin.setTransform(ms)
-                .translateZ(1/4f * Math.sin(Math.toRadians(wheelAngle)))
-                .rotateY(isFacingForward ? 0 : 180);
-
-        driveRod.setTransform(ms)
-                .translateZ(isFacingForward ? 0.6 : -0.6)
-                .translateY(0.85)
-                .rotateY(isFacingForward ? 0 : 180)
-                .rotateX(offSetScaleFactor*20-10)
-                .translateZ(1/4f * Math.sin(Math.toRadians(wheelAngle)))
-                .scale(1 - 1/512f);
-
-        frame.setTransform(ms);
 
         IBogeyStyle.super.renderLargeInContraption(wheelAngle, isFacingForward, ms, assemblyDirection);
     }
