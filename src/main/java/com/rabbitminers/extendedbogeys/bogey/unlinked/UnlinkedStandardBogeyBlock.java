@@ -10,11 +10,8 @@ import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyBlock
 import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyTileEntity;
 import com.simibubi.create.AllBlockPartials;
 import com.simibubi.create.AllBlocks;
-import com.simibubi.create.AllTileEntities;
-import com.simibubi.create.content.contraptions.components.actors.DrillRenderer;
 import com.simibubi.create.content.contraptions.relays.elementary.ShaftBlock;
 import com.simibubi.create.content.contraptions.wrench.WrenchItem;
-import com.simibubi.create.content.logistics.trains.track.StandardBogeyTileEntity;
 import com.simibubi.create.content.schematics.ISpecialBlockItemRequirement;
 import com.simibubi.create.content.schematics.ItemRequirement;
 import com.simibubi.create.foundation.block.ITE;
@@ -23,7 +20,6 @@ import com.simibubi.create.foundation.render.CachedBufferer;
 import com.simibubi.create.foundation.utility.AngleHelper;
 import com.simibubi.create.foundation.utility.Iterate;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
@@ -47,9 +43,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.api.distmarker.Dist;
@@ -160,6 +154,7 @@ public class UnlinkedStandardBogeyBlock extends Block implements ITE<UnlinkedBog
         IStyledStandardBogeyTileEntity te = (IStyledStandardBogeyTileEntity) be;
 
         boolean isFacingForward = te.getIsFacingForwards(tileData);
+        DyeColor dyeColor = te.getPaintColour(tileData);
 
         int styleId = te.getBogeyStyle(tileData);
         IBogeyStyle style = BogeyStyles.getBogeyStyle(styleId);
@@ -176,7 +171,7 @@ public class UnlinkedStandardBogeyBlock extends Block implements ITE<UnlinkedBog
                         .renderInto(ms, vb);
 
         if (!style.shouldRenderDefault(large)) {
-            style.renderInWorld(large, isFacingForward, wheelAngle, ms, light, vb, air);
+            style.renderInWorld(large, isFacingForward, wheelAngle, ms, light, vb, air, dyeColor);
         } else if (large) {
             renderLargeBogey(wheelAngle, ms, light, vb, air);
         } else {

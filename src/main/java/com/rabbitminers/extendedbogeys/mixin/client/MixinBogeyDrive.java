@@ -8,6 +8,7 @@ import com.rabbitminers.extendedbogeys.mixin_interface.ICarriageBogeyStyle;
 import com.simibubi.create.content.logistics.trains.entity.BogeyInstance;
 import com.simibubi.create.content.logistics.trains.entity.CarriageBogey;
 import net.minecraft.core.Direction;
+import net.minecraft.world.item.DyeColor;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,6 +21,7 @@ public class MixinBogeyDrive {
     private boolean isFacingForward = true;
     private boolean shouldRenderDefault;
     private Direction assemblyDirection;
+    private DyeColor paintColour;
     private CarriageBogey bogey;
     IBogeyStyle bogeyStyle;
 
@@ -32,9 +34,10 @@ public class MixinBogeyDrive {
             style = styledCarriageBogey.getStyle();
             isFacingForward = styledCarriageBogey.isFacingForward();
             assemblyDirection = styledCarriageBogey.getAssemblyDirection();
+            paintColour = styledCarriageBogey.getPaintColour();
         }
         bogeyStyle = BogeyStyles.getBogeyStyle(style);
-        bogeyStyle.registerBogeyModelData(true, materialManager);
+        bogeyStyle.registerBogeyModelData(true, materialManager, paintColour);
         shouldRenderDefault = bogeyStyle.shouldRenderDefault(true);
     }
 

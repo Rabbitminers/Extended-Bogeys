@@ -6,10 +6,13 @@ import com.simibubi.create.foundation.tileEntity.CachedRenderBBTileEntity;
 import com.simibubi.create.foundation.utility.AngleHelper;
 import com.simibubi.create.foundation.utility.AnimationTickHolder;
 import com.simibubi.create.foundation.utility.Iterate;
+import com.simibubi.create.foundation.utility.NBTHelper;
 import com.simibubi.create.foundation.utility.animation.LerpedFloat;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -57,6 +60,32 @@ public class UnlinkedBogeyTileEntity extends CachedRenderBBTileEntity implements
         if (tileData.contains("Style"))
             return tileData.getInt("Style");
         return 0;
+    }
+
+    @Override
+    public void setAssemblyDirection(CompoundTag tileData, Direction assemblyDirection) {
+        NBTHelper.writeEnum(tileData, "PaintColour", assemblyDirection);
+        markUpdated();
+    }
+
+    @Override
+    public Direction getAssemblyDirection(CompoundTag tileData) {
+        if (tileData.contains("AssemblyDirection"))
+            return NBTHelper.readEnum(tileData, "AssemblyDirection", Direction.class);
+        return null;
+    }
+
+    @Override
+    public void setPaintColour(CompoundTag tileData, DyeColor colour) {
+        NBTHelper.writeEnum(tileData, "PaintColour", colour);
+        markUpdated();
+    }
+
+    @Override
+    public DyeColor getPaintColour(CompoundTag tileData) {
+        if (tileData.contains("PaintColour"))
+            return NBTHelper.readEnum(tileData, "PaintColour", DyeColor.class);
+        return null;
     }
 
     private void markUpdated() {

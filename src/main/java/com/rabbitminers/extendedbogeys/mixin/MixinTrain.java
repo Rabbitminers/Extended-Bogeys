@@ -17,6 +17,7 @@ import com.simibubi.create.foundation.config.AllConfigs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
@@ -91,6 +92,7 @@ public abstract class MixinTrain {
                 Vec3 bogeyPos = bogey.getAnchorPosition();
                 if (bogeyPos == null) return;
 
+                DyeColor paintColor = styledCarriageBogey.getPaintColour();
                 int style = styledCarriageBogey.getStyle();
                 boolean isFacingForwards = styledCarriageBogey.isFacingForward();
 
@@ -105,6 +107,7 @@ public abstract class MixinTrain {
                 ssbte.setIsFacingForwards(tileData, isFacingForwards);
                 ssbte.setBogeyStyle(tileData, style);
                 ssbte.setAssemblyDirection(tileData, assemblyDirection);
+                ssbte.setPaintColour(tileData, paintColor);
             }
         }
     }
