@@ -78,9 +78,11 @@ public class MixinStationTileEntity extends BlockEntity {
         if (contraption == null || level == null)
             return secondBogey;
 
-        BlockPos secondBogeyPos = contraption.getSecondBogeyPos();
-        if (level.getBlockEntity(secondBogeyPos) instanceof IStyledStandardBogeyTileEntity secondBogeyTe
-                && secondBogey != null) {
+        if (secondBogey != null) {
+            BlockPos secondBogeyPos = contraption.getSecondBogeyPos();
+
+            if (!(level.getBlockEntity(secondBogeyPos) instanceof IStyledStandardBogeyTileEntity secondBogeyTe))
+                return secondBogey;
 
             CompoundTag tileData = ((BlockEntity) secondBogeyTe).getTileData();
 

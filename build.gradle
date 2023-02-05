@@ -22,7 +22,7 @@ apply plugin: 'org.spongepowered.mixin'
 
 
 
-version = '0.2.1-1.18.2-0.5.0.h'
+version = '0.2.2-1.18.2-0.5.0.h'
 group = 'com.rabbitminers.extendedbogeys' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'extendedbogeys'
 
@@ -33,7 +33,7 @@ println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty '
 minecraft {
     mappings channel: 'official', version: '1.18.2'
 
-    // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg') // Currently, this location cannot be changed from the default.
+    // accessTransformer = file('src/main/  resources/META-INF/accesstransformer.cfg') // Currently, this location cannot be changed from the default.
 
     runs {
         client {
@@ -67,6 +67,7 @@ minecraft {
         }
 
         gameTestServer {
+
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
