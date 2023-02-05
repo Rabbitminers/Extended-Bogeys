@@ -12,8 +12,10 @@ import com.simibubi.create.foundation.utility.Couple;
 import com.simibubi.create.foundation.utility.NBTHelper;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.DyeColor;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -27,6 +29,8 @@ public class MixinCarriageBogey implements ICarriageBogeyStyle {
     @Shadow private IBogeyBlock type;
 
     Direction assemblyDirection = Direction.NORTH;
+
+    private DyeColor paintColour;
     private int style = 0;
     private boolean isFacingForward = true;
     @Override
@@ -57,6 +61,16 @@ public class MixinCarriageBogey implements ICarriageBogeyStyle {
         this.assemblyDirection = assemblyDirection;
     }
 
+    @Override
+    public DyeColor getPaintColour() {
+        return paintColour;
+    }
+
+    @Override
+    public void setPaintColour(DyeColor colour) {
+        this.paintColour = colour;
+    }
+
     @Inject(at = @At("RETURN"), method = "read", cancellable = true, remap = false)
     private static void read(CompoundTag tag, TrackGraph graph, DimensionPalette dimensions, CallbackInfoReturnable<CarriageBogey> cir) {
         if (tag.contains("Style")) {
@@ -65,6 +79,7 @@ public class MixinCarriageBogey implements ICarriageBogeyStyle {
             Couple<TravellingPoint> points = Couple.deserializeEach(tag.getList("Points", Tag.TAG_COMPOUND),
                     c -> TravellingPoint.read(c, graph, dimensions));
             boolean isFacingForward = tag.getBoolean("IsFacingForward");
+            DyeColor dyeColor = NBTHelper.readEnum(tag, "PaintColour", DyeColor.class);
             int style = tag.getInt("Style");
             Direction assemblyDirection = NBTHelper.readEnum(tag, "AssemblyDirection", Direction.class);
             CarriageBogey carriageBogey = cir.getReturnValue();
@@ -73,6 +88,7 @@ public class MixinCarriageBogey implements ICarriageBogeyStyle {
             styledCarriageBogey.setAssemblyDirection(assemblyDirection);
             styledCarriageBogey.setStyle(style);
             styledCarriageBogey.setFacingForward(isFacingForward);
+            styledCarriageBogey.setPaintColour(dyeColor);
             cir.setReturnValue((CarriageBogey) styledCarriageBogey);
         }
     }
@@ -81,6 +97,7 @@ public class MixinCarriageBogey implements ICarriageBogeyStyle {
         CompoundTag tag = cir.getReturnValue();
         tag.putInt("Style", style);
         tag.putBoolean("IsFacingForward", isFacingForward);
+        NBTHelper.writeEnum(tag, "PaintColour", paintColour);
         NBTHelper.writeEnum(tag, "AssemblyDirection", assemblyDirection);
         cir.setReturnValue(tag);
     }

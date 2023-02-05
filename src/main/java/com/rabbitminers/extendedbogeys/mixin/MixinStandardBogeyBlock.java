@@ -14,18 +14,22 @@ import com.simibubi.create.content.contraptions.wrench.WrenchItem;
 import com.simibubi.create.content.logistics.trains.track.StandardBogeyBlock;
 import com.simibubi.create.foundation.render.CachedBufferer;
 import com.simibubi.create.foundation.utility.Iterate;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -47,6 +51,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.text.NumberFormat;
 import java.util.EnumSet;
 
 @Mixin(StandardBogeyBlock.class)
@@ -104,8 +109,21 @@ public abstract class MixinStandardBogeyBlock extends Block implements IStyledSt
         }
 
         if (!player.isShiftKeyDown() && !level.isClientSide && interactionHand == InteractionHand.MAIN_HAND
-                && DyeColor.getColor(player.getMainHandItem()) != null) {
+                && player.getMainHandItem().getItem() instanceof DyeItem) {
+            ItemStack mainHandItem = player.getMainHandItem();
+            DyeColor dyeColor = DyeColor.getColor(mainHandItem);
 
+            if (dyeColor == null)
+                return InteractionResult.FAIL;
+
+            te.setPaintColour(tileData, dyeColor);
+            be.setChanged();
+
+            player.displayClientMessage(new TranslatableComponent("extendedbogeys.tooltips.dyed").append(dyeColor.getName())
+                    .withStyle(Style.EMPTY.withColor(dyeColor.getTextColor())), true);
+
+            if (!player.isCreative())
+                mainHandItem.shrink(1);
         }
 
         if (!level.isClientSide && player.getMainHandItem().getItem() instanceof WrenchItem wrenchItem

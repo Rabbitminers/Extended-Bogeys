@@ -3,6 +3,7 @@
   "extendedbogeys.tooltips.link": "Linked Bogey!",
   "extendedbogeys.tooltips.unlink": "Unlinked Bogey!",
   "extendedbogeys.tooltips.style": "Bogey Style: ",
+  "extendedbogeys.tooltips.dyed": "Dyed Bogey ",
 
   "extendedbogeys.bogeys.styles.default": "Default Bogey",
   "extendedbogeys.bogeys.styles.singleaxis": "Single Axis Bogey",

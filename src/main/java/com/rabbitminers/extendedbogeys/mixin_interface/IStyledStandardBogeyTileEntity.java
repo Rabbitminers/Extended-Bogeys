@@ -2,6 +2,7 @@ package com.rabbitminers.extendedbogeys.mixin_interface;
 
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.DyeColor;
 
 public interface IStyledStandardBogeyTileEntity {
     default boolean getIsFacingForwards(CompoundTag tileData) { return true; }
@@ -16,4 +17,8 @@ public interface IStyledStandardBogeyTileEntity {
     default Direction getAssemblyDirection(CompoundTag tileData) {return Direction.NORTH; }
 
     default void setAssemblyDirection(CompoundTag tileData, Direction assemblyDirection) {}
+
+    default DyeColor getPaintColour(CompoundTag tileData) { return null; } // yes its colour fuck off
+
+    default void setPaintColour(CompoundTag tileData, DyeColor colour) {}
 }

@@ -10,6 +10,7 @@ import com.simibubi.create.content.logistics.trains.track.TrackInstance;
 import com.simibubi.create.foundation.utility.Iterate;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.item.DyeColor;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -36,6 +37,7 @@ public class MixinTrainPacket {
                     ((ICarriageBogeyStyle) bogey).setStyle(buffer.readInt());
                     ((ICarriageBogeyStyle) bogey).setFacingForward(buffer.readBoolean());
                     ((ICarriageBogeyStyle) bogey).setAssemblyDirection(buffer.readEnum(Direction.class));
+                    ((ICarriageBogeyStyle) bogey).setPaintColour(buffer.readEnum(DyeColor.class));
                 }
             });
         }
@@ -49,6 +51,7 @@ public class MixinTrainPacket {
                     buffer.writeInt(((ICarriageBogeyStyle) bogey).getStyle());
                     buffer.writeBoolean(((ICarriageBogeyStyle) bogey).isFacingForward());
                     buffer.writeEnum(((ICarriageBogeyStyle) bogey).getAssemblyDirection());
+                    buffer.writeEnum(((ICarriageBogeyStyle) bogey).getPaintColour());
                 }
             });
         }

@@ -13,6 +13,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -62,10 +63,12 @@ public class MixinStationTileEntity extends BlockEntity {
 
             boolean isFirstBogeyFacingForward = firstBogeyTe.getIsFacingForwards(tileData);
             int firstBogeyStyle = firstBogeyTe.getBogeyStyle(tileData);
+            DyeColor firstBogeyColour = firstBogeyTe.getPaintColour(tileData);
 
             styledCustomBogey.setAssemblyDirection(contraption.getAssemblyDirection());
             styledCustomBogey.setStyle(firstBogeyStyle);
             styledCustomBogey.setFacingForward(isFirstBogeyFacingForward);
+            styledCustomBogey.setPaintColour(firstBogeyColour);
 
             return (CarriageBogey) styledCustomBogey;
         }
@@ -88,11 +91,13 @@ public class MixinStationTileEntity extends BlockEntity {
 
             int secondBogeyStyle = secondBogeyTe.getBogeyStyle(tileData);
             boolean isSecondBogeyFacingForward = secondBogeyTe.getIsFacingForwards(tileData);
+            DyeColor secondBogeyDyeColour = secondBogeyTe.getPaintColour(tileData);
 
             if (secondBogey instanceof ICarriageBogeyStyle styledCustomBogey) {
                 styledCustomBogey.setAssemblyDirection(contraption.getAssemblyDirection());
                 styledCustomBogey.setStyle(secondBogeyStyle);
                 styledCustomBogey.setFacingForward(isSecondBogeyFacingForward);
+                styledCustomBogey.setPaintColour(secondBogeyDyeColour);
                 return (CarriageBogey) styledCustomBogey;
             }
         }
