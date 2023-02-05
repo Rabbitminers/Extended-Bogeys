@@ -1,5 +1,6 @@
 package com.rabbitminers.extendedbogeys.mixin_interface;
 
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 
 public interface IStyledStandardBogeyTileEntity {
@@ -10,4 +11,9 @@ public interface IStyledStandardBogeyTileEntity {
     default int getBogeyStyle(CompoundTag tileData) { return 0; }
 
     default void setBogeyStyle(CompoundTag tileData, int bogeyStyle) {}
+
+    // TODO Implement these into child classes
+    default Direction getAssemblyDirection(CompoundTag tileData) {return Direction.NORTH; }
+
+    default void setAssemblyDirection(CompoundTag tileData, Direction assemblyDirection) {}
 }
