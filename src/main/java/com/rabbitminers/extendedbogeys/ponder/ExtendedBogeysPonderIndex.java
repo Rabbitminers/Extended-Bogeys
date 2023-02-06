@@ -11,7 +11,7 @@ public class ExtendedBogeysPonderIndex {
     static final PonderRegistrationHelper HELPER = new PonderRegistrationHelper(ExtendedBogeys.MODID);
 
     public static void register() {
-        HELPER.forComponents(AllBlocks.TRACK_STATION)
+        HELPER.forComponents(AllBlocks.RAILWAY_CASING)
                 .addStoryBoard("styling", BogeyStyleScenes::styling);
     }
 }
