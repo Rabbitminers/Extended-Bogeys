@@ -43,7 +43,6 @@ public class FourWheelBogey implements IBogeyStyle {
         modelData.add(driveRod);
         modelData.addAll(List.of(wheels));
         modelData.add(connectingRod);
-        modelData.addAll(List.of(shafts));
         return modelData;
     }
 
@@ -71,8 +70,6 @@ public class FourWheelBogey implements IBogeyStyle {
         connectingRod = materialManager.defaultSolid().material(Materials.TRANSFORMED)
                 .getModel(BogeyPartials.FOUR_WHEEL_CONNECTING_ROD)
                 .createInstance();
-
-        wheels = new ModelData[0];
     }
 
     @Override

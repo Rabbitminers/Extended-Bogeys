@@ -6,6 +6,7 @@ import com.rabbitminers.extendedbogeys.config.ExtendedBogeysConfig;
 import com.rabbitminers.extendedbogeys.index.BogeyPartials;
 import com.rabbitminers.extendedbogeys.index.ExtendedBogeysBlocks;
 import com.rabbitminers.extendedbogeys.index.ExtendedBogeysTileEntities;
+import com.rabbitminers.extendedbogeys.ponder.ExtendedBogeysPonderIndex;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.foundation.config.AllConfigs;
 import com.simibubi.create.foundation.data.CreateRegistrate;
@@ -36,6 +37,8 @@ public class ExtendedBogeys {
         ModLoadingContext modLoadingContext = ModLoadingContext.get();
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT,
                 () -> BogeyPartials::init);
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT,
+                () -> ExtendedBogeysPonderIndex::register);
         ExtendedBogeysBlocks.register();
         ExtendedBogeysTileEntities.register();
         ExtendedBogeysConfig.register(modLoadingContext);
