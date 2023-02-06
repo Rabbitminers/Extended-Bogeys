@@ -9,6 +9,10 @@ import com.rabbitminers.extendedbogeys.bogey.util.LanguageKey;
 import com.rabbitminers.extendedbogeys.bogey.util.RotationUtils;
 import com.rabbitminers.extendedbogeys.index.BogeyPartials;
 import com.simibubi.create.AllBlockPartials;
+import com.simibubi.create.AllBlocks;
+import com.simibubi.create.content.contraptions.relays.elementary.ShaftBlock;
+import com.simibubi.create.content.logistics.trains.entity.BogeyInstance;
+import com.simibubi.create.content.logistics.trains.track.StandardBogeyBlock;
 import com.simibubi.create.foundation.render.CachedBufferer;
 import com.simibubi.create.foundation.utility.Iterate;
 import net.minecraft.core.Direction;
@@ -29,6 +33,7 @@ public class FourWheelBogey implements IBogeyStyle {
     private ModelData drivePin;
     private ModelData driveRod;
     private ModelData connectingRod;
+    private ModelData[] shafts;
 
     @Override
     public List<ModelData> getAllCustomModelComponents() {
@@ -38,6 +43,7 @@ public class FourWheelBogey implements IBogeyStyle {
         modelData.add(driveRod);
         modelData.addAll(List.of(wheels));
         modelData.add(connectingRod);
+        modelData.addAll(List.of(shafts));
         return modelData;
     }
 
@@ -65,6 +71,8 @@ public class FourWheelBogey implements IBogeyStyle {
         connectingRod = materialManager.defaultSolid().material(Materials.TRANSFORMED)
                 .getModel(BogeyPartials.FOUR_WHEEL_CONNECTING_ROD)
                 .createInstance();
+
+        wheels = new ModelData[0];
     }
 
     @Override
@@ -91,65 +99,48 @@ public class FourWheelBogey implements IBogeyStyle {
         connectingRod = materialManager.defaultSolid().material(Materials.TRANSFORMED)
                 .getModel(BogeyPartials.FOUR_WHEEL_CONNECTING_ROD)
                 .createInstance();
+
+        shafts = new ModelData[2];
+
+        materialManager.defaultSolid().material(Materials.TRANSFORMED)
+                .getModel(AllBlocks.SHAFT.getDefaultState()
+                .setValue(ShaftBlock.AXIS, Direction.Axis.X))
+                .createInstances(shafts);
     }
 
     @Override
     public void renderLargeInContraption(float wheelAngle, boolean isFacingForward, PoseStack ms, Direction assemblyDirection) {
+        boolean isDirectionPosotive = RotationUtils.isDirectionPosotive(assemblyDirection);
+        isFacingForward = isDirectionPosotive == isFacingForward;
+        wheelAngle = isFacingForward ? wheelAngle : -wheelAngle;
+
         float offSetScaleFactor =  Math.max(0f, (1f - Math.abs(Math.abs(wheelAngle) - 180f) / 180f));
 
-        if (RotationUtils.isDirectionPosotive(assemblyDirection)) {
-            for (int side : Iterate.positiveAndNegative) {
-                wheels[(side+1) / 2].setTransform(ms)
-                        .translate(0, 1, side)
-                        .rotateX(isFacingForward ? wheelAngle : -wheelAngle);
-            }
-
-            connectingRod.setTransform(ms)
-                    .rotateY(isFacingForward ? 0 : 180)
-                    .rotateX(wheelAngle)
-                    .translate(0, 1 / 4f, 0)
-                    .rotateX(-wheelAngle);
-
-            drivePin.setTransform(ms)
-                    .rotateY(isFacingForward ? 0 : 180)
-                    .translateZ(1/4f * Math.sin(Math.toRadians(wheelAngle)));
-
-            driveRod.setTransform(ms)
-                    .translateZ(isFacingForward ? -0.6 : 0.6)
-                    .translateY(0.85)
-                    .rotateY(isFacingForward ? 0 : 180)
-                    .rotateX(offSetScaleFactor*20-10)
-                    .translateZ(1/4f * Math.sin(Math.toRadians(wheelAngle)));
-
-            frame.setTransform(ms)
-                    .rotateY(isFacingForward ? 0 : 180);
-        } else {
-            for (int side : Iterate.positiveAndNegative) {
-                wheels[(side+1) / 2].setTransform(ms)
-                        .translate(0, 1, side)
-                        .rotateX(isFacingForward ? -wheelAngle : wheelAngle);
-            }
-
-            connectingRod.setTransform(ms)
-                    .rotateY(isFacingForward ? 180 : 0)
-                    .rotateX(wheelAngle)
-                    .translate(0, 1 / 4f, 0)
-                    .rotateX(-wheelAngle);
-
-            drivePin.setTransform(ms)
-                    .rotateY(isFacingForward ? 180 : 0)
-                    .translateZ(1/4f * Math.sin(Math.toRadians(wheelAngle)));
-
-            driveRod.setTransform(ms)
-                    .translateZ(isFacingForward ? 0.6 : -0.6)
-                    .translateY(0.85)
-                    .rotateY(isFacingForward ? 180 : 0)
-                    .rotateX(offSetScaleFactor*20-10)
-                    .translateZ(1/4f * Math.sin(Math.toRadians(wheelAngle)));
-
-            frame.setTransform(ms)
-                    .rotateY(isFacingForward ? 180 : 0);
+        for (int side : Iterate.positiveAndNegative) {
+            wheels[(side+1) / 2].setTransform(ms)
+                    .translate(0, 1, side)
+                    .rotateX(isFacingForward ? wheelAngle : -wheelAngle);
         }
+
+        connectingRod.setTransform(ms)
+                .rotateY(isFacingForward ? 0 : 180)
+                .rotateX(wheelAngle)
+                .translate(0, 1 / 4f, 0)
+                .rotateX(-wheelAngle);
+
+        drivePin.setTransform(ms)
+                .rotateY(isFacingForward ? 0 : 180)
+                .translateZ(1/4f * Math.sin(Math.toRadians(wheelAngle)));
+
+        driveRod.setTransform(ms)
+                .translateZ(isFacingForward ? -0.6 : 0.6)
+                .translateY(0.85)
+                .rotateY(isFacingForward ? 0 : 180)
+                .rotateX(offSetScaleFactor*20-10)
+                .translateZ(1/4f * Math.sin(Math.toRadians(wheelAngle)));
+
+        frame.setTransform(ms)
+                .rotateY(isFacingForward ? 0 : 180);
 
         IBogeyStyle.super.renderLargeInContraption(wheelAngle, isFacingForward, ms, assemblyDirection);
     }
@@ -175,6 +166,7 @@ public class FourWheelBogey implements IBogeyStyle {
 
     @Override
     public void renderLargeInWorld(float wheelAngle, boolean isFacingForward, PoseStack ms, int light, VertexConsumer vb, BlockState air, DyeColor paintColour) {
+
         CachedBufferer.partial(BogeyPartials.FOUR_WHEEL_DRIVE_FRAME, air)
                 .rotateY(isFacingForward ? 180 : 0)
                 .scale(1 - 1/512f)
