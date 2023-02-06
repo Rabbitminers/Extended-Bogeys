@@ -147,6 +147,10 @@ public class FourWheelBogey implements IBogeyStyle {
 
     @Override
     public void renderSmallInContraption(float wheelAngle, boolean isFacingForward, PoseStack ms, Direction assemblyDirection) {
+        boolean isDirectionPosotive = RotationUtils.isDirectionPosotive(assemblyDirection);
+        isFacingForward = isDirectionPosotive == isFacingForward;
+        wheelAngle = isFacingForward ? wheelAngle : -wheelAngle;
+
         for (int side : Iterate.positiveAndNegative) {
             wheels[(side+1) / 2].setTransform(ms)
                     .translate(0, 12 / 16f, side + (isFacingForward ? -2 : 2))
