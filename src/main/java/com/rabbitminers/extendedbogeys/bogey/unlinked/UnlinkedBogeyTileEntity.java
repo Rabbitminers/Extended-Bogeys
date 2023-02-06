@@ -1,5 +1,6 @@
 package com.rabbitminers.extendedbogeys.bogey.unlinked;
 
+import com.rabbitminers.extendedbogeys.bogey.styles.IBogeyStyle;
 import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyTileEntity;
 import com.simibubi.create.content.logistics.trains.entity.CarriageContraptionEntity;
 import com.simibubi.create.foundation.tileEntity.CachedRenderBBTileEntity;
@@ -94,9 +95,11 @@ public class UnlinkedBogeyTileEntity extends CachedRenderBBTileEntity implements
         if (level != null) getLevel().sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
     }
 
-    public void updateAngles(CarriageContraptionEntity entity, double distanceMoved) {
-        // TODO - TAKE WHEEL RADIUS FROM STYLE
-        double angleDiff = 360 * distanceMoved / (Math.PI * 2 * wheelRadius);
+    public void updateAngles(double distanceMoved) {
+        BlockState blockState = getBlockState();
+        if (!(blockState.getBlock() instanceof IUnlinkedBogeyBlock type))
+            return;
+        double angleDiff = 360 * distanceMoved / (Math.PI * 2 * type.getWheelRadius());
         double newWheelAngle = (wheelAngle.getValue() - angleDiff) % 360;
         wheelAngle.setValue(newWheelAngle);
     }

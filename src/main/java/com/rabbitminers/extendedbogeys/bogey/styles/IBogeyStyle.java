@@ -4,6 +4,7 @@ import com.jozufozu.flywheel.api.MaterialManager;
 import com.jozufozu.flywheel.core.materials.model.ModelData;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.simibubi.create.content.logistics.trains.IBogeyBlock;
 import com.simibubi.create.foundation.config.AllConfigs;
 import com.simibubi.create.foundation.gui.element.GuiGameElement;
 import net.minecraft.core.Direction;
@@ -68,6 +69,11 @@ public interface IBogeyStyle {
     default float getMinimumTurnRadius() {
         return 0.0f;
     }
+
+    default double getWheelRadius(boolean isLarge) {
+        return (isLarge ? 12.5 : 6.5) / 16d;
+    }
+
 
     default float getMaximumSpeed() {
         return AllConfigs.SERVER.trains.trainTopSpeed.getF();
