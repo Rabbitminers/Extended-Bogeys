@@ -6,6 +6,7 @@ import com.jozufozu.flywheel.core.materials.model.ModelData;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.rabbitminers.extendedbogeys.bogey.util.LanguageKey;
+import com.rabbitminers.extendedbogeys.bogey.util.RotationUtils;
 import com.rabbitminers.extendedbogeys.index.BogeyPartials;
 import com.simibubi.create.AllBlockPartials;
 import com.simibubi.create.foundation.render.CachedBufferer;
@@ -60,6 +61,10 @@ public class SingleAxisBogey implements IBogeyStyle {
     }
     @Override
     public void renderSmallInContraption(float wheelAngle, boolean isFacingForward, PoseStack ms, Direction assemblyDirection) {
+        boolean isDirectionPosotive = RotationUtils.isDirectionPosotive(assemblyDirection);
+        isFacingForward = isDirectionPosotive == isFacingForward;
+        wheelAngle = isFacingForward ? wheelAngle : -wheelAngle;
+
         wheels.setTransform(ms)
                 .rotateY(isFacingForward ? 0 : 180)
                 .translate(0, 12 / 16f, -1)

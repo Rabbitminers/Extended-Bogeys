@@ -14,6 +14,7 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
 
@@ -50,7 +51,7 @@ public class UnlinkedBogeyCarriageMovementBehaviour implements MovementBehaviour
         if (cce instanceof ICarriageContraptionEntity carriageContraptionEntityInterface)
             distanceTo = carriageContraptionEntityInterface.getDistanceTo();
 
-        unlinkedBogeyTileEntity.updateAngles(cce, distanceTo);
+        unlinkedBogeyTileEntity.updateAngles(distanceTo);
     }
 
     @Override

@@ -17,11 +17,11 @@ These are given in the following format **Started  : Completed**
 - ☒ ☒ Configurable Speed Limits/Modifications
 - ☒ ☒ Bogey Rotation
 - ☒ ☒ GUI Bogey Renderer
-- ☒ ☐ Developer Wiki
+- ☒ ☒ Developer Wiki
 - ☒ ☒ Disable Default Bogey Components (e.g Shaft)
 - ☒ ☒ Unlinked/"Disabled" Bogeys
 - ☒ ☒ Config For Different For Features
-- ☒ ☐ Paintable / Dyeable Bogeys Interface
+- ☒ ☒ Paintable / Dyeable Bogeys Interface
 - ☒ ☐ Fuel Requirements For Train To Run
 - ☒ ☐ Water Requirements For Trian to Run
 
@@ -37,6 +37,7 @@ If you have any requests please contact us and ask.
 - ☒ ☒ ☒ Two Axel Trailor (Small)
 - ☒ ☒ ☒ Four Wheel Driver (Large)
 - ☒ ☐ ☐ ? Encased Four Wheel Driver (Large)
+- ☒ ☒ ☒ Four Wheel Trailer (Small)
 - ☒ ☐ ☐ Six Wheel (Small)
 - ☒ ☒ ☐ Six Wheel (Large)
 - ☒ ☐ ☐ Flywheel Scale Driver (Large)
