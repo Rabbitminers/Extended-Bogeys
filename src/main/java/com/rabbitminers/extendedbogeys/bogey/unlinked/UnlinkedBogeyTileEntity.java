@@ -86,10 +86,10 @@ public class UnlinkedBogeyTileEntity extends CachedRenderBBTileEntity implements
     public DyeColor getPaintColour(CompoundTag tileData) {
         if (tileData.contains("PaintColour"))
             return NBTHelper.readEnum(tileData, "PaintColour", DyeColor.class);
-        return null;
+        return  DyeColor.GRAY;
     }
 
-    private void markUpdated() {
+    public void markUpdated() {
         setChanged();
         Level level = getLevel();
         if (level != null) getLevel().sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);

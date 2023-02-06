@@ -18,7 +18,7 @@ public interface ICarriageBogeyStyle {
     /**
     * @return Dye colour applied to the bogey, return null if it is default
      **/
-    default DyeColor getPaintColour() { return null; } // yes its colour fuck off
+    default DyeColor getPaintColour() { return DyeColor.GRAY; } // yes its colour fuck off
 
     default void setPaintColour(DyeColor colour) {}
 }

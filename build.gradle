@@ -134,6 +134,7 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}:${jei_version}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}:${jei_version}")
 
+    /*
     // Dave's Building Extended (Showcases)
     implementation fg.deobf("curse.maven:dbe-568645:4258159")
 
@@ -148,6 +149,8 @@ dependencies {
 
     // Macaw's Trapdoors
     implementation fg.deobf("curse.maven:mt-400933:4181456")
+
+     */
 
     // Sponge
     annotationProcessor "org.spongepowered:mixin:0.8.3:processor"
