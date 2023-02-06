@@ -61,7 +61,7 @@ public class MixinStandardBogeyTileEntity extends BlockEntity implements IStyled
 
     @Override
     public void setAssemblyDirection(CompoundTag tileData, Direction assemblyDirection) {
-        NBTHelper.writeEnum(tileData, "PaintColour", assemblyDirection);
+        NBTHelper.writeEnum(tileData, "AssemblyDirection", assemblyDirection);
         markUpdated();
     }
 
@@ -82,7 +82,7 @@ public class MixinStandardBogeyTileEntity extends BlockEntity implements IStyled
     public DyeColor getPaintColour(CompoundTag tileData) {
         if (tileData.contains("PaintColour"))
             return NBTHelper.readEnum(tileData, "PaintColour", DyeColor.class);
-        return null;
+        return DyeColor.GRAY;
     }
 
     private void markUpdated() {
