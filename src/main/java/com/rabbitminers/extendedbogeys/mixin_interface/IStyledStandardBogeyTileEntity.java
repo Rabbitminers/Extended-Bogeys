@@ -18,7 +18,7 @@ public interface IStyledStandardBogeyTileEntity {
 
     default void setAssemblyDirection(CompoundTag tileData, Direction assemblyDirection) {}
 
-    default DyeColor getPaintColour(CompoundTag tileData) { return null; } // yes its colour fuck off
+    default DyeColor getPaintColour(CompoundTag tileData) { return DyeColor.GRAY; } // yes its colour fuck off
 
     default void setPaintColour(CompoundTag tileData, DyeColor colour) {}
 }
