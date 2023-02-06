@@ -87,13 +87,10 @@ public class BogeyStyleScenes {
         scene.idle(30);
 
         scene.world.setBlock(util.grid.at(10, 2, 6), Blocks.AIR.defaultBlockState(), true);
-        scene.idle(30);
+        scene.idle(10);
 
         scene.world.setBlock(util.grid.at(3, 2, 6), Blocks.AIR.defaultBlockState(), true);
-        scene.idle(30);
-
-        scene.scaleSceneView(.65f);
-        scene.idle(5);
+        scene.idle(20);
 
         scene.overlay.showText(50)
                 .pointAt(util.vector.topOf(6, 2, 6))
@@ -101,18 +98,12 @@ public class BogeyStyleScenes {
                 .attachKeyFrame()
                 .colored(PonderPalette.BLUE)
                 .text("Click again to use a small style");
+        scene.idle(60);
 
         scene.overlay.showControls(new InputWindowElement(util.vector.topOf(6, 1, 6), Pointing.RIGHT).rightClick(), 15);
 
         scene.world.setBlock(util.grid.at(6, 2, 6), AllBlocks.SMALL_BOGEY.getDefaultState(), false);
-        scene.idle(30);
-
-        ItemStack wrench = AllItems.WRENCH.asStack();
-
-        switchBogeyStyle(scene, new BlockPos(6, 2, 6), 1);
-        scene.overlay.showControls(new InputWindowElement(util.vector.topOf(6, 2, 6), Pointing.RIGHT).rightClick()
-                .withItem(wrench), 80);
-        scene.idle(10);
+        scene.idle(60);
 
         scene.overlay.showText(50)
                 .pointAt(util.vector.topOf(6, 2, 6))
@@ -120,7 +111,14 @@ public class BogeyStyleScenes {
                 .attachKeyFrame()
                 .colored(PonderPalette.BLUE)
                 .text("Click the track again with ye wrench to cycle between bogey designs");
-        scene.idle(60);
+        scene.idle(40);
+
+        ItemStack wrench = AllItems.WRENCH.asStack();
+
+        switchBogeyStyle(scene, new BlockPos(6, 2, 6), 1);
+        scene.overlay.showControls(new InputWindowElement(util.vector.topOf(6, 2, 6), Pointing.RIGHT).rightClick()
+                .withItem(wrench), 15);
+        scene.idle(80);
 
         scene.overlay.showText(50)
                 .pointAt(util.vector.topOf(6, 2, 6))
@@ -131,9 +129,9 @@ public class BogeyStyleScenes {
         scene.idle(60);
 
         scene.overlay.showControls(new InputWindowElement(util.vector.topOf(6, 2, 6), Pointing.RIGHT).rightClick(), 15);
-        scene.idle(25);
 
         switchBogeyDirection(scene, new BlockPos(6, 2, 6), false);
+        scene.idle(40);
 
         scene.overlay.showText(30)
                 .pointAt(util.vector.topOf(6, 2, 6))
@@ -145,21 +143,20 @@ public class BogeyStyleScenes {
 
         scene.overlay.showControls(new InputWindowElement(util.vector.topOf(6, 2, 6), Pointing.RIGHT)
                 .rightClick().whileSneaking(), 15);
-        scene.idle(25);
 
         scene.world.setBlock(util.grid.at(6, 2, 6), ExtendedBogeysBlocks.SMALL_UNLINKED_BOGEY.getDefaultState(), false);
         switchBogeyDirection(scene, new BlockPos(6, 2, 6), false);
         switchBogeyStyle(scene, new BlockPos(6, 2, 6), 1);
 
-        scene.idle(30);
+        scene.idle(60);
 
-        scene.overlay.showText(60)
+        scene.overlay.showText(80)
                 .pointAt(util.vector.topOf(6, 2, 6))
                 .placeNearTarget()
                 .attachKeyFrame()
                 .colored(PonderPalette.BLUE)
                 .text("Unlinking a bogey allows you to have more than two bogeys on a carriage, the carriage will pivot around the linked bogeys");
-        scene.idle(70);
+        scene.idle(90);
     }
 
     public static void switchBogeyStyle(SceneBuilder scene, BlockPos pos, int style) {
