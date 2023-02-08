@@ -4,17 +4,17 @@ import com.rabbitminers.extendedbogeys.ExtendedBogeys;
 
 import javax.annotation.Nullable;
 import java.lang.reflect.Constructor;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class BogeyStyles {
     private static Map<Integer, Class<? extends IBogeyStyle>> bogeyStyleMap = new HashMap<>();
-    public static void addBogeyStyle(Class<? extends IBogeyStyle> customBogeyStyle) {
+    public static void addBogeyStyle(Class<? extends IBogeyStyle> customBogeyStyle, String modId) {
         bogeyStyleMap.put(bogeyStyleMap.size(), customBogeyStyle);
     }
     public static Collection<Class<? extends IBogeyStyle>> getAllBogeyStyles() {
+        List<IBogeyStyle> bogeyStyleList = new ArrayList<>();
+        for (int i = 0; i < bogeyStyleMap.size(); i++)
+            bogeyStyleList.add(getBogeyStyle(i));
         return bogeyStyleMap.values();
     }
     public static int getNumberOfBogeyStyleVariations() {
@@ -30,4 +30,7 @@ public class BogeyStyles {
             return new DefaultStyle();
         }
     }
+
+    // Serialise Load Order Of Mods
+
 }

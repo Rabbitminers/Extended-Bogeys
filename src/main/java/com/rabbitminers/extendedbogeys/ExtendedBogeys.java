@@ -25,7 +25,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
-// The value here should match an entry in the META-INF/mods.toml file
 @Mod(ExtendedBogeys.MODID)
 public class ExtendedBogeys {
     public static final String MODID = "extendedbogeys";
@@ -49,9 +48,9 @@ public class ExtendedBogeys {
         return new ResourceLocation(MODID, path);
     }
     private void setup(final FMLCommonSetupEvent event) {
-        BogeyStyles.addBogeyStyle(DefaultStyle.class);
-        BogeyStyles.addBogeyStyle(SingleAxisBogey.class);
-        BogeyStyles.addBogeyStyle(FourWheelBogey.class);
+        BogeyStyles.addBogeyStyle(DefaultStyle.class, ExtendedBogeys.MODID);
+        BogeyStyles.addBogeyStyle(SingleAxisBogey.class, ExtendedBogeys.MODID);
+        BogeyStyles.addBogeyStyle(FourWheelBogey.class, ExtendedBogeys.MODID);
         LOGGER.info("Registered bogey types from: " + ExtendedBogeys.MODID);
     }
 
