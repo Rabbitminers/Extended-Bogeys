@@ -11,8 +11,8 @@ import javax.annotation.Nullable;
 
 public interface IUnlinkedBogeyBlock extends IWrenchable {
     @OnlyIn(Dist.CLIENT)
-    public void render(@Nullable BlockState state, float wheelAngle, PoseStack ms, float partialTicks,
-                       MultiBufferSource buffers, int light, int overlay);
+    void render(@Nullable BlockState state, float wheelAngle, PoseStack ms, float partialTicks,
+                MultiBufferSource buffers, int light, int overlay);
 
-    default float getWheelRadius() { return 1f; };
+    default float getWheelRadius() { return 1f; }
 }

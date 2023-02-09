@@ -1,7 +1,6 @@
 package com.rabbitminers.extendedbogeys.mixin;
 
 import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyTileEntity;
-import com.simibubi.create.content.logistics.trains.track.StandardBogeyBlock;
 import com.simibubi.create.content.logistics.trains.track.StandardBogeyTileEntity;
 import com.simibubi.create.foundation.utility.NBTHelper;
 import net.minecraft.core.BlockPos;

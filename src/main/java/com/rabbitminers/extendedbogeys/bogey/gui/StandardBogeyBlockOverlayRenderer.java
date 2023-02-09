@@ -1,20 +1,14 @@
 package com.rabbitminers.extendedbogeys.bogey.gui;
 
-import com.jozufozu.flywheel.core.PartialModel;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.rabbitminers.extendedbogeys.bogey.styles.BogeyStyles;
 import com.rabbitminers.extendedbogeys.bogey.styles.IBogeyStyle;
-import com.simibubi.create.AllBlockPartials;
-import com.simibubi.create.AllBlocks;
-import com.simibubi.create.content.logistics.trains.IBogeyBlock;
 import com.simibubi.create.foundation.gui.element.GuiGameElement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.GameType;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.client.gui.ForgeIngameGui;
@@ -35,13 +29,12 @@ public class StandardBogeyBlockOverlayRenderer {
             return;
 
         HitResult objectMouseOver = mc.hitResult;
-        if (!(objectMouseOver instanceof BlockHitResult)) {
+        if (!(objectMouseOver instanceof BlockHitResult result)) {
             lastHovered = null;
             hoverTicks = 0;
             return;
         }
 
-        BlockHitResult result = (BlockHitResult) objectMouseOver;
         ClientLevel world = mc.level;
         BlockPos pos = result.getBlockPos();
 

@@ -1,7 +1,5 @@
 package com.rabbitminers.extendedbogeys.bogey.sizes;
 
-import net.minecraft.network.chat.TranslatableComponent;
-
 public enum BogeySize {
     SMALL("small", 0.25, true), // Default
     MEDIUM("medium", 0.5, false),

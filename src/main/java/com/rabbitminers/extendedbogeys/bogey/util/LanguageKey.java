@@ -1,9 +1,7 @@
 package com.rabbitminers.extendedbogeys.bogey.util;
 
 import com.rabbitminers.extendedbogeys.ExtendedBogeys;
-import com.simibubi.create.Create;
 import com.simibubi.create.foundation.utility.Components;
-import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.foundation.utility.LangBuilder;
 import com.simibubi.create.foundation.utility.LangNumberFormat;
 import net.minecraft.network.chat.Component;

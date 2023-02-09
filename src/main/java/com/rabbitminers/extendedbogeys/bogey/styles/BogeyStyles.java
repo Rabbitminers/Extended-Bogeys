@@ -6,7 +6,7 @@ import com.rabbitminers.extendedbogeys.bogey.styles.content.DefaultStyle;
 import java.util.*;
 
 public class BogeyStyles {
-    private static Map<Integer, Class<? extends IBogeyStyle>> bogeyStyleMap = new HashMap<>();
+    private static final Map<Integer, Class<? extends IBogeyStyle>> bogeyStyleMap = new HashMap<>();
     public static void addBogeyStyle(Class<? extends IBogeyStyle> customBogeyStyle, String modId) {
         bogeyStyleMap.put(bogeyStyleMap.size(), customBogeyStyle);
     }
@@ -23,7 +23,7 @@ public class BogeyStyles {
         try {
             Class<? extends IBogeyStyle> cls = bogeyStyleMap.get(id);
             if (cls == null) return DefaultStyle.class.newInstance();
-            return (IBogeyStyle) cls.newInstance();
+            return cls.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
             ExtendedBogeys.LOGGER.error("Invalid bogey style added, this may be due to a broken mod, contact the author");
             return new DefaultStyle();

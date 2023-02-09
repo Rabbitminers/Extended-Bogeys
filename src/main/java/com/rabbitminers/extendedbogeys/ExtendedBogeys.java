@@ -1,7 +1,7 @@
 package com.rabbitminers.extendedbogeys;
 
 import com.mojang.logging.LogUtils;
-import com.rabbitminers.extendedbogeys.bogey.styles.*;
+import com.rabbitminers.extendedbogeys.bogey.styles.BogeyStyles;
 import com.rabbitminers.extendedbogeys.bogey.styles.content.DefaultStyle;
 import com.rabbitminers.extendedbogeys.bogey.styles.content.FourWheelBogey;
 import com.rabbitminers.extendedbogeys.bogey.styles.content.SingleAxisBogey;

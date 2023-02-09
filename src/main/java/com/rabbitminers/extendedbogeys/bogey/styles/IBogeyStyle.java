@@ -4,7 +4,6 @@ import com.jozufozu.flywheel.api.MaterialManager;
 import com.jozufozu.flywheel.core.materials.model.ModelData;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.rabbitminers.extendedbogeys.bogey.sizes.BogeySize;
 import com.simibubi.create.foundation.config.AllConfigs;
 import com.simibubi.create.foundation.gui.element.GuiGameElement;
 import net.minecraft.core.Direction;
@@ -20,7 +19,7 @@ public interface IBogeyStyle {
     default String getStyleName() {
         return "Invalid Style";
     }
-    public default void renderInWorld(boolean isLarge, boolean isFacingForward, float wheelAngle, PoseStack ms,
+    default void renderInWorld(boolean isLarge, boolean isFacingForward, float wheelAngle, PoseStack ms,
                                       int light, VertexConsumer vb, BlockState air, DyeColor dyeColor) {
         if (isLarge) {
             renderLargeInWorld(wheelAngle, isFacingForward, ms, light, vb, air, dyeColor);
@@ -29,7 +28,7 @@ public interface IBogeyStyle {
         }
     }
 
-    public default void registerBogeyModelData(boolean isLarge, MaterialManager materialManager, DyeColor dyeColor) {
+    default void registerBogeyModelData(boolean isLarge, MaterialManager materialManager, DyeColor dyeColor) {
         if (isLarge) {
             registerLargeBogeyModelData(materialManager, dyeColor);
         } else {
@@ -38,11 +37,11 @@ public interface IBogeyStyle {
     }
 
     @Deprecated
-    public default List<GuiGameElement.GuiRenderBuilder> renderInGuiOverlay(boolean isLarge) {
+    default List<GuiGameElement.GuiRenderBuilder> renderInGuiOverlay(boolean isLarge) {
         if (isLarge) return renderLargeInGuiOverlay(); else return renderSmallInGuiOverlay();
     }
 
-    public default void renderInContraption(boolean isLarge, boolean isFacingForward, float wheelAngle, PoseStack ms,
+    default void renderInContraption(boolean isLarge, boolean isFacingForward, float wheelAngle, PoseStack ms,
                                             Direction assemblyDirection) {
         if (isLarge) {
             renderLargeInContraption(wheelAngle, isFacingForward, ms, assemblyDirection);

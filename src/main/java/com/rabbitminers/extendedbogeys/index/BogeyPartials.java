@@ -2,7 +2,6 @@ package com.rabbitminers.extendedbogeys.index;
 
 import com.jozufozu.flywheel.core.PartialModel;
 import com.rabbitminers.extendedbogeys.ExtendedBogeys;
-import com.simibubi.create.AllBlockPartials;
 
 public class BogeyPartials {
     public static final PartialModel

@@ -1,12 +1,7 @@
 package com.rabbitminers.extendedbogeys.bogey.sizes;
 
-import com.rabbitminers.extendedbogeys.bogey.sizes.BogeySize;
-import com.simibubi.create.foundation.block.DyedBlockList;
 import com.tterrag.registrate.util.entry.BlockEntry;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.Iterator;
