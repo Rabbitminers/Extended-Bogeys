@@ -4,6 +4,7 @@ import com.rabbitminers.extendedbogeys.bogey.styles.BogeyStyles;
 import com.rabbitminers.extendedbogeys.bogey.styles.IBogeyStyle;
 import com.rabbitminers.extendedbogeys.config.ExtendedBogeysConfig;
 import com.rabbitminers.extendedbogeys.config.server.ExtendedBogeysServerConfig;
+import com.rabbitminers.extendedbogeys.index.ExtendedBogeysBlocks;
 import com.rabbitminers.extendedbogeys.mixin_interface.ICarriageBogeyStyle;
 import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyTileEntity;
 import com.simibubi.create.content.contraptions.components.structureMovement.Contraption;
@@ -46,6 +47,8 @@ public abstract class MixinTrain {
     @Shadow public boolean currentlyBackwards;
 
     @Shadow public abstract void earlyTick(Level level);
+
+    @Shadow public int fuelTicks;
     private final AtomicReference<Float> maxSpeed = new AtomicReference<>(AllConfigs.SERVER.trains.trainTopSpeed.getF());
     @Inject(method = "<init>", at = @At("TAIL"), remap = false)
     public void onInit(UUID id, UUID owner, TrackGraph graph, List<Carriage> carriages, List<Integer> carriageSpacing, boolean doubleEnded, CallbackInfo ci) {
@@ -59,8 +62,11 @@ public abstract class MixinTrain {
     }
     @Inject(method = "maxSpeed", at = @At("RETURN"), remap = false, cancellable = true)
     public void overwriteMaxSpeed(CallbackInfoReturnable<Float> cir) {
+        if (ExtendedBogeysConfig.SERVER.trainsRequireFuel.get())
+            cir.setReturnValue(fuelTicks > 0 ? cir.getReturnValue() : 0);
+
         if (ExtendedBogeysConfig.SERVER.shouldApplyMaximumSpeed.get())
-            cir.setReturnValue(maxSpeed.get());
+            cir.setReturnValue(maxSpeed.get() / 20);
     }
 
     @Inject(method = "burnFuel", at = @At("TAIL"), remap = false)
