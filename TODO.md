@@ -22,8 +22,8 @@ These are given in the following format **Started  : Completed**
 - ☒ ☒ Unlinked/"Disabled" Bogeys
 - ☒ ☒ Config For Different For Features
 - ☒ ☒ Paintable / Dyeable Bogeys Interface
-- ☒ ☐ Fuel Requirements For Train To Run
-- ☒ ☐ Water Requirements For Trian to Run
+- ☒ ☒ Fuel Requirements For Train To Run
+- ☒ ☒ Water Requirements For Trian to Run
 
 ## Bogey Styles
 These are given in the following format **Modeled  : Textured : Implemented**
