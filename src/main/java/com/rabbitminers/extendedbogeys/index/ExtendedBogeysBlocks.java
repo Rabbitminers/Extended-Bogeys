@@ -11,6 +11,7 @@ import com.simibubi.create.content.logistics.trains.track.StandardBogeyBlock;
 import com.simibubi.create.foundation.data.BlockStateGen;
 import com.simibubi.create.foundation.data.BuilderTransformers;
 import com.simibubi.create.foundation.data.CreateRegistrate;
+import com.simibubi.create.foundation.data.TagGen;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.MaterialColor;
@@ -39,7 +40,7 @@ public class ExtendedBogeysBlocks {
             .properties(p -> p.color(MaterialColor.PODZOL))
             .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
             .properties(p -> p.noOcclusion())
-            .transform(AllTags.pickaxeOnly())
+            .transform(TagGen.pickaxeOnly())
             .blockstate((c, p) -> BlockStateGen.horizontalAxisBlock(c, p, s -> p.models()
                     .getExistingFile(p.modLoc("block/track/bogey/unlinked_top"))))
             .loot((p, l) -> p.dropOther(l, AllBlocks.RAILWAY_CASING.get()))
