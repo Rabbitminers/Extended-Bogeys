@@ -3,6 +3,7 @@ package com.rabbitminers.extendedbogeys.bogey.unlinked;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
+import com.rabbitminers.extendedbogeys.bogey.sizes.BogeySize;
 import com.rabbitminers.extendedbogeys.bogey.styles.BogeyStyles;
 import com.rabbitminers.extendedbogeys.bogey.styles.IBogeyStyle;
 import com.rabbitminers.extendedbogeys.index.ExtendedBogeysTileEntities;
@@ -133,6 +134,11 @@ public class UnlinkedStandardBogeyBlock extends Block implements ITE<UnlinkedBog
             return InteractionResult.CONSUME;
         }
         return InteractionResult.PASS;
+    }
+
+    @Override
+    public BogeySize getSize() {
+        return null;
     }
 
     @OnlyIn(Dist.CLIENT)

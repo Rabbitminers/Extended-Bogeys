@@ -1,5 +1,6 @@
 package com.rabbitminers.extendedbogeys.ponder.scenes;
 
+import com.rabbitminers.extendedbogeys.bogey.sizes.BogeySize;
 import com.rabbitminers.extendedbogeys.bogey.unlinked.IUnlinkedBogeyBlock;
 import com.rabbitminers.extendedbogeys.bogey.unlinked.UnlinkedBogeyTileEntity;
 import com.rabbitminers.extendedbogeys.index.ExtendedBogeysBlocks;
@@ -144,7 +145,7 @@ public class BogeyStyleScenes {
         scene.overlay.showControls(new InputWindowElement(util.vector.topOf(6, 2, 6), Pointing.RIGHT)
                 .rightClick().whileSneaking(), 15);
 
-        scene.world.setBlock(util.grid.at(6, 2, 6), ExtendedBogeysBlocks.SMALL_UNLINKED_BOGEY.getDefaultState(), false);
+        scene.world.setBlock(util.grid.at(6, 2, 6), ExtendedBogeysBlocks.UNLINKED_BOGEYS.get(BogeySize.SMALL).getDefaultState(), false);
         switchBogeyDirection(scene, new BlockPos(6, 2, 6), false);
         switchBogeyStyle(scene, new BlockPos(6, 2, 6), 1);
 

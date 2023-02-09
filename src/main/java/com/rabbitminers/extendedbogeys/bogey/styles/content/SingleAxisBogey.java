@@ -1,10 +1,11 @@
-package com.rabbitminers.extendedbogeys.bogey.styles;
+package com.rabbitminers.extendedbogeys.bogey.styles.content;
 
 import com.jozufozu.flywheel.api.MaterialManager;
 import com.jozufozu.flywheel.core.Materials;
 import com.jozufozu.flywheel.core.materials.model.ModelData;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.rabbitminers.extendedbogeys.bogey.styles.IBogeyStyle;
 import com.rabbitminers.extendedbogeys.bogey.util.LanguageKey;
 import com.rabbitminers.extendedbogeys.bogey.util.RotationUtils;
 import com.rabbitminers.extendedbogeys.index.BogeyPartials;
