@@ -5,12 +5,13 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "steampowered.refmap.json",
   "mixins": [
-    "MixinTrain",
-    "MixinTrainPacket",
+    "MixinAllTileEntities",
     "MixinCarriageBogey",
     "MixinStandardBogeyBlock",
+    "MixinStandardBogeyTileEntity",
     "MixinStationTileEntity",
-    "MixinStandardBogeyTileEntity"
+    "MixinTrain",
+    "MixinTrainPacket"
   ],
   "client": [
     "client.MixinBogeyDrive",
