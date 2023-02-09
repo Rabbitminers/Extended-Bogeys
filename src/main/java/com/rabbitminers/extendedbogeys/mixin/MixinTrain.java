@@ -21,7 +21,10 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.WaterFluid;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import org.checkerframework.checker.units.qual.A;
 import org.spongepowered.asm.mixin.Mixin;
@@ -44,11 +47,9 @@ import java.util.concurrent.atomic.AtomicReference;
 @Mixin(Train.class)
 public abstract class MixinTrain {
     @Shadow public List<Carriage> carriages;
-    @Shadow public boolean currentlyBackwards;
-
-    @Shadow public abstract void earlyTick(Level level);
-
     @Shadow public int fuelTicks;
+    @Shadow public double speed;
+    private int fluidTicks = 0;
     private final AtomicReference<Float> maxSpeed = new AtomicReference<>(AllConfigs.SERVER.trains.trainTopSpeed.getF());
     @Inject(method = "<init>", at = @At("TAIL"), remap = false)
     public void onInit(UUID id, UUID owner, TrackGraph graph, List<Carriage> carriages, List<Integer> carriageSpacing, boolean doubleEnded, CallbackInfo ci) {
@@ -62,18 +63,50 @@ public abstract class MixinTrain {
     }
     @Inject(method = "maxSpeed", at = @At("RETURN"), remap = false, cancellable = true)
     public void overwriteMaxSpeed(CallbackInfoReturnable<Float> cir) {
-        if (ExtendedBogeysConfig.SERVER.trainsRequireFuel.get())
-            cir.setReturnValue(fuelTicks > 0 ? cir.getReturnValue() : 0);
+        float maximumSpeed = cir.getReturnValue();
+        int ticks = fuelTicks;
 
         if (ExtendedBogeysConfig.SERVER.shouldApplyMaximumSpeed.get())
-            cir.setReturnValue(maxSpeed.get() / 20);
+            maximumSpeed = maxSpeed.get() / 20;
+
+        if (ExtendedBogeysConfig.SERVER.trainsConsumeWater.get())
+            ticks = Math.min(fluidTicks, fuelTicks);
+
+        if (ExtendedBogeysConfig.SERVER.trainsRequireFuel.get())
+            cir.setReturnValue(ticks > 0 ? maximumSpeed : 0);
     }
 
     @Inject(method = "burnFuel", at = @At("TAIL"), remap = false)
     public void burnFuel(CallbackInfo ci) {
-        carriages.forEach(carriage -> {
+        if (!ExtendedBogeysConfig.SERVER.trainsConsumeWater.get())
+            return;
+
+        if (fluidTicks > 0) {
+            fluidTicks --;
+            return;
+        }
+
+        boolean iterateFromBack = speed < 0;
+        int carriageCount = carriages.size();
+
+        for (int index = 0; index < carriageCount; index++) {
+            int i = iterateFromBack ? carriageCount - 1 - index : index;
+            Carriage carriage = carriages.get(i);
+
             IFluidHandler fluidHandler = carriage.storage.getFluids();
-        });
+            if (fluidHandler == null)
+                continue;
+
+            int tanks = fluidHandler.getTanks();
+
+            for (int j = 0; j < tanks; j++) {
+                FluidStack fluid = fluidHandler.getFluidInTank(j);
+                if (!(fluid.getFluid() instanceof WaterFluid) || fluid.getAmount() < 10)
+                    continue;
+                fluidHandler.drain(10, IFluidHandler.FluidAction.EXECUTE);
+                return;
+            }
+        }
     }
 
     @Inject(method="acceleration", at = @At("RETURN"), remap = false)

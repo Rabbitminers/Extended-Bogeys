@@ -1,9 +1,8 @@
 package com.rabbitminers.extendedbogeys.bogey.styles;
 
 import com.rabbitminers.extendedbogeys.ExtendedBogeys;
+import com.rabbitminers.extendedbogeys.bogey.styles.content.DefaultStyle;
 
-import javax.annotation.Nullable;
-import java.lang.reflect.Constructor;
 import java.util.*;
 
 public class BogeyStyles {
