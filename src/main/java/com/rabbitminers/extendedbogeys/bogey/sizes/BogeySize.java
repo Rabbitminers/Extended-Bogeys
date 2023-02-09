@@ -1,5 +1,7 @@
 package com.rabbitminers.extendedbogeys.bogey.sizes;
 
+import net.minecraft.network.chat.TranslatableComponent;
+
 public enum BogeySize {
     SMALL("small", 0.25, true), // Default
     MEDIUM("medium", 0.5, false),
@@ -10,6 +12,7 @@ public enum BogeySize {
     private final String name;
     private final double wheelRadius;
     private final boolean isDefault;
+
     BogeySize(String name, double wheelRadius, boolean isDefault) {
         this.name = name;
         this.wheelRadius = wheelRadius;
@@ -19,6 +22,7 @@ public enum BogeySize {
     public String getName() {
         return name;
     }
+
     public double getWheelRadius() {
         return wheelRadius;
     }

@@ -4,22 +4,17 @@ import com.rabbitminers.extendedbogeys.ExtendedBogeys;
 import com.rabbitminers.extendedbogeys.bogey.sizes.CustomSizeBogeyBlock;
 import com.rabbitminers.extendedbogeys.bogey.unlinked.UnlinkedBogeyCarriageMovementBehaviour;
 import com.rabbitminers.extendedbogeys.bogey.unlinked.UnlinkedStandardBogeyBlock;
-import com.rabbitminers.extendedbogeys.bogey.util.BogeyBlockList;
+import com.rabbitminers.extendedbogeys.bogey.sizes.BogeyBlockList;
 import com.simibubi.create.AllBlocks;
-import com.simibubi.create.AllTags;
 import com.simibubi.create.content.logistics.trains.track.StandardBogeyBlock;
 import com.simibubi.create.foundation.data.BlockStateGen;
 import com.simibubi.create.foundation.data.BuilderTransformers;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.data.TagGen;
-import com.tterrag.registrate.util.entry.BlockEntry;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.MaterialColor;
 
-import java.util.List;
-
 import static com.simibubi.create.AllMovementBehaviours.movementBehaviour;
-import static com.simibubi.create.Create.REGISTRATE;
 
 public class ExtendedBogeysBlocks {
     private static final CreateRegistrate REGISTRATE = ExtendedBogeys.registrate();
@@ -35,6 +30,8 @@ public class ExtendedBogeysBlocks {
        }
        return null;
     });
+
+    // Unlinked Bogey
 
     public static final BogeyBlockList<? extends UnlinkedStandardBogeyBlock> UNLINKED_BOGEYS = new BogeyBlockList<>(size -> REGISTRATE.block(size.getName() + "_unlinked_bogey", p -> new UnlinkedStandardBogeyBlock(p, false))
             .properties(p -> p.color(MaterialColor.PODZOL))
