@@ -1,4 +1,4 @@
-package com.rabbitminers.extendedbogeys.bogey.util;
+package com.rabbitminers.extendedbogeys.bogey.sizes;
 
 import com.rabbitminers.extendedbogeys.bogey.sizes.BogeySize;
 import com.simibubi.create.foundation.block.DyedBlockList;
