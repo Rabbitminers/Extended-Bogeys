@@ -80,9 +80,8 @@ public abstract class MixinStandardBogeyBlock extends Block implements IStyledSt
 
         if (player.isShiftKeyDown() && !level.isClientSide && interactionHand == InteractionHand.MAIN_HAND
                 && player.getMainHandItem().getItem() == Items.AIR) {
-            BlockState unlinkedBlockState = large
-                    ? ExtendedBogeysBlocks.LARGE_UNLINKED_BOGEY.getDefaultState()
-                    : ExtendedBogeysBlocks.SMALL_UNLINKED_BOGEY.getDefaultState();
+            BlockState unlinkedBlockState = large ? ExtendedBogeysBlocks.UNLINKED_BOGEYS.get(BogeySize.LARGE).getDefaultState()
+                    : ExtendedBogeysBlocks.UNLINKED_BOGEYS.get(BogeySize.SMALL).getDefaultState();
 
             level.setBlock(blockPos, unlinkedBlockState
                     .setValue(AXIS, state.getValue(AXIS)), 3);
