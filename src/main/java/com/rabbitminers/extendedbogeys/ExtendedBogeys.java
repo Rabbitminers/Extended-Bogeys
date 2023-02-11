@@ -42,9 +42,11 @@ public class ExtendedBogeys {
         eventBus.addListener(this::setup);
         MinecraftForge.EVENT_BUS.register(this);
     }
+
     public static ResourceLocation asResource(String path) {
         return new ResourceLocation(MODID, path);
     }
+
     private void setup(final FMLCommonSetupEvent event) {
         BogeyStyles.addBogeyStyle(DefaultStyle.class, ExtendedBogeys.MODID);
         BogeyStyles.addBogeyStyle(SingleAxisBogey.class, ExtendedBogeys.MODID);
