@@ -10,7 +10,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 1
-map_Kd C:\\Users\\charl\\OneDrive\\bogeys\\models\\0-6-0\\partials-redone\\frame\\rod2.png
+map_Kd #rod2
 
 newmtl m_6a9d7fbf-aa49-1bff-66cd-c450552042ed
 Ns 0.000000
@@ -21,7 +21,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 1
-map_Kd C:\\Users\\charl\\OneDrive\\bogeys\\models\\0-6-0\\partials-redone\\frame\\piston.png
+map_Kd #piston
 
 newmtl m_9c2be221-8c0a-3360-6730-aeb98e086c42
 Ns 0.000000
@@ -32,7 +32,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 1
-map_Kd C:\\Users\\charl\\OneDrive\\bogeys\\models\\0-6-0\\partials-redone\\frame\\frame4.png
+map_Kd #frame4
 
 newmtl m_e1c4f6be-408a-4f63-7125-cec656d5ddfa
 Ns 0.000000
@@ -43,7 +43,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 1
-map_Kd C:\\Users\\charl\\OneDrive\\bogeys\\models\\0-6-0\\partials-redone\\frame\\piston2.png
+map_Kd #piston2
 
 newmtl m_f82736cf-0d4e-93a6-74b9-db44c45f7d49.006
 Ns 0.000000
@@ -54,7 +54,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 1
-map_Kd C:\\Users\\charl\\OneDrive\\bogeys\\models\\0-6-0\\partials-redone\\frame\\rod.png
+map_Kd #rod
 
 newmtl none.008
 Ns 0.000000

@@ -10,7 +10,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 1
-map_Kd C:\\Users\\charl\\OneDrive\\bogeys\\models\\0-6-0\\partials-redone\\eccentricrod\\rod2.png
+map_Kd #rod2
 
 newmtl m_f82736cf-0d4e-93a6-74b9-db44c45f7d49.001
 Ns 0.000000
@@ -21,7 +21,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 1
-map_Kd C:\\Users\\charl\\OneDrive\\bogeys\\models\\0-6-0\\partials-redone\\eccentricrod\\rod.png
+map_Kd #rod
 
 newmtl none.001
 Ns 0.000000
