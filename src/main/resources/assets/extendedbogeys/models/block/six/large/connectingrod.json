@@ -1,0 +1,6 @@
+{
+  "parent": "extendedbogeys:block/six/large/textures",
+  "loader": "forge:obj",
+  "flip-v": true,
+  "model": "extendedbogeys:models/block/six/large/connectingrod.obj"
+}
