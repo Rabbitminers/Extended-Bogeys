@@ -1,4 +1,13 @@
 {
+  "extendedbogeys.bogeys.bogey": "Train Bogey",
+
+  "extendedbogeys.bogeys.sizes.small": "Small",
+  "extendedbogeys.bogeys.sizes.medium": "Medium",
+  "extendedbogeys.bogeys.sizes.large": "Large",
+  "extendedbogeys.bogeys.sizes.extra_large": "Extra Large",
+  "extendedbogeys.bogeys.sizes.huge": "Huge",
+  "extendedbogeys.bogeys.sizes.text": "Bogey Sizes: ",
+
   "extendedbogeys.tooltips.rotation": "Rotated Bogey!",
   "extendedbogeys.tooltips.link": "Linked Bogey!",
   "extendedbogeys.tooltips.unlink": "Unlinked Bogey!",
