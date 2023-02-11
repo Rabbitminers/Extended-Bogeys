@@ -1,0 +1,34 @@
+# Blender MTL File: 'None'
+# Material Count: 3
+
+newmtl m_57c7429b-e50a-c1fa-1231-7be00e362f7d.007
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd C:\\Users\\charl\\OneDrive\\bogeys\\models\\0-6-0\\partials-redone\\connectingrod\\rod2.png
+
+newmtl m_f82736cf-0d4e-93a6-74b9-db44c45f7d49.005
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd C:\\Users\\charl\\OneDrive\\bogeys\\models\\0-6-0\\partials-redone\\connectingrod\\rod.png
+
+newmtl none.007
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
