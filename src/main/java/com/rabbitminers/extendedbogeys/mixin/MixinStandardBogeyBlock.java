@@ -6,14 +6,13 @@ import com.mojang.math.Vector3f;
 import com.rabbitminers.extendedbogeys.bogey.sizes.BogeySize;
 import com.rabbitminers.extendedbogeys.bogey.styles.BogeyStyles;
 import com.rabbitminers.extendedbogeys.bogey.styles.IBogeyStyle;
+import com.rabbitminers.extendedbogeys.bogey.util.BogeySizeUtils;
 import com.rabbitminers.extendedbogeys.index.ExtendedBogeysBlocks;
 import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyBlock;
 import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyTileEntity;
 import com.simibubi.create.AllBlocks;
-import com.simibubi.create.content.contraptions.goggles.IHaveGoggleInformation;
 import com.simibubi.create.content.contraptions.relays.elementary.ShaftBlock;
 import com.simibubi.create.content.contraptions.wrench.WrenchItem;
-import com.simibubi.create.content.logistics.trains.IBogeyBlock;
 import com.simibubi.create.content.logistics.trains.track.StandardBogeyBlock;
 import com.simibubi.create.foundation.render.CachedBufferer;
 import com.simibubi.create.foundation.utility.Iterate;
@@ -22,11 +21,9 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -43,15 +40,10 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.util.Collections;
-import java.util.List;
 
 @Mixin(StandardBogeyBlock.class)
 public abstract class MixinStandardBogeyBlock extends Block implements IStyledStandardBogeyBlock {
@@ -63,7 +55,7 @@ public abstract class MixinStandardBogeyBlock extends Block implements IStyledSt
 
     @Shadow protected abstract void renderLargeBogey(float wheelAngle, PoseStack ms, int light, VertexConsumer vb, BlockState air);
 
-    public MixinStandardBogeyBlock(Properties pProperties, BogeySize bogeySize) {
+    public MixinStandardBogeyBlock(Properties pProperties) {
         super(pProperties);
     }
 
@@ -77,6 +69,7 @@ public abstract class MixinStandardBogeyBlock extends Block implements IStyledSt
             return InteractionResult.FAIL;
         CompoundTag tileData = be.getTileData();
 
+        // Unlink bogey
         if (player.isShiftKeyDown() && !level.isClientSide && interactionHand == InteractionHand.MAIN_HAND
                 && player.getMainHandItem().getItem() == Items.AIR) {
             BlockState unlinkedBlockState = large ? ExtendedBogeysBlocks.UNLINKED_BOGEYS.get(BogeySize.LARGE).getDefaultState()
@@ -132,16 +125,45 @@ public abstract class MixinStandardBogeyBlock extends Block implements IStyledSt
             int bogeyStyle = te.getBogeyStyle(tileData);
             bogeyStyle = bogeyStyle >= BogeyStyles.getNumberOfBogeyStyleVariations()-1 ? 0 : bogeyStyle + 1;
 
+            BogeySize bogeySize = large ? BogeySize.LARGE : BogeySize.SMALL;
             IBogeyStyle style = BogeyStyles.getBogeyStyle(bogeyStyle);
 
-            te.setBogeyStyle(tileData, bogeyStyle);
-            be.setChanged();
+            if (style.implemntedSizes().contains(bogeySize)) {
+                te.setBogeyStyle(tileData, bogeyStyle);
+                be.setChanged();
 
-            player.displayClientMessage(new TextComponent("Bogey Style: " + bogeyStyle + " \"" + style.getStyleName() + "\""), true);
-
+                player.displayClientMessage(new TextComponent("Bogey Style: " + bogeyStyle + " \"" + style.getStyleName() + "\""), true);
+            } else {
+                // Changed from recursive implementation
+                for (int i = 0; i < BogeySize.values().length; i++) {
+                    bogeySize = bogeySize.increment();
+                    System.out.println("Trying" + bogeySize.getName());
+                    boolean success = updateSize(bogeySize, state, level, blockPos, te, tileData, bogeyStyle, style);
+                    if (success) break;
+                }
+                player.displayClientMessage(new TextComponent("Updated Size & Set Bogey Style: " + bogeyStyle + " \"" + style.getStyleName() + "\""), true);
+            }
             return InteractionResult.CONSUME;
         }
         return InteractionResult.PASS;
+    }
+
+    private boolean updateSize(BogeySize size, BlockState state, Level level, BlockPos blockPos, IStyledStandardBogeyTileEntity te,
+                               CompoundTag tileData, int bogeyStyle, IBogeyStyle style) {
+        if (style.implemntedSizes().contains(size)) {
+            BlockState newBogeyState = BogeySizeUtils.blockStateFromBogeySize(size);
+            level.setBlock(blockPos, newBogeyState.setValue(AXIS, state.getValue(AXIS)), 3);
+            IStyledStandardBogeyTileEntity newBlockEntity =
+                    (IStyledStandardBogeyTileEntity) level.getBlockEntity(blockPos);
+            CompoundTag newTileData = ((BlockEntity) newBlockEntity).getTileData();
+
+            newBlockEntity.setPaintColour(newTileData, te.getPaintColour(tileData));
+            newBlockEntity.setIsFacingForwards(newTileData, te.getIsFacingForwards(tileData));
+
+            newBlockEntity.setBogeyStyle(newTileData, bogeyStyle);
+            return true;
+        }
+        return false;
     }
 
     @OnlyIn(Dist.CLIENT)

@@ -23,6 +23,10 @@ public enum BogeySize {
         this.isDefault = isDefault;
     }
 
+    public BogeySize increment() {
+        return values()[(ordinal() + 1) % values().length];
+    }
+
     public String getName() {
         return name;
     }
