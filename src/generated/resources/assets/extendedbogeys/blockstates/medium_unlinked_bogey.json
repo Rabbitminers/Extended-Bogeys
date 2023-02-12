@@ -1,0 +1,11 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "extendedbogeys:block/track/bogey/unlinked_top",
+      "y": 90
+    },
+    "axis=z": {
+      "model": "extendedbogeys:block/track/bogey/unlinked_top"
+    }
+  }
+}
