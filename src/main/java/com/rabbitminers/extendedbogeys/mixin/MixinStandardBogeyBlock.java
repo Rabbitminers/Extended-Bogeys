@@ -137,7 +137,6 @@ public abstract class MixinStandardBogeyBlock extends Block implements IStyledSt
                 // Changed from recursive implementation
                 for (int i = 0; i < BogeySize.values().length; i++) {
                     bogeySize = bogeySize.increment();
-                    System.out.println("Trying" + bogeySize.getName());
                     boolean success = updateSize(bogeySize, state, level, blockPos, te, tileData, bogeyStyle, style);
                     if (success) break;
                 }
