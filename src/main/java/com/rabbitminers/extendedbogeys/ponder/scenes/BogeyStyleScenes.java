@@ -1,8 +1,6 @@
 package com.rabbitminers.extendedbogeys.ponder.scenes;
 
 import com.rabbitminers.extendedbogeys.bogey.sizes.BogeySize;
-import com.rabbitminers.extendedbogeys.bogey.unlinked.IUnlinkedBogeyBlock;
-import com.rabbitminers.extendedbogeys.bogey.unlinked.UnlinkedBogeyTileEntity;
 import com.rabbitminers.extendedbogeys.index.ExtendedBogeysBlocks;
 import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyTileEntity;
 import com.simibubi.create.AllBlocks;
@@ -21,8 +19,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
-
-import java.util.concurrent.atomic.AtomicReference;
 
 public class BogeyStyleScenes {
     public static void styling(SceneBuilder scene, SceneBuildingUtil util) {

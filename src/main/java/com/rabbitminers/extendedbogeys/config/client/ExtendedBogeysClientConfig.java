@@ -1,8 +1,6 @@
 package com.rabbitminers.extendedbogeys.config.client;
 
-import com.rabbitminers.extendedbogeys.ExtendedBogeysClient;
 import com.rabbitminers.extendedbogeys.config.ExtendedBogeysConfigBase;
-import com.rabbitminers.extendedbogeys.config.common.ExtendedBogeysCommonConfig;
 
 public class ExtendedBogeysClientConfig extends ExtendedBogeysConfigBase {
     @Override

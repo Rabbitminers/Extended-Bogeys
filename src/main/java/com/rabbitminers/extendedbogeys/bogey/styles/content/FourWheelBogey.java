@@ -5,6 +5,7 @@ import com.jozufozu.flywheel.core.Materials;
 import com.jozufozu.flywheel.core.materials.model.ModelData;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.rabbitminers.extendedbogeys.bogey.sizes.BogeySize;
 import com.rabbitminers.extendedbogeys.bogey.styles.IBogeyStyle;
 import com.rabbitminers.extendedbogeys.bogey.util.LanguageKey;
 import com.rabbitminers.extendedbogeys.bogey.util.RotationUtils;
@@ -12,8 +13,6 @@ import com.rabbitminers.extendedbogeys.index.BogeyPartials;
 import com.simibubi.create.AllBlockPartials;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.contraptions.relays.elementary.ShaftBlock;
-import com.simibubi.create.content.logistics.trains.entity.BogeyInstance;
-import com.simibubi.create.content.logistics.trains.track.StandardBogeyBlock;
 import com.simibubi.create.foundation.render.CachedBufferer;
 import com.simibubi.create.foundation.utility.Iterate;
 import net.minecraft.core.Direction;
@@ -21,6 +20,7 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class FourWheelBogey implements IBogeyStyle {
@@ -242,6 +242,11 @@ public class FourWheelBogey implements IBogeyStyle {
         }
 
         IBogeyStyle.super.renderSmallInWorld(wheelAngle, isFacingForward, ms, light, vb, air, dyeColor);
+    }
+
+    @Override
+    public List<BogeySize> implemntedSizes() {
+        return Arrays.asList(BogeySize.SMALL, BogeySize.LARGE);
     }
 
     @Override

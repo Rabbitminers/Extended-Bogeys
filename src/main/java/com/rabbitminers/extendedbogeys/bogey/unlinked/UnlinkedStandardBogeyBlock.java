@@ -6,6 +6,8 @@ import com.mojang.math.Vector3f;
 import com.rabbitminers.extendedbogeys.bogey.sizes.BogeySize;
 import com.rabbitminers.extendedbogeys.bogey.styles.BogeyStyles;
 import com.rabbitminers.extendedbogeys.bogey.styles.IBogeyStyle;
+import com.rabbitminers.extendedbogeys.bogey.util.BogeySizeUtils;
+import com.rabbitminers.extendedbogeys.index.ExtendedBogeysBlocks;
 import com.rabbitminers.extendedbogeys.index.ExtendedBogeysTileEntities;
 import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyBlock;
 import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyTileEntity;
@@ -124,16 +126,44 @@ public class UnlinkedStandardBogeyBlock extends Block implements ITE<UnlinkedBog
             int bogeyStyle = te.getBogeyStyle(tileData);
             bogeyStyle = bogeyStyle >= BogeyStyles.getNumberOfBogeyStyleVariations()-1 ? 0 : bogeyStyle + 1;
 
+            BogeySize bogeySize = large ? BogeySize.LARGE : BogeySize.SMALL;
             IBogeyStyle style = BogeyStyles.getBogeyStyle(bogeyStyle);
 
-            te.setBogeyStyle(tileData, bogeyStyle);
-            be.setChanged();
+            if (style.implemntedSizes().contains(bogeySize)) {
+                te.setBogeyStyle(tileData, bogeyStyle);
+                be.setChanged();
 
-            player.displayClientMessage(new TextComponent("Bogey Style: " + bogeyStyle + " \"" + style.getStyleName() + "\""), true);
-
+                player.displayClientMessage(new TextComponent("Bogey Style: " + bogeyStyle + " \"" + style.getStyleName() + "\""), true);
+            } else {
+                // Changed from recursive implementation
+                for (int i = 0; i < BogeySize.values().length; i++) {
+                    bogeySize = bogeySize.increment();
+                    boolean success = updateSize(bogeySize, state, level, blockPos, te, tileData, bogeyStyle, style);
+                    if (success) break;
+                }
+                player.displayClientMessage(new TextComponent("Updated Size & Set Bogey Style: " + bogeyStyle + " \"" + style.getStyleName() + "\""), true);
+            }
             return InteractionResult.CONSUME;
         }
         return InteractionResult.PASS;
+    }
+
+    private boolean updateSize(BogeySize size, BlockState state, Level level, BlockPos blockPos, IStyledStandardBogeyTileEntity te,
+                               CompoundTag tileData, int bogeyStyle, IBogeyStyle style) {
+        if (style.implemntedSizes().contains(size)) {
+            BlockState newBogeyState = ExtendedBogeysBlocks.UNLINKED_BOGEYS.get(size).getDefaultState();
+            level.setBlock(blockPos, newBogeyState.setValue(AXIS, state.getValue(AXIS)), 3);
+            IStyledStandardBogeyTileEntity newBlockEntity =
+                    (IStyledStandardBogeyTileEntity) level.getBlockEntity(blockPos);
+            CompoundTag newTileData = ((BlockEntity) newBlockEntity).getTileData();
+
+            newBlockEntity.setPaintColour(newTileData, te.getPaintColour(tileData));
+            newBlockEntity.setIsFacingForwards(newTileData, te.getIsFacingForwards(tileData));
+
+            newBlockEntity.setBogeyStyle(newTileData, bogeyStyle);
+            return true;
+        }
+        return false;
     }
 
     @Override

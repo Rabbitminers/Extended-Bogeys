@@ -1,10 +1,10 @@
 package com.rabbitminers.extendedbogeys.index;
 
 import com.rabbitminers.extendedbogeys.ExtendedBogeys;
+import com.rabbitminers.extendedbogeys.bogey.sizes.BogeyBlockList;
 import com.rabbitminers.extendedbogeys.bogey.sizes.CustomSizeBogeyBlock;
 import com.rabbitminers.extendedbogeys.bogey.unlinked.UnlinkedBogeyCarriageMovementBehaviour;
 import com.rabbitminers.extendedbogeys.bogey.unlinked.UnlinkedStandardBogeyBlock;
-import com.rabbitminers.extendedbogeys.bogey.sizes.BogeyBlockList;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.logistics.trains.track.StandardBogeyBlock;
 import com.simibubi.create.foundation.data.BlockStateGen;
@@ -32,8 +32,8 @@ public class ExtendedBogeysBlocks {
     });
 
     // Unlinked Bogey
-
-    public static final BogeyBlockList<? extends UnlinkedStandardBogeyBlock> UNLINKED_BOGEYS = new BogeyBlockList<>(size -> REGISTRATE.block(size.getName() + "_unlinked_bogey", p -> new UnlinkedStandardBogeyBlock(p, false))
+    public static final BogeyBlockList<? extends UnlinkedStandardBogeyBlock> UNLINKED_BOGEYS = new BogeyBlockList<>(size ->
+        REGISTRATE.block(size.getName() + "_unlinked_bogey", p -> new UnlinkedStandardBogeyBlock(p, size.isDriver()))
             .properties(p -> p.color(MaterialColor.PODZOL))
             .properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
             .properties(p -> p.noOcclusion())

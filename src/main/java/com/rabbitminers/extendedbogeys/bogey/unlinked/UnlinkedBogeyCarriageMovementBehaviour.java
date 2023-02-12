@@ -2,21 +2,14 @@ package com.rabbitminers.extendedbogeys.bogey.unlinked;
 
 import com.jozufozu.flywheel.core.virtual.VirtualRenderWorld;
 import com.rabbitminers.extendedbogeys.mixin_interface.ICarriageContraptionEntity;
-import com.simibubi.create.content.contraptions.components.actors.DrillRenderer;
 import com.simibubi.create.content.contraptions.components.structureMovement.MovementBehaviour;
 import com.simibubi.create.content.contraptions.components.structureMovement.MovementContext;
 import com.simibubi.create.content.contraptions.components.structureMovement.render.ContraptionMatrices;
 import com.simibubi.create.content.logistics.trains.entity.CarriageContraptionEntity;
-import com.simibubi.create.foundation.utility.AnimationTickHolder;
-import com.simibubi.create.foundation.utility.VecHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.phys.Vec3;
 
 import java.util.Map;
 

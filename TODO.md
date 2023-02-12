@@ -23,8 +23,11 @@ These are given in the following format **Started  : Completed**
 - ☒ ☒ Config For Different For Features
 - ☒ ☒ Paintable / Dyeable Bogeys Interface
 - ☒ ☒ Fuel Requirements For Train To Run
-- ☒ ☒ Water Requirements For Trian to Run
-- ☒ ☐ Configurable GUI for remaining water / fuel
+- ☒ ☒ Water Requirements For Train to Run
+- ☒ ☒ More bogey sizes
+- ☒ ☐ Interface for styles to specify utilised sizes
+- ☒ ☒ Ponder scene explaining bogey styling (probably needs  an update)
+- ☒ ☐ Configurable HUD elements about water / fuel levels
 
 ## Bogey Styles
 These are given in the following format **Modeled  : Textured : Implemented**
@@ -40,7 +43,7 @@ If you have any requests please contact us and ask.
 - ☒ ☐ ☐ ? Encased Four Wheel Driver (Large)
 - ☒ ☒ ☒ Four Wheel Trailer (Small)
 - ☒ ☐ ☐ Six Wheel (Small)
-- ☒ ☒ ☐ Six Wheel (Large)
+- ☒ ☒ ☒ Six Wheel (Large)
 - ☒ ☐ ☐ Flywheel Scale Driver (Large)
 
 (Some planned styles are missing, we need to put together a co-ordinated list)

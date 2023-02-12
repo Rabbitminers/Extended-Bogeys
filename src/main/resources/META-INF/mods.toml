@@ -11,15 +11,13 @@ modId="extendedbogeys" #mandatory
 # If you prefer this can be manually set
 version="${file.jarVersion}" #mandatory
 
-# TODO: Add your mods name
-displayName="Create Addon Template" #mandatory
+displayName="Extended Bogeys" #mandatory
 
 logoFile="extendedbogeys.png" #optional
 
-credits="Rabbitminers" #optional
+credits="Rabbitminers, RailFanNate, Keanes, Matt" #optional
 
-# TODO: Add your name here
-authors="Rabbitminers, RailFanNate, Keanes" #optional
+authors="Rabbitminers, RailFanNate, Keanes, Matt" #optional
 # The description text for the mod (multi line!) (#mandatory)
 # TODO: Describe your mod
 description='''

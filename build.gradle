@@ -22,7 +22,7 @@ apply plugin: 'org.spongepowered.mixin'
 
 
 
-version = '0.2.7-1.18.2-0.5.0.h'
+version = '0.3.4-1.18.2-0.5.0.h'
 group = 'com.rabbitminers.extendedbogeys' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'extendedbogeys'
 
@@ -134,23 +134,20 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}:${jei_version}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${jei_minecraft_version}:${jei_version}")
 
-    /*
     // Dave's Building Extended (Showcases)
-    implementation fg.deobf("curse.maven:dbe-568645:4258159")
+    // implementation fg.deobf("curse.maven:dbe-568645:4258159")
 
     // World Edit (Showcases)
     implementation fg.deobf("curse.maven:we-225608:3697298")
 
     // Selene Lib (For Supplementaries)
-    implementation fg.deobf("curse.maven:se-499980:3842421")
+    // implementation fg.deobf("curse.maven:se-499980:3842421")
 
     // Supplementaries
-    implementation fg.deobf("curse.maven:su-412082:4348828")
+    // implementation fg.deobf("curse.maven:su-412082:4348828")
 
     // Macaw's Trapdoors
-    implementation fg.deobf("curse.maven:mt-400933:4181456")
-
-     */
+    // implementation fg.deobf("curse.maven:mt-400933:4181456")
 
     // Sponge
     annotationProcessor "org.spongepowered:mixin:0.8.3:processor"

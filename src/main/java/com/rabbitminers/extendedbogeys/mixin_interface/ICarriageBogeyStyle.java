@@ -6,7 +6,7 @@ import net.minecraft.world.item.DyeColor;
 public interface ICarriageBogeyStyle {
     default Direction getAssemblyDirection() { return Direction.NORTH; }
 
-    default void setAssemblyDirection(Direction assemblyDirection) {};
+    default void setAssemblyDirection(Direction assemblyDirection) {}
 
     default int getStyle() { return 0; }
 

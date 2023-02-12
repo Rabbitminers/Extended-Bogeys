@@ -1,9 +1,7 @@
 package com.rabbitminers.extendedbogeys;
 
 import com.rabbitminers.extendedbogeys.bogey.gui.StandardBogeyBlockOverlayRenderer;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.client.gui.ForgeIngameGui;
 import net.minecraftforge.client.gui.OverlayRegistry;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

@@ -32,7 +32,7 @@ public abstract class ExtendedBogeysConfigBase {
     public abstract String getName();
 
     @FunctionalInterface
-    protected static interface IValueProvider<V, T extends ForgeConfigSpec.ConfigValue<V>>
+    protected interface IValueProvider<V, T extends ForgeConfigSpec.ConfigValue<V>>
             extends Function<ForgeConfigSpec.Builder, T> {
     }
 
@@ -87,7 +87,7 @@ public abstract class ExtendedBogeysConfigBase {
     public class CValue<V, T extends ForgeConfigSpec.ConfigValue<V>> {
         protected ForgeConfigSpec.ConfigValue<V> value;
         protected String name;
-        private ExtendedBogeysConfigBase.IValueProvider<V, T> provider;
+        private final ExtendedBogeysConfigBase.IValueProvider<V, T> provider;
 
         public CValue(String name, ExtendedBogeysConfigBase.IValueProvider<V, T> provider, String... comment) {
             this.name = name;
@@ -132,8 +132,8 @@ public abstract class ExtendedBogeysConfigBase {
      */
     public class ConfigGroup extends ExtendedBogeysConfigBase.CValue<Boolean, ForgeConfigSpec.BooleanValue> {
 
-        private int groupDepth;
-        private String[] comment;
+        private final int groupDepth;
+        private final String[] comment;
 
         public ConfigGroup(String name, int depth, String... comment) {
             super(name, builder -> null, comment);

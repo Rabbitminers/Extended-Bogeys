@@ -13,14 +13,17 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public interface IBogeyStyle {
+
+    default List<BogeySize> implemntedSizes() {
+        return new ArrayList<>();
+    }
     default String getStyleName() {
         return "Invalid Style";
     }
-    public default void renderInWorld(boolean isLarge, boolean isFacingForward, float wheelAngle, PoseStack ms,
+    default void renderInWorld(boolean isLarge, boolean isFacingForward, float wheelAngle, PoseStack ms,
                                       int light, VertexConsumer vb, BlockState air, DyeColor dyeColor) {
         if (isLarge) {
             renderLargeInWorld(wheelAngle, isFacingForward, ms, light, vb, air, dyeColor);
@@ -29,7 +32,7 @@ public interface IBogeyStyle {
         }
     }
 
-    public default void registerBogeyModelData(boolean isLarge, MaterialManager materialManager, DyeColor dyeColor) {
+    default void registerBogeyModelData(boolean isLarge, MaterialManager materialManager, DyeColor dyeColor) {
         if (isLarge) {
             registerLargeBogeyModelData(materialManager, dyeColor);
         } else {
@@ -38,11 +41,11 @@ public interface IBogeyStyle {
     }
 
     @Deprecated
-    public default List<GuiGameElement.GuiRenderBuilder> renderInGuiOverlay(boolean isLarge) {
+    default List<GuiGameElement.GuiRenderBuilder> renderInGuiOverlay(boolean isLarge) {
         if (isLarge) return renderLargeInGuiOverlay(); else return renderSmallInGuiOverlay();
     }
 
-    public default void renderInContraption(boolean isLarge, boolean isFacingForward, float wheelAngle, PoseStack ms,
+    default void renderInContraption(boolean isLarge, boolean isFacingForward, float wheelAngle, PoseStack ms,
                                             Direction assemblyDirection) {
         if (isLarge) {
             renderLargeInContraption(wheelAngle, isFacingForward, ms, assemblyDirection);

@@ -1,10 +1,11 @@
 package com.rabbitminers.extendedbogeys;
 
 import com.mojang.logging.LogUtils;
-import com.rabbitminers.extendedbogeys.bogey.styles.*;
+import com.rabbitminers.extendedbogeys.bogey.styles.BogeyStyles;
 import com.rabbitminers.extendedbogeys.bogey.styles.content.DefaultStyle;
 import com.rabbitminers.extendedbogeys.bogey.styles.content.FourWheelBogey;
 import com.rabbitminers.extendedbogeys.bogey.styles.content.SingleAxisBogey;
+import com.rabbitminers.extendedbogeys.bogey.styles.content.SixWheelBogey;
 import com.rabbitminers.extendedbogeys.config.ExtendedBogeysConfig;
 import com.rabbitminers.extendedbogeys.index.BogeyPartials;
 import com.rabbitminers.extendedbogeys.index.ExtendedBogeysBlocks;
@@ -42,13 +43,16 @@ public class ExtendedBogeys {
         eventBus.addListener(this::setup);
         MinecraftForge.EVENT_BUS.register(this);
     }
+
     public static ResourceLocation asResource(String path) {
         return new ResourceLocation(MODID, path);
     }
+
     private void setup(final FMLCommonSetupEvent event) {
         BogeyStyles.addBogeyStyle(DefaultStyle.class, ExtendedBogeys.MODID);
         BogeyStyles.addBogeyStyle(SingleAxisBogey.class, ExtendedBogeys.MODID);
         BogeyStyles.addBogeyStyle(FourWheelBogey.class, ExtendedBogeys.MODID);
+        BogeyStyles.addBogeyStyle(SixWheelBogey.class, ExtendedBogeys.MODID);
         LOGGER.info("Registered bogey types from: " + ExtendedBogeys.MODID);
     }
 

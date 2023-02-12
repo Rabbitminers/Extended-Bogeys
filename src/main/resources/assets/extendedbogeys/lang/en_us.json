@@ -1,4 +1,13 @@
 {
+  "extendedbogeys.bogeys.bogey": "Train Bogey",
+
+  "extendedbogeys.bogeys.sizes.small": "Small",
+  "extendedbogeys.bogeys.sizes.medium": "Medium",
+  "extendedbogeys.bogeys.sizes.large": "Large",
+  "extendedbogeys.bogeys.sizes.extra_large": "Extra Large",
+  "extendedbogeys.bogeys.sizes.huge": "Huge",
+  "extendedbogeys.bogeys.sizes.text": "Bogey Sizes: ",
+
   "extendedbogeys.tooltips.rotation": "Rotated Bogey!",
   "extendedbogeys.tooltips.link": "Linked Bogey!",
   "extendedbogeys.tooltips.unlink": "Unlinked Bogey!",
@@ -8,6 +17,7 @@
   "extendedbogeys.bogeys.styles.default": "Default Bogey",
   "extendedbogeys.bogeys.styles.singleaxis": "Single Axis Bogey",
   "extendedbogeys.bogeys.styles.fourwheel": "Four Wheel Bogey",
+  "extendedbogeys.bogeys.styles.sixwheel": "Six Wheel Bogey",
 
   "extendedbogeys.ponder.bogey_styling.header": "Stylizing Bogeys",
   "extendedbogeys.ponder.bogey_styling.text_1": "Create new Bogeys by using Train Casing on Tracks",

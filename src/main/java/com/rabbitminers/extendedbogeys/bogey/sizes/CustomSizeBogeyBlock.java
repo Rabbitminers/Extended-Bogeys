@@ -1,32 +1,27 @@
 package com.rabbitminers.extendedbogeys.bogey.sizes;
 
-import com.jozufozu.flywheel.api.MaterialManager;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.rabbitminers.extendedbogeys.bogey.styles.IBogeyStyle;
-import com.simibubi.create.content.logistics.trains.IBogeyBlock;
-import com.simibubi.create.content.logistics.trains.entity.BogeyInstance;
-import com.simibubi.create.content.logistics.trains.entity.CarriageBogey;
 import com.simibubi.create.content.logistics.trains.track.StandardBogeyBlock;
-import com.simibubi.create.content.logistics.trains.track.TrackBlock;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.EnumSet;
+import net.minecraft.world.phys.BlockHitResult;
 
 public class CustomSizeBogeyBlock extends StandardBogeyBlock {
     BogeySize size;
     public CustomSizeBogeyBlock(Properties p_i48440_1_, BogeySize size) {
-        super(p_i48440_1_, false);
+        super(p_i48440_1_, size.isDriver());
         this.size = size;
     }
+
+    // TODO: SPECIFY SIZE HERE
+    @Override
+    public InteractionResult use(BlockState p_60503_, Level p_60504_, BlockPos p_60505_, Player p_60506_, InteractionHand p_60507_, BlockHitResult p_60508_) {
+        return super.use(p_60503_, p_60504_, p_60505_, p_60506_, p_60507_, p_60508_);
+    }
+
     @Override
     public double getWheelRadius() {
         return size.getWheelRadius();

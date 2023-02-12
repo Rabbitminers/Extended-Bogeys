@@ -4,7 +4,6 @@ import com.rabbitminers.extendedbogeys.ExtendedBogeys;
 import com.rabbitminers.extendedbogeys.ponder.scenes.BogeyStyleScenes;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.foundation.ponder.PonderRegistrationHelper;
-import com.simibubi.create.foundation.ponder.content.PonderIndex;
 
 public class ExtendedBogeysPonderIndex {
 
