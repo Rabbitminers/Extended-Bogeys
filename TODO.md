@@ -23,7 +23,11 @@ These are given in the following format **Started  : Completed**
 - ☒ ☒ Config For Different For Features
 - ☒ ☒ Paintable / Dyeable Bogeys Interface
 - ☒ ☒ Fuel Requirements For Train To Run
-- ☒ ☒ Water Requirements For Trian to Run
+- ☒ ☒ Water Requirements For Train to Run
+- ☒ ☒ More bogey sizes
+- ☒ ☐ Interface for styles to specify utilised sizes
+- ☒ ☒ Ponder scene explaining bogey styling (probably needs  an update)
+- ☒ ☐ Configurable HUD elements about water / fuel levels
 
 ## Bogey Styles
 These are given in the following format **Modeled  : Textured : Implemented**
