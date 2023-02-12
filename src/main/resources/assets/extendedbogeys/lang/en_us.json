@@ -17,6 +17,7 @@
   "extendedbogeys.bogeys.styles.default": "Default Bogey",
   "extendedbogeys.bogeys.styles.singleaxis": "Single Axis Bogey",
   "extendedbogeys.bogeys.styles.fourwheel": "Four Wheel Bogey",
+  "extendedbogeys.bogeys.styles.sixwheel": "Six Wheel Bogey",
 
   "extendedbogeys.ponder.bogey_styling.header": "Stylising Bogeys",
   "extendedbogeys.ponder.bogey_styling.text_1": "Create new bogeys by using Train Casing on Tracks",
