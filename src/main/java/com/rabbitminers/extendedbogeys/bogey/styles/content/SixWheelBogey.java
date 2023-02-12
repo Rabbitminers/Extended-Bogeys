@@ -142,14 +142,15 @@ public class SixWheelBogey implements IBogeyStyle {
                     .rotateX(isFacingForward ? -wheelAngle : wheelAngle);
         }
 
-        ms.translate(0, offset, offset);
+        // The
+        ms.translate(0, offset, isFacingForward ? offset : -offset);
 
         frame.setTransform(ms)
-                .rotateY(isFacingForward ? 180 : 0)
+                .rotateY(isFacingForward ? 0 : 180)
                 .scale(1 - 1/512f);
 
         connectingRod.setTransform(ms)
-                .rotateY(isFacingForward ? 180 : 0)
+                .rotateY(isFacingForward ? 0 : 180)
                 .rotateX(wheelAngle)
                 .translate(0, 1 / 4f, 0)
                 .rotateX(-wheelAngle)
@@ -160,29 +161,29 @@ public class SixWheelBogey implements IBogeyStyle {
         double zOffset = 1 / 4f * Math.sin(Math.toRadians(wheelAngle));
 
         driveRod.setTransform(ms)
-                .rotateY(isFacingForward ? 180 : 0)
+                .rotateY(isFacingForward ? 0 : 180)
                 .translate(0, 0.9, -1.875)
                 .rotateX(8.5*offSetScaleFactor)
                 .translateZ(zOffset)
                 .scale(1 - 1/512f);
 
         drivePin.setTransform(ms)
-                .rotateY(isFacingForward ? 180 : 0)
+                .rotateY(isFacingForward ? 0 : 180)
                 .translateZ(zOffset)
                 .scale(1 - 1/512f);
 
         eccentric.setTransform(ms)
-                .rotateY(isFacingForward ? 180 : 0)
+                .rotateY(isFacingForward ? 0 : 180)
                 .translate(0, 0.8, 1.68)
                 .rotateX(isFacingForward ? -wheelAngle : wheelAngle)
                 .scale(1 - 1/512f);
 
         eccentricRod.setTransform(ms)
-                .rotateY(isFacingForward ? 180 : 0)
+                .rotateY(isFacingForward ? 0 : 180)
                 .scale(1 - 1/512f);
 
         radiusRod.setTransform(ms)
-                .rotateY(isFacingForward ? 180 : 0)
+                .rotateY(isFacingForward ? 0 : 180)
                 .scale(1 - 1/512f);
 
         IBogeyStyle.super.renderLargeInContraption(wheelAngle, isFacingForward, ms, assemblyDirection);
@@ -203,7 +204,7 @@ public class SixWheelBogey implements IBogeyStyle {
             ms.popPose();
         }
 
-        ms.translate(0, offset, offset);
+        ms.translate(0, offset, isFacingForward ? -offset : offset);
 
         CachedBufferer.partial(BogeyPartials.SIX_WHEEL_FRAME, air)
                 .rotateY(isFacingForward ? 180 : 0)
