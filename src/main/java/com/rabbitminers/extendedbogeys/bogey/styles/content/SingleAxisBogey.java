@@ -113,7 +113,7 @@ public class SingleAxisBogey implements IBogeyStyle {
 
     @Override
     public List<BogeySize> implemntedSizes() {
-        return List.of(BogeySize.LARGE);
+        return List.of(BogeySize.SMALL);
     }
 
     @Override
