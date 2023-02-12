@@ -5,7 +5,7 @@ import com.simibubi.create.content.logistics.trains.track.StandardBogeyBlock;
 public class CustomSizeBogeyBlock extends StandardBogeyBlock {
     BogeySize size;
     public CustomSizeBogeyBlock(Properties p_i48440_1_, BogeySize size) {
-        super(p_i48440_1_, false);
+        super(p_i48440_1_, size.isDriver());
         this.size = size;
     }
     @Override
