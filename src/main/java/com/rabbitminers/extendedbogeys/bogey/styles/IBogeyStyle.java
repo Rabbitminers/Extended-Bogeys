@@ -4,6 +4,7 @@ import com.jozufozu.flywheel.api.MaterialManager;
 import com.jozufozu.flywheel.core.materials.model.ModelData;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.rabbitminers.extendedbogeys.bogey.sizes.BogeySize;
 import com.simibubi.create.foundation.config.AllConfigs;
 import com.simibubi.create.foundation.gui.element.GuiGameElement;
 import net.minecraft.core.Direction;
@@ -12,10 +13,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public interface IBogeyStyle {
+
+    default List<BogeySize> implemntedSizes() {
+        return new ArrayList<>();
+    }
     default String getStyleName() {
         return "Invalid Style";
     }

@@ -1,6 +1,8 @@
 package com.rabbitminers.extendedbogeys.mixin;
 
 import com.rabbitminers.extendedbogeys.bogey.sizes.BogeySize;
+import com.rabbitminers.extendedbogeys.bogey.styles.BogeyStyles;
+import com.rabbitminers.extendedbogeys.bogey.styles.IBogeyStyle;
 import com.rabbitminers.extendedbogeys.bogey.util.LanguageKey;
 import com.rabbitminers.extendedbogeys.index.ExtendedBogeysBlocks;
 import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyTileEntity;
@@ -42,12 +44,14 @@ public class MixinStandardBogeyTileEntity extends BlockEntity implements
         BlockState state = level.getBlockState(getBlockPos());
         CompoundTag tileData = getTileData();
         int style = getBogeyStyle(tileData);
+        IBogeyStyle bogeyStyle = BogeyStyles.getBogeyStyle(style);
+        List<BogeySize> implementedSizes = bogeyStyle.implemntedSizes();
 
         tooltip.add(new TranslatableComponent("extendedbogeys.bogeys.sizes.text")
             .withStyle(ChatFormatting.GRAY));
 
         for (BogeySize value : BogeySize.values()) {
-            boolean isImplemented = true;
+            boolean isImplemented = implementedSizes.contains(value);
 
             Block valueBlock = switch (value) {
                 case SMALL -> AllBlocks.SMALL_BOGEY.get();

@@ -5,6 +5,7 @@ import com.jozufozu.flywheel.core.Materials;
 import com.jozufozu.flywheel.core.materials.model.ModelData;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.rabbitminers.extendedbogeys.bogey.sizes.BogeySize;
 import com.rabbitminers.extendedbogeys.bogey.styles.IBogeyStyle;
 import com.rabbitminers.extendedbogeys.bogey.util.LanguageKey;
 import com.rabbitminers.extendedbogeys.bogey.util.RotationUtils;
@@ -16,6 +17,7 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class SixWheelBogey implements IBogeyStyle {
@@ -267,6 +269,11 @@ public class SixWheelBogey implements IBogeyStyle {
 
 
         IBogeyStyle.super.renderLargeInWorld(wheelAngle, isFacingForward, ms, light, vb, air, paintColour);
+    }
+
+    @Override
+    public List<BogeySize> implemntedSizes() {
+        return List.of(BogeySize.LARGE);
     }
 
     @Override
