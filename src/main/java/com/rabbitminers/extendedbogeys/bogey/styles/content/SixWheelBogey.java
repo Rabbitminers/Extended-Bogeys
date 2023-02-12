@@ -139,10 +139,9 @@ public class SixWheelBogey implements IBogeyStyle {
         for (int side = -1; side < 2; side++) {
             wheels[side + 1].setTransform(ms)
                     .translate(0, 1, side * 1.875)
-                    .rotateX(isFacingForward ? -wheelAngle : wheelAngle);
+                    .rotateX(isFacingForward ? wheelAngle : -wheelAngle);
         }
 
-        // The
         ms.translate(0, offset, isFacingForward ? offset : -offset);
 
         frame.setTransform(ms)
@@ -175,7 +174,7 @@ public class SixWheelBogey implements IBogeyStyle {
         eccentric.setTransform(ms)
                 .rotateY(isFacingForward ? 0 : 180)
                 .translate(0, 0.8, 1.68)
-                .rotateX(isFacingForward ? -wheelAngle : wheelAngle)
+                .rotateX(wheelAngle)
                 .scale(1 - 1/512f);
 
         eccentricRod.setTransform(ms)
