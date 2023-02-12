@@ -1,20 +1,35 @@
 package com.rabbitminers.extendedbogeys.bogey.unlinked;
 
+import com.rabbitminers.extendedbogeys.bogey.sizes.BogeySize;
+import com.rabbitminers.extendedbogeys.bogey.styles.BogeyStyles;
+import com.rabbitminers.extendedbogeys.bogey.styles.IBogeyStyle;
+import com.rabbitminers.extendedbogeys.bogey.util.LanguageKey;
+import com.rabbitminers.extendedbogeys.index.ExtendedBogeysBlocks;
 import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyTileEntity;
+import com.simibubi.create.AllBlocks;
+import com.simibubi.create.content.contraptions.goggles.IHaveGoggleInformation;
 import com.simibubi.create.foundation.tileEntity.CachedRenderBBTileEntity;
 import com.simibubi.create.foundation.utility.AnimationTickHolder;
 import com.simibubi.create.foundation.utility.NBTHelper;
 import com.simibubi.create.foundation.utility.animation.LerpedFloat;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
-public class UnlinkedBogeyTileEntity extends CachedRenderBBTileEntity implements IStyledStandardBogeyTileEntity {
+import java.util.List;
+
+public class UnlinkedBogeyTileEntity extends CachedRenderBBTileEntity implements
+        IStyledStandardBogeyTileEntity, IHaveGoggleInformation {
     private final float wheelRadius = 1;
     LerpedFloat wheelAngle;
     LerpedFloat yaw;
@@ -24,6 +39,33 @@ public class UnlinkedBogeyTileEntity extends CachedRenderBBTileEntity implements
         wheelAngle = LerpedFloat.angular();
         yaw = LerpedFloat.angular();
         pitch = LerpedFloat.angular();
+    }
+
+    @Override
+    public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
+        LanguageKey.translate("bogeys.bogey").forGoggles(tooltip);
+        if (level == null) return false;
+        BlockState state = level.getBlockState(getBlockPos());
+        CompoundTag tileData = getTileData();
+        int style = getBogeyStyle(tileData);
+        IBogeyStyle bogeyStyle = BogeyStyles.getBogeyStyle(style);
+        List<BogeySize> implementedSizes = bogeyStyle.implemntedSizes();
+
+        tooltip.add(new TranslatableComponent("extendedbogeys.bogeys.sizes.text")
+                .withStyle(ChatFormatting.GRAY));
+
+        for (BogeySize value : BogeySize.values()) {
+            boolean isImplemented = implementedSizes.contains(value);
+
+            Block valueBlock = ExtendedBogeysBlocks.UNLINKED_BOGEYS.get(value).get();
+            boolean isActive = valueBlock == state.getBlock();
+
+            tooltip.add(new TextComponent(isActive ? "-> " : isImplemented ? "✔ " : "× ")
+                    .append(new TranslatableComponent(value.getTranslationKey()))
+                    .withStyle(isActive ? ChatFormatting.GOLD : isImplemented
+                            ? ChatFormatting.GREEN : ChatFormatting.RED));
+        }
+        return true;
     }
 
     public float getAngle() {
