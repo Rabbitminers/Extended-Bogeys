@@ -167,7 +167,7 @@ public class UnlinkedStandardBogeyBlock extends Block implements ITE<UnlinkedBog
     }
 
     @Override
-    public BogeySize getSize() {
+    public BogeySize getBogeySize() {
         return null;
     }
 
