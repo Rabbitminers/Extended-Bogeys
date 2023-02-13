@@ -1,5 +1,6 @@
 package com.rabbitminers.extendedbogeys.bogey.sizes;
 
+import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyBlock;
 import com.simibubi.create.content.logistics.trains.track.StandardBogeyBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -9,7 +10,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
-public class CustomSizeBogeyBlock extends StandardBogeyBlock {
+public class CustomSizeBogeyBlock extends StandardBogeyBlock implements IStyledStandardBogeyBlock {
     BogeySize size;
     public CustomSizeBogeyBlock(Properties p_i48440_1_, BogeySize size) {
         super(p_i48440_1_, size.isDriver());
@@ -25,5 +26,10 @@ public class CustomSizeBogeyBlock extends StandardBogeyBlock {
     @Override
     public double getWheelRadius() {
         return size.getWheelRadius();
+    }
+
+    @Override
+    public BogeySize getBogeySize() {
+        return size;
     }
 }
