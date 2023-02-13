@@ -213,7 +213,7 @@ public abstract class MixinStandardBogeyBlock extends Block implements IStyledSt
     }
 
     @Override
-    public BogeySize getSize() {
+    public BogeySize getBogeySize() {
         return large ? BogeySize.LARGE : BogeySize.SMALL;
     }
 }
