@@ -2,18 +2,22 @@ package com.rabbitminers.extendedbogeys.mixin;
 
 import com.rabbitminers.extendedbogeys.mixin_interface.ICarriageBogeyStyle;
 import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyTileEntity;
+import com.simibubi.create.content.logistics.trains.IBogeyBlock;
 import com.simibubi.create.content.logistics.trains.entity.CarriageBogey;
 import com.simibubi.create.content.logistics.trains.entity.CarriageContraption;
 import com.simibubi.create.content.logistics.trains.management.edgePoint.station.StationTileEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(StationTileEntity.class)
 public class MixinStationTileEntity extends BlockEntity {
@@ -84,5 +88,40 @@ public class MixinStationTileEntity extends BlockEntity {
         }
 
         return secondBogey;
+    }
+
+    @Redirect(
+            method = "trackClicked",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z",
+                    ordinal = 0
+            ),
+            remap = false
+    )
+    public boolean passBogeyDataToNewSize(Level instance, BlockPos bogeyPos, BlockState blockState, int someNumber) {
+        if (!(blockState.getBlock() instanceof IBogeyBlock bogey) || level == null)
+            return false;
+        BlockEntity be = level.getBlockEntity(bogeyPos);
+        if (be == null) return false;
+        IStyledStandardBogeyTileEntity te = (IStyledStandardBogeyTileEntity) be;
+        CompoundTag tileData = be.getTileData();
+
+        int oldStyle = te.getBogeyStyle(tileData);
+        boolean oldIsFacingForwards = te.getIsFacingForwards(tileData);
+        DyeColor oldPaintColour = te.getPaintColour(tileData);
+
+        boolean returnValue = level.setBlock(bogeyPos, bogey.getRotatedBlockState(blockState, Direction.DOWN), 3);
+
+        BlockEntity newBlockEntity = level.getBlockEntity(bogeyPos);
+        if (newBlockEntity == null) return false;
+        IStyledStandardBogeyTileEntity newTileEntity = (IStyledStandardBogeyTileEntity) newBlockEntity;
+        CompoundTag newTileData = newBlockEntity.getTileData();
+
+        newTileEntity.setBogeyStyle(newTileData, oldStyle);
+        newTileEntity.setIsFacingForwards(newTileData, oldIsFacingForwards);
+        newTileEntity.setPaintColour(newTileData, oldPaintColour);
+
+        return returnValue;
     }
 }
