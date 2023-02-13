@@ -4,35 +4,60 @@ import com.rabbitminers.extendedbogeys.bogey.sizes.BogeySize;
 import com.rabbitminers.extendedbogeys.mixin_interface.ICarriageBogeyStyle;
 import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyBlock;
 import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyTileEntity;
+import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.logistics.trains.IBogeyBlock;
 import com.simibubi.create.content.logistics.trains.ITrackBlock;
 import com.simibubi.create.content.logistics.trains.entity.CarriageBogey;
 import com.simibubi.create.content.logistics.trains.entity.CarriageContraption;
+import com.simibubi.create.content.logistics.trains.management.edgePoint.TrackTargetingBehaviour;
+import com.simibubi.create.content.logistics.trains.management.edgePoint.station.GlobalStation;
 import com.simibubi.create.content.logistics.trains.management.edgePoint.station.StationTileEntity;
+import com.simibubi.create.foundation.block.ProperWaterloggedBlock;
+import com.simibubi.create.foundation.utility.Lang;
+import com.simibubi.create.foundation.utility.WorldAttached;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+
+import java.util.Map;
 
 @Mixin(StationTileEntity.class)
-public class MixinStationTileEntity extends BlockEntity {
+public abstract class MixinStationTileEntity extends BlockEntity {
+    @Shadow public abstract void refreshAssemblyInfo();
+
+    @Shadow public static WorldAttached<Map<BlockPos, BoundingBox>> assemblyAreas;
+
+    @Shadow public abstract boolean isValidBogeyOffset(int i);
+
+    @Shadow public TrackTargetingBehaviour<GlobalStation> edgePoint;
+    @Shadow private Direction assemblyDirection;
     private CarriageContraption contraption;
-    private Player player;
+
+    private DyeColor oldDyeColour;
+    private int oldStyle;
+    private boolean oldIsFacingForwards;
 
     public MixinStationTileEntity(BlockEntityType<?> p_155228_, BlockPos p_155229_, BlockState p_155230_) {
         super(p_155228_, p_155229_, p_155230_);
@@ -101,52 +126,73 @@ public class MixinStationTileEntity extends BlockEntity {
         return secondBogey;
     }
 
-    // Done for a 2am hotfix - fix it
-    @Inject(method = "trackClicked", at = @At("HEAD"), remap = false)
-    public void capturePlayer(Player player, InteractionHand hand, ITrackBlock track, BlockState state, BlockPos pos,
-                              CallbackInfoReturnable<Boolean> cir) {
-        this.player = player;
+    @Inject(method = "trackClicked", at = @At("HEAD"), cancellable = true, remap = false)
+    public void transferBogeySize(Player player, InteractionHand hand, ITrackBlock track, BlockState state, BlockPos pos,
+                                  CallbackInfoReturnable<Boolean> cir) {
+        refreshAssemblyInfo();
+
+        BoundingBox bb = assemblyAreas.get(level)
+                .get(worldPosition);
+
+        if (bb == null || !bb.isInside(pos))
+            return;
+
+        BlockPos up = new BlockPos(track.getUpNormal(level, pos, state));
+        int bogeyOffset = pos.distManhattan(edgePoint.getGlobalPosition()) - 1;
+
+        if (!isValidBogeyOffset(bogeyOffset)) {
+            for (int i = -1; i <= 1; i++) {
+                BlockPos bogeyPos = pos.relative(assemblyDirection, i)
+                        .offset(up);
+                BlockState blockState = level.getBlockState(bogeyPos);
+                if (blockState.getBlock() instanceof IBogeyBlock bogey) {
+                    captureBogeyStyleInformation(player, bogeyPos);
+
+                    level.setBlock(bogeyPos, bogey.getRotatedBlockState(blockState, Direction.DOWN), 3);
+                    setBogeyStyleInformation(player, bogeyPos);
+
+                    bogey.playRotateSound(level, bogeyPos);
+
+                    cir.setReturnValue(true);
+                    cir.cancel();
+                }
+            }
+        }
     }
 
-    @Redirect(
-            method = "trackClicked",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z",
-                    ordinal = 0
-            ),
-            remap = false
-    )
-    public boolean passBogeyDataToNewSize(Level instance, BlockPos bogeyPos, BlockState blockState, int someNumber) {
-        if (!(blockState.getBlock() instanceof IBogeyBlock bogey) || level == null)
-            return false;
+    // Done for a 2am hotfix - fix it
+    public void captureBogeyStyleInformation(Player player, BlockPos bogeyPos) {
+        player.displayClientMessage(new TextComponent("Set Bogey Size As: "), true);
+
+        if (level == null)
+            return;
+
         BlockEntity be = level.getBlockEntity(bogeyPos);
-        if (be == null) return false;
         IStyledStandardBogeyTileEntity te = (IStyledStandardBogeyTileEntity) be;
+
         CompoundTag tileData = be.getTileData();
+        oldDyeColour = te.getPaintColour(tileData);
+        oldStyle = te.getBogeyStyle(tileData);
+        oldIsFacingForwards = te.getIsFacingForwards(tileData);
+    }
 
-        int oldStyle = te.getBogeyStyle(tileData);
-        boolean oldIsFacingForwards = te.getIsFacingForwards(tileData);
-        DyeColor oldPaintColour = te.getPaintColour(tileData);
-
-        boolean returnValue = level.setBlock(bogeyPos, bogey.getRotatedBlockState(blockState, Direction.DOWN), 3);
-
+    public void setBogeyStyleInformation(Player player, BlockPos bogeyPos) {
         BlockEntity newBlockEntity = level.getBlockEntity(bogeyPos);
-        if (newBlockEntity == null) return false;
+        if (newBlockEntity == null) return;
+
         IStyledStandardBogeyTileEntity newTileEntity = (IStyledStandardBogeyTileEntity) newBlockEntity;
         CompoundTag newTileData = newBlockEntity.getTileData();
 
         newTileEntity.setBogeyStyle(newTileData, oldStyle);
         newTileEntity.setIsFacingForwards(newTileData, oldIsFacingForwards);
-        newTileEntity.setPaintColour(newTileData, oldPaintColour);
+        newTileEntity.setPaintColour(newTileData, oldDyeColour);
 
         Block newBlock = level.getBlockState(bogeyPos).getBlock();
+
         if (newBlock instanceof IStyledStandardBogeyBlock ssbb) {
             BogeySize size = ssbb.getBogeySize();
             player.displayClientMessage(new TextComponent("Set Bogey Size As: ")
                     .append(new TranslatableComponent(size.getTranslationKey())), true);
         }
-        return returnValue;
     }
-
 }
