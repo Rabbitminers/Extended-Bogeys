@@ -9,7 +9,8 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public interface IStyledStandardBogeyBlock {
-    BogeySize getSize();
+    BogeySize getBogeySize();
+
     @OnlyIn(Dist.CLIENT)
     default void renderWithTileEntity(BlockState state, BlockEntity be, float wheelAngle, PoseStack ms,
                                       float partialTicks, MultiBufferSource buffers, int light, int overlay) {

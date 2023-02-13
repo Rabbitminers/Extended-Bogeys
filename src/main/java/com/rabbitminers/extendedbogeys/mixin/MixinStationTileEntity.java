@@ -1,27 +1,38 @@
 package com.rabbitminers.extendedbogeys.mixin;
 
+import com.rabbitminers.extendedbogeys.bogey.sizes.BogeySize;
 import com.rabbitminers.extendedbogeys.mixin_interface.ICarriageBogeyStyle;
+import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyBlock;
 import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyTileEntity;
 import com.simibubi.create.content.logistics.trains.IBogeyBlock;
+import com.simibubi.create.content.logistics.trains.ITrackBlock;
 import com.simibubi.create.content.logistics.trains.entity.CarriageBogey;
 import com.simibubi.create.content.logistics.trains.entity.CarriageContraption;
 import com.simibubi.create.content.logistics.trains.management.edgePoint.station.StationTileEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(StationTileEntity.class)
 public class MixinStationTileEntity extends BlockEntity {
     private CarriageContraption contraption;
+    private Player player;
 
     public MixinStationTileEntity(BlockEntityType<?> p_155228_, BlockPos p_155229_, BlockState p_155230_) {
         super(p_155228_, p_155229_, p_155230_);
@@ -90,6 +101,13 @@ public class MixinStationTileEntity extends BlockEntity {
         return secondBogey;
     }
 
+    // Done for a 2am hotfix - fix it
+    @Inject(method = "trackClicked", at = @At("HEAD"), remap = false)
+    public void capturePlayer(Player player, InteractionHand hand, ITrackBlock track, BlockState state, BlockPos pos,
+                              CallbackInfoReturnable<Boolean> cir) {
+        this.player = player;
+    }
+
     @Redirect(
             method = "trackClicked",
             at = @At(
@@ -122,6 +140,13 @@ public class MixinStationTileEntity extends BlockEntity {
         newTileEntity.setIsFacingForwards(newTileData, oldIsFacingForwards);
         newTileEntity.setPaintColour(newTileData, oldPaintColour);
 
+        Block newBlock = level.getBlockState(bogeyPos).getBlock();
+        if (newBlock instanceof IStyledStandardBogeyBlock ssbb) {
+            BogeySize size = ssbb.getBogeySize();
+            player.displayClientMessage(new TextComponent("Set Bogey Size As: ")
+                    .append(new TranslatableComponent(size.getTranslationKey())), true);
+        }
         return returnValue;
     }
+
 }
