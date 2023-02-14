@@ -19,6 +19,7 @@
     "client.MixinBogeyInstance",
     "client.MixinBogeyTileEntityRenderer",
     "client.MixinCarriageContraptionEntity",
-    "client.MixinTrainHUD"
+    "client.MixinTrainHUD",
+    "client.MixinCamera"
   ]
 }
