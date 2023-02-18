@@ -47,8 +47,6 @@ public class UnlinkedBogeyTileEntityRenderer<T extends BlockEntity> extends Safe
         PoseStack ms = matrices.getModel();
         int light = ContraptionRenderDispatcher.getContraptionWorldLight(context, renderWorld);
 
-        System.out.println(angle);
-
     }
 
 }

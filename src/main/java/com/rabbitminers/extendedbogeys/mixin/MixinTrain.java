@@ -127,7 +127,6 @@ public abstract class MixinTrain {
 
                 BlockEntity be = level.getBlockEntity
                         (new BlockPos(bogeyPos.x, bogeyPos.y, bogeyPos.z));
-                System.out.println(be);
 
                 if (!(be instanceof IStyledStandardBogeyTileEntity ssbte))
                     return;

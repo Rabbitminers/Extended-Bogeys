@@ -64,14 +64,11 @@ public class MixinTrainHUD {
                 continue;
 
             int tanks = fluidHandler.getTanks();
-            System.out.println(tanks);
 
             for (int j = 0; j < tanks; j++) {
                 FluidStack stack = fluidHandler.getFluidInTank(j);
 
-                System.out.println(stack.getAmount());
                 if (!(stack.getFluid() instanceof WaterFluid)) {
-                    System.out.println("Fuck");
                     continue;
                 }
                 remainingFluids += 20;
