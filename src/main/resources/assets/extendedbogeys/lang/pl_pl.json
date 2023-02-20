@@ -1,0 +1,30 @@
+{
+  "extendedbogeys.bogeys.bogey": "Zestaw Kołowy",
+
+  "extendedbogeys.bogeys.sizes.small": "Mały",
+  "extendedbogeys.bogeys.sizes.medium": "Średni",
+  "extendedbogeys.bogeys.sizes.large": "Duży",
+  "extendedbogeys.bogeys.sizes.extra_large": "Bardzo Duzy",
+  "extendedbogeys.bogeys.sizes.huge": "Wielki",
+  "extendedbogeys.bogeys.sizes.text": "Rozmiary zestawów kołowych:",
+
+  "extendedbogeys.tooltips.rotation": "Obrócono Zestaw Kołowy!",
+  "extendedbogeys.tooltips.link": "Podłączono zestaw Kołowy!",
+  "extendedbogeys.tooltips.unlink": "Odłączono zestaw Kołowy!",
+  "extendedbogeys.tooltips.style": "Styl zestawu kołowego:",
+  "extendedbogeys.tooltips.dyed": "Pomalowany zestaw kołowy:",
+
+  "extendedbogeys.bogeys.styles.default": "Domyślny zestaw kołowy",
+  "extendedbogeys.bogeys.styles.singleaxis": "Jednoosiowy zestaw kołowy",
+  "extendedbogeys.bogeys.styles.fourwheel": "Czteroosiowy zestaw kołowy",
+  "extendedbogeys.bogeys.styles.sixwheel": "Sześcioosiowy zestaw kołowy",
+
+  "extendedbogeys.ponder.bogey_styling.header": "Stylizacja zestawów kołowych",
+  "extendedbogeys.ponder.bogey_styling.text_1": "Aby utworzyć zestaw kołówy kliknij obudowę kolejową na torach",
+  "extendedbogeys.ponder.bogey_styling.text_2": "Kliknij ponownie aby zmienić styl",
+  "extendedbogeys.ponder.bogey_styling.text_3": "Kliknij ponownie aby przejść na mały rozmiar",
+  "extendedbogeys.ponder.bogey_styling.text_4": "Kliknij zestaw kołowy kluczem aby zmienić styl Zestawu",
+  "extendedbogeys.ponder.bogey_styling.text_5": "Kliknij zestaw kołowy pustą reką aby go obrócić",
+  "extendedbogeys.ponder.bogey_styling.text_6": "Shift+prawy klik na zestaw kołowy aby go odłączyć",
+  "extendedbogeys.ponder.bogey_styling.text_7": "Odłączanie zestawu kołowego pozwala na używania więcej niż 2 zestawy kołowe.Wagon będzie skręcał tylko używając podłączonych zestawów"
+}
