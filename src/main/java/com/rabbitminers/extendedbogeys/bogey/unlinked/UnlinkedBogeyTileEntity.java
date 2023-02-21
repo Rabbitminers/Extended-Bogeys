@@ -6,7 +6,6 @@ import com.rabbitminers.extendedbogeys.bogey.styles.IBogeyStyle;
 import com.rabbitminers.extendedbogeys.bogey.util.LanguageKey;
 import com.rabbitminers.extendedbogeys.index.ExtendedBogeysBlocks;
 import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyTileEntity;
-import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.contraptions.goggles.IHaveGoggleInformation;
 import com.simibubi.create.foundation.tileEntity.CachedRenderBBTileEntity;
 import com.simibubi.create.foundation.utility.AnimationTickHolder;
@@ -49,7 +48,7 @@ public class UnlinkedBogeyTileEntity extends CachedRenderBBTileEntity implements
         CompoundTag tileData = getTileData();
         int style = getBogeyStyle(tileData);
         IBogeyStyle bogeyStyle = BogeyStyles.getBogeyStyle(style);
-        List<BogeySize> implementedSizes = bogeyStyle.implemntedSizes();
+        List<BogeySize> implementedSizes = bogeyStyle.implementedSizes();
 
         tooltip.add(new TranslatableComponent("extendedbogeys.bogeys.sizes.text")
                 .withStyle(ChatFormatting.GRAY));

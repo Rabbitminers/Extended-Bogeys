@@ -9,7 +9,6 @@ import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyTileE
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.contraptions.goggles.IHaveGoggleInformation;
 import com.simibubi.create.content.logistics.trains.track.StandardBogeyTileEntity;
-import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.foundation.utility.NBTHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -45,7 +44,7 @@ public class MixinStandardBogeyTileEntity extends BlockEntity implements
         CompoundTag tileData = getTileData();
         int style = getBogeyStyle(tileData);
         IBogeyStyle bogeyStyle = BogeyStyles.getBogeyStyle(style);
-        List<BogeySize> implementedSizes = bogeyStyle.implemntedSizes();
+        List<BogeySize> implementedSizes = bogeyStyle.implementedSizes();
 
         tooltip.add(new TranslatableComponent("extendedbogeys.bogeys.sizes.text")
             .withStyle(ChatFormatting.GRAY));

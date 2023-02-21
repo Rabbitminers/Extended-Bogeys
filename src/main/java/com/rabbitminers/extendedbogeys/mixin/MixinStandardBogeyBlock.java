@@ -128,7 +128,7 @@ public abstract class MixinStandardBogeyBlock extends Block implements IStyledSt
             BogeySize bogeySize = large ? BogeySize.LARGE : BogeySize.SMALL;
             IBogeyStyle style = BogeyStyles.getBogeyStyle(bogeyStyle);
 
-            if (style.implemntedSizes().contains(bogeySize)) {
+            if (style.implementedSizes().contains(bogeySize)) {
                 te.setBogeyStyle(tileData, bogeyStyle);
                 be.setChanged();
 
@@ -149,7 +149,7 @@ public abstract class MixinStandardBogeyBlock extends Block implements IStyledSt
 
     private boolean updateSize(BogeySize size, BlockState state, Level level, BlockPos blockPos, IStyledStandardBogeyTileEntity te,
                                CompoundTag tileData, int bogeyStyle, IBogeyStyle style) {
-        if (style.implemntedSizes().contains(size)) {
+        if (style.implementedSizes().contains(size)) {
             BlockState newBogeyState = BogeySizeUtils.blockStateFromBogeySize(size);
             level.setBlock(blockPos, newBogeyState.setValue(AXIS, state.getValue(AXIS)), 3);
             IStyledStandardBogeyTileEntity newBlockEntity =

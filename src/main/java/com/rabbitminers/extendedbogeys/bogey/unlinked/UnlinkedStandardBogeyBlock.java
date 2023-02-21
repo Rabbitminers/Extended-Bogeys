@@ -6,7 +6,6 @@ import com.mojang.math.Vector3f;
 import com.rabbitminers.extendedbogeys.bogey.sizes.BogeySize;
 import com.rabbitminers.extendedbogeys.bogey.styles.BogeyStyles;
 import com.rabbitminers.extendedbogeys.bogey.styles.IBogeyStyle;
-import com.rabbitminers.extendedbogeys.bogey.util.BogeySizeUtils;
 import com.rabbitminers.extendedbogeys.index.ExtendedBogeysBlocks;
 import com.rabbitminers.extendedbogeys.index.ExtendedBogeysTileEntities;
 import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyBlock;
@@ -129,7 +128,7 @@ public class UnlinkedStandardBogeyBlock extends Block implements ITE<UnlinkedBog
             BogeySize bogeySize = large ? BogeySize.LARGE : BogeySize.SMALL;
             IBogeyStyle style = BogeyStyles.getBogeyStyle(bogeyStyle);
 
-            if (style.implemntedSizes().contains(bogeySize)) {
+            if (style.implementedSizes().contains(bogeySize)) {
                 te.setBogeyStyle(tileData, bogeyStyle);
                 be.setChanged();
 
@@ -150,7 +149,7 @@ public class UnlinkedStandardBogeyBlock extends Block implements ITE<UnlinkedBog
 
     private boolean updateSize(BogeySize size, BlockState state, Level level, BlockPos blockPos, IStyledStandardBogeyTileEntity te,
                                CompoundTag tileData, int bogeyStyle, IBogeyStyle style) {
-        if (style.implemntedSizes().contains(size)) {
+        if (style.implementedSizes().contains(size)) {
             BlockState newBogeyState = ExtendedBogeysBlocks.UNLINKED_BOGEYS.get(size).getDefaultState();
             level.setBlock(blockPos, newBogeyState.setValue(AXIS, state.getValue(AXIS)), 3);
             IStyledStandardBogeyTileEntity newBlockEntity =

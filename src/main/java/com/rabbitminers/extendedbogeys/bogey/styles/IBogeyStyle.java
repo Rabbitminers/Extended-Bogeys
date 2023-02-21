@@ -17,7 +17,7 @@ import java.util.*;
 
 public interface IBogeyStyle {
 
-    default List<BogeySize> implemntedSizes() {
+    default List<BogeySize> implementedSizes() {
         return new ArrayList<>();
     }
     default String getStyleName() {

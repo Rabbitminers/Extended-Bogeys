@@ -22,7 +22,7 @@ public class DefaultStyle implements IBogeyStyle {
     }
 
     @Override
-    public List<BogeySize> implemntedSizes() {
+    public List<BogeySize> implementedSizes() {
         return Arrays.asList(BogeySize.SMALL, BogeySize.LARGE);
     }
 }
