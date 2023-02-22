@@ -40,7 +40,7 @@ If you have any requests please contact us and ask.
 
 - ☒ ☒ ☒ Two Axel Trailor (Small)
 - ☒ ☒ ☒ Four Wheel Driver (Large)
-- ☒ ☐ ☐ ? Encased Four Wheel Driver (Large)
+- ☒ ☒ ☐ Encased Four Wheel Driver (Large)
 - ☒ ☒ ☒ Four Wheel Trailer (Small)
 - ☒ ☐ ☐ Six Wheel (Small)
 - ☒ ☒ ☒ Six Wheel (Large)
