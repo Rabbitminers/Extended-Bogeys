@@ -1,0 +1,30 @@
+{
+  "extendedbogeys.bogeys.bogey": "Trein bogey",
+  
+  "extendedbogeys.bogeys.sizes.small": "Klein",
+  "extendedbogeys.bogeys.sizes.medium": "Gemiddeld",
+  "extendedbogeys.bogeys.sizes.large": "Groot",
+  "extendedbogeys.bogeys.sizes.extra_large": "Extra groot",
+  "extendedbogeys.bogeys.sizes.huge": "Reusachtig",
+  "extendedbogeys.bogeys.sizes.text": "Bogey maten: ",
+  
+  "extendedbogeys.tooltips.rotation": "Bogey gedraaid!",
+  "extendedbogeys.tooltips.link": "Bogey gekoppeld!",
+  "extendedbogeys.tooltips.unlink": "Bogey ontkoppeld!",
+  "extendedbogeys.tooltips.style": "Bogey stijl: ",
+  "extendedbogeys.tooltips.dyed": "Geverfde bogey ",
+  
+  "extendedbogeys.bogeys.styles.default": "Standaard bogey",
+  "extendedbogeys.bogeys.styles.singleaxis": "Éénassige bogey",
+  "extendedbogeys.bogeys.styles.fourwheel": "Vierwiel bogey",
+  "extendedbogeys.bogeys.styles.sixwheel": "Zeswiel bogey",
+  
+  "extendedbogeys.ponder.bogey_styling.header": "Bogeys stileren",
+  "extendedbogeys.ponder.bogey_styling.text_1": "Maak nieuwe bogeys met behulp van trein behuizing op een spoor",
+  "extendedbogeys.ponder.bogey_styling.text_2": "Klik nogmaals op het spoor om tussen bogey maten te schakelen",
+  "extendedbogeys.ponder.bogey_styling.text_3": "Klik nogmaals om terug te schakelen naar kleine stijlen",
+  "extendedbogeys.ponder.bogey_styling.text_4": "Klik op de bogey met een moersleutel om tussen bogeyontwerpen te schakelen",
+  "extendedbogeys.ponder.bogey_styling.text_5": "Klik met blote hand op de bogey om hem te draaien",
+  "extendedbogeys.ponder.bogey_styling.text_6": "Shift klik met de rechtermuisknop op de bogey om deze te ontkoppelen",
+  "extendedbogeys.ponder.bogey_styling.text_7": "Door een bogey los te koppelen kun je meer dan twee bogeys op een trein hebben, de trein zal rond de gekoppelde bogeys draaien"
+}
