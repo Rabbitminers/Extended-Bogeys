@@ -248,7 +248,7 @@ public class SixWheelBogey implements IBogeyStyle {
         CachedBufferer.partial(BogeyPartials.SIX_WHEEL_ECCENTRIC, air)
                 .rotateY(isFacingForward ? 180 : 0)
                 .translate(0, 0.8, 1.68)
-                .rotateX(isFacingForward ? -wheelAngle : wheelAngle)
+                .rotateX(wheelAngle)
                 .scale(1 - 1/512f)
                 .light(light)
                 .renderInto(ms, vb);
