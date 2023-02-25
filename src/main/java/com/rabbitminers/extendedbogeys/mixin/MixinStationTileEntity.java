@@ -1,6 +1,9 @@
 package com.rabbitminers.extendedbogeys.mixin;
 
 import com.rabbitminers.extendedbogeys.bogey.sizes.BogeySize;
+import com.rabbitminers.extendedbogeys.bogey.styles.BogeyStyles;
+import com.rabbitminers.extendedbogeys.bogey.styles.IBogeyStyle;
+import com.rabbitminers.extendedbogeys.bogey.util.BogeySizeUtils;
 import com.rabbitminers.extendedbogeys.mixin_interface.ICarriageBogeyStyle;
 import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyBlock;
 import com.rabbitminers.extendedbogeys.mixin_interface.IStyledStandardBogeyTileEntity;
@@ -15,6 +18,7 @@ import com.simibubi.create.content.logistics.trains.management.edgePoint.station
 import com.simibubi.create.foundation.block.ProperWaterloggedBlock;
 import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.foundation.utility.WorldAttached;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -41,7 +45,10 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Mixin(StationTileEntity.class)
 public abstract class MixinStationTileEntity extends BlockEntity {
@@ -126,6 +133,7 @@ public abstract class MixinStationTileEntity extends BlockEntity {
         return secondBogey;
     }
 
+    // Pass up bogey style, & pass styles if it is not implemented
     @Inject(method = "trackClicked", at = @At("HEAD"), cancellable = true, remap = false)
     public void transferBogeySize(Player player, InteractionHand hand, ITrackBlock track, BlockState state, BlockPos pos,
                                   CallbackInfoReturnable<Boolean> cir) {
@@ -147,9 +155,29 @@ public abstract class MixinStationTileEntity extends BlockEntity {
                 BlockState blockState = level.getBlockState(bogeyPos);
                 if (blockState.getBlock() instanceof IBogeyBlock bogey) {
                     captureBogeyStyleInformation(player, bogeyPos);
+                    IBogeyStyle bogeyStyle = BogeyStyles.getBogeyStyle(oldStyle);
+                    List<Block> blocks = bogeyStyle.implementedSizes()
+                            .stream()
+                            .map(size -> BogeySizeUtils.blockStateFromBogeySize(size)
+                                    .getBlock())
+                            .toList();
 
-                    level.setBlock(bogeyPos, bogey.getRotatedBlockState(blockState, Direction.DOWN), 3);
+                    BlockState newBlockState = blockState;
+                    for (int j = 0; j <= BogeySize.values().length; j++) {
+                        newBlockState = bogey.getRotatedBlockState(newBlockState, Direction.DOWN);
+                        System.out.println(newBlockState.getBlock());
+                        if (blocks.contains(newBlockState.getBlock())) {
+                            System.out.println("Dis ^");
+                            break;
+                        }
+                    }
+
+                    level.setBlock(bogeyPos, newBlockState, 3);
                     setBogeyStyleInformation(player, bogeyPos);
+
+                    if (newBlockState.getBlock() == blockState.getBlock())
+                        player.displayClientMessage(new TranslatableComponent("extendedbogeys.tooltips.no_change")
+                                .withStyle(ChatFormatting.RED), true);
 
                     bogey.playRotateSound(level, bogeyPos);
 
