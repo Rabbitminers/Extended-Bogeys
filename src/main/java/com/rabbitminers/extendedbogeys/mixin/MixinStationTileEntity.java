@@ -165,11 +165,8 @@ public abstract class MixinStationTileEntity extends BlockEntity {
                     BlockState newBlockState = blockState;
                     for (int j = 0; j <= BogeySize.values().length; j++) {
                         newBlockState = bogey.getRotatedBlockState(newBlockState, Direction.DOWN);
-                        System.out.println(newBlockState.getBlock());
-                        if (blocks.contains(newBlockState.getBlock())) {
-                            System.out.println("Dis ^");
+                        if (blocks.contains(newBlockState.getBlock()))
                             break;
-                        }
                     }
 
                     level.setBlock(bogeyPos, newBlockState, 3);
