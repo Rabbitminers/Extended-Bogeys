@@ -113,7 +113,6 @@ public class FourWheelBogey implements IBogeyStyle {
         wheelAngle = isFacingForward ? wheelAngle : -wheelAngle;
 
         float offSetScaleFactor =  Math.max(0f, (1f - Math.abs(Math.abs(wheelAngle) - 180f) / 180f));
-        double offset = 3d / 16d;
 
         for (int side : Iterate.positiveAndNegative) {
             wheels[(side+1) / 2].setTransform(ms)
@@ -127,8 +126,6 @@ public class FourWheelBogey implements IBogeyStyle {
                 .translate(0, 1 / 4f, 0)
                 .rotateX(-wheelAngle);
 
-        ms.translate(0, offset, isFacingForward ? offset : -offset);
-
         drivePin.setTransform(ms)
                 .rotateY(isFacingForward ? 0 : 180)
                 .translateZ(1/4f * Math.sin(Math.toRadians(wheelAngle)));
@@ -137,7 +134,7 @@ public class FourWheelBogey implements IBogeyStyle {
                 .translateZ(isFacingForward ? -0.6 : 0.6)
                 .translateY(0.85)
                 .rotateY(isFacingForward ? 0 : 180)
-                .rotateX(offSetScaleFactor*20)
+                .rotateX(offSetScaleFactor*20-10)
                 .translateZ(1/4f * Math.sin(Math.toRadians(wheelAngle)));
 
         frame.setTransform(ms)
@@ -172,22 +169,6 @@ public class FourWheelBogey implements IBogeyStyle {
     @Override
     public void renderLargeInWorld(float wheelAngle, boolean isFacingForward, PoseStack ms, int light, VertexConsumer vb, BlockState air, DyeColor paintColour) {
 
-        double offset = 3d / 16d;
-
-        for (int side : Iterate.positiveAndNegative) {
-            ms.pushPose();
-            CachedBufferer.partial(AllBlockPartials.LARGE_BOGEY_WHEELS, air)
-                    .translate(0, 1, side + (isFacingForward
-                            ? -(4d / 16)
-                            : (4d / 16)))
-                    .rotateX(isFacingForward ? -wheelAngle : wheelAngle)
-                    .light(light)
-                    .renderInto(ms, vb);
-            ms.popPose();
-        }
-
-        ms.translate(0, offset, isFacingForward ? -offset : offset);
-
         CachedBufferer.partial(BogeyPartials.FOUR_WHEEL_DRIVE_FRAME, air)
                 .rotateY(isFacingForward ? 180 : 0)
                 .scale(1 - 1/512f)
@@ -221,6 +202,16 @@ public class FourWheelBogey implements IBogeyStyle {
                 .scale(1 - 1/512f)
                 .light(light)
                 .renderInto(ms, vb);
+
+        for (int side : Iterate.positiveAndNegative) {
+            ms.pushPose();
+            CachedBufferer.partial(AllBlockPartials.LARGE_BOGEY_WHEELS, air)
+                    .translate(0, 1, side)
+                    .rotateX(isFacingForward ? -wheelAngle : wheelAngle)
+                    .light(light)
+                    .renderInto(ms, vb);
+            ms.popPose();
+        }
 
         IBogeyStyle.super.renderLargeInWorld(wheelAngle, isFacingForward, ms, light, vb, air, paintColour);
     }
