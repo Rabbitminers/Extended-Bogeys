@@ -118,8 +118,8 @@ public class FourWheelBogey implements IBogeyStyle {
         for (int side : Iterate.positiveAndNegative) {
             wheels[(side+1) / 2].setTransform(ms)
                     .translate(0, 1,side + (isFacingForward
-                            ? -(4d / 16)
-                            : (4d / 16)))
+                            ? (4d / 16)
+                            : -(4d / 16)))
                     .rotateX(isFacingForward ? wheelAngle : -wheelAngle);
         }
 
