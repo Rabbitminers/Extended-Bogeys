@@ -117,19 +117,17 @@ public class FourWheelBogey implements IBogeyStyle {
 
         for (int side : Iterate.positiveAndNegative) {
             wheels[(side+1) / 2].setTransform(ms)
-                    .translate(0, 1,side + (isFacingForward
-                            ? (4d / 16)
-                            : -(4d / 16)))
+                    .translate(0, 1, side)
                     .rotateX(isFacingForward ? wheelAngle : -wheelAngle);
         }
-
-        ms.translate(0, offset, isFacingForward ? offset : -offset);
 
         connectingRod.setTransform(ms)
                 .rotateY(isFacingForward ? 0 : 180)
                 .rotateX(wheelAngle)
                 .translate(0, 1 / 4f, 0)
                 .rotateX(-wheelAngle);
+
+        ms.translate(0, offset, isFacingForward ? offset : -offset);
 
         drivePin.setTransform(ms)
                 .rotateY(isFacingForward ? 0 : 180)
@@ -139,7 +137,7 @@ public class FourWheelBogey implements IBogeyStyle {
                 .translateZ(isFacingForward ? -0.6 : 0.6)
                 .translateY(0.85)
                 .rotateY(isFacingForward ? 0 : 180)
-                .rotateX(offSetScaleFactor*20-10)
+                .rotateX(offSetScaleFactor*20)
                 .translateZ(1/4f * Math.sin(Math.toRadians(wheelAngle)));
 
         frame.setTransform(ms)
