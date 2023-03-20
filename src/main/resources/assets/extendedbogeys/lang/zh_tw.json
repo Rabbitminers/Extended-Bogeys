@@ -1,0 +1,30 @@
+{
+  "extendedbogeys.bogeys.bogey": "火車車架",
+  
+  "extendedbogeys.bogeys.sizes.small": "小",
+  "extendedbogeys.bogeys.sizes.medium": "中",
+  "extendedbogeys.bogeys.sizes.large": "大",
+  "extendedbogeys.bogeys.sizes.extra_large": "特大",
+  "extendedbogeys.bogeys.sizes.huge": "巨大",
+  "extendedbogeys.bogeys.sizes.text": "車架尺寸：",
+  
+  "extendedbogeys.tooltips.rotation": "已旋轉車架！",
+  "extendedbogeys.tooltips.link": "已連接車架！",
+  "extendedbogeys.tooltips.unlink": "已解除連接車架！",
+  "extendedbogeys.tooltips.style": "已車架樣式:",
+  "extendedbogeys.tooltips.dyed": "已染色車架",
+  
+  "extendedbogeys.bogeys.styles.default": "預設車架",
+  "extendedbogeys.bogeys.styles.singleaxis": "單軸車架",
+  "extendedbogeys.bogeys.styles.fourwheel": "四輪車架",
+  "extendedbogeys.bogeys.styles.sixwheel": "六輪車架",
+  
+  "extendedbogeys.ponder.bogey_styling.header": "美化車架",
+  "extendedbogeys.ponder.bogey_styling.text_1": "使用火車車架在軌道上創建新的車架",
+  "extendedbogeys.ponder.bogey_styling.text_2": "再次點擊軌道可循環顯示不同尺寸的車架",
+  "extendedbogeys.ponder.bogey_styling.text_3": "再次點擊可切換至小型車架",
+  "extendedbogeys.ponder.bogey_styling.text_4": "使用扳手點擊車架可循環顯示不同的車架設計",
+  "extendedbogeys.ponder.bogey_styling.text_5": "用手點擊車架可旋轉車架",
+  "extendedbogeys.ponder.bogey_styling.text_6": "按住Shift + 右鍵點擊車架可解除連接",
+  "extendedbogeys.ponder.bogey_styling.text_7": "解除連接車架可讓您在一輛車上擁有超過兩個車架，車輛將圍繞著已連接的車架旋轉"
+}
