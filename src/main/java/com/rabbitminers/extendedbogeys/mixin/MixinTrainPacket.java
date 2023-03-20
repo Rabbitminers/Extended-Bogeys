@@ -19,6 +19,11 @@ import java.util.UUID;
 
 @Mixin(TrainPacket.class)
 public class MixinTrainPacket {
+
+    /*
+    * TODO: bogey api - (Pass Bogey Data Upwards As NBT Instead Of Seperate Variables As Implemented In Camera
+    * Tracking Fork)
+     */
     @Shadow private Train train;
 
     @Inject(method = "<init>(Lnet/minecraft/network/FriendlyByteBuf;)V", locals = LocalCapture.CAPTURE_FAILHARD, at = @At("TAIL"), remap = false)

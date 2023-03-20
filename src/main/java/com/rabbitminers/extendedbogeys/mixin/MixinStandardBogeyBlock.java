@@ -165,6 +165,11 @@ public abstract class MixinStandardBogeyBlock extends Block implements IStyledSt
         return false;
     }
 
+
+    /* TODO: Bogey API
+    *  Extract Bogey Rendering To Seperate Class To Allow Individual Replacements
+    *  (If possible also unify rendering between this and assembled)
+    */
     @OnlyIn(Dist.CLIENT)
     @Override
     public void renderWithTileEntity(BlockState state, BlockEntity te, float wheelAngle, PoseStack ms,

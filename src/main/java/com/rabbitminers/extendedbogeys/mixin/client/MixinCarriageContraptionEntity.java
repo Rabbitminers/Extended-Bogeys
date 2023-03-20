@@ -8,6 +8,12 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(CarriageContraptionEntity.class)
 public class MixinCarriageContraptionEntity implements ICarriageContraptionEntity {
+    /*
+    TODO: Bogey Api
+    Allow for distance to next point to be accessed publicly
+    (Unless it is already I missed it)
+     */
+
     private double distanceTo = 0;
     @Override
     public double getDistanceTo() {

@@ -70,6 +70,11 @@ public class MixinCarriageBogey implements ICarriageBogeyStyle {
         this.paintColour = colour;
     }
 
+    /*
+    TODO: Bogey Api
+    Write Bogey Saved Data to RSD
+     */
+
     @Inject(at = @At("RETURN"), method = "read", cancellable = true, remap = false)
     private static void read(CompoundTag tag, TrackGraph graph, DimensionPalette dimensions, CallbackInfoReturnable<CarriageBogey> cir) {
         if (tag.contains("Style")) {

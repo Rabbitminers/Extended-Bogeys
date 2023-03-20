@@ -15,6 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(BogeyTileEntityRenderer.class)
 public class MixinBogeyTileEntityRenderer {
+    // Ignore in api only used for unlinked bogeys
     @Inject(method = "renderSafe", at = @At("HEAD"), cancellable = true, remap = false)
     public <T extends BlockEntity> void renderWithTileEntity(T te, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay, CallbackInfo ci) {
         BlockState blockState = te.getBlockState();

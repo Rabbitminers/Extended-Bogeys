@@ -29,6 +29,12 @@ public class MixinBogeyFrame {
     private boolean shouldRenderDefault;
     IBogeyStyle bogeyStyle;
 
+    /*
+    TODO: Bogey Api - Extract Rendering To Seperate Class So It Can Be Modified From Registry
+    (Same As In MixinBogeyDrive)
+     */
+
+
     @OnlyIn(Dist.CLIENT)
     @Inject(at = @At("TAIL"), method = "<init>", remap = false)
     public void BogeyInstanceInit(CarriageBogey bogey, MaterialManager materialManager, CallbackInfo ci) {

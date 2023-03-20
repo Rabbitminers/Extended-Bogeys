@@ -105,6 +105,9 @@ public abstract class MixinTrain {
     }
 
 
+    /* TODO Bogey Api
+    *  Write Initial Data Back To Bogey On Disassembly (For Some Reason Its Cleared?)
+    */
     @Inject(
             method = "disassemble",
             locals = LocalCapture.CAPTURE_FAILHARD,

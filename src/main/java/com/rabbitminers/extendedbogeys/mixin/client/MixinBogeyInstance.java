@@ -22,6 +22,11 @@ public class MixinBogeyInstance {
     @Shadow @Final private ModelData[] shafts;
     private IBogeyStyle style;
 
+    /*
+    TODO: Bogey Api
+    Allow For Inner Shaft To Be Disabled By Bogey Renderer
+     */
+
     @OnlyIn(Dist.CLIENT)
     @Inject(method = "<init>", at=@At("TAIL"), remap = false)
     public void onInit(CarriageBogey bogey, MaterialManager materialManager, CallbackInfo ci) {

@@ -38,6 +38,8 @@ public class MixinStationTileEntity extends BlockEntity {
         super(p_155228_, p_155229_, p_155230_);
     }
 
+
+    // TODO: Bogey Api - Mantain Bogey NBT On Assembly
     @ModifyVariable(method = "assemble", at = @At("STORE"), name = "contraption", remap = false)
     public CarriageContraption captureCarriageContraptionOnInit(CarriageContraption carriageContraption) {
         this.contraption = carriageContraption;
@@ -116,7 +118,7 @@ public class MixinStationTileEntity extends BlockEntity {
                     ordinal = 0
             ),
             remap = false
-    )
+    ) // TODO: Bogey Api - Make Sure NBT data is passed between size changes
     public boolean passBogeyDataToNewSize(Level instance, BlockPos bogeyPos, BlockState blockState, int someNumber) {
         if (!(blockState.getBlock() instanceof IBogeyBlock bogey) || level == null)
             return false;
