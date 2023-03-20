@@ -1,20 +1,24 @@
 {
   "extendedbogeys.bogeys.bogey": "火車車架",
+  
   "extendedbogeys.bogeys.sizes.small": "小",
   "extendedbogeys.bogeys.sizes.medium": "中",
   "extendedbogeys.bogeys.sizes.large": "大",
   "extendedbogeys.bogeys.sizes.extra_large": "特大",
   "extendedbogeys.bogeys.sizes.huge": "巨大",
   "extendedbogeys.bogeys.sizes.text": "車架尺寸:",
+  
   "extendedbogeys.tooltips.rotation": "旋轉車架！",
   "extendedbogeys.tooltips.link": "連接車架！",
   "extendedbogeys.tooltips.unlink": "解除連接車架！",
   "extendedbogeys.tooltips.style": "車架樣式:",
   "extendedbogeys.tooltips.dyed": "染色車架",
+  
   "extendedbogeys.bogeys.styles.default": "預設車架",
   "extendedbogeys.bogeys.styles.singleaxis": "單軸車架",
   "extendedbogeys.bogeys.styles.fourwheel": "四輪車架",
   "extendedbogeys.bogeys.styles.sixwheel": "六輪車架",
+  
   "extendedbogeys.ponder.bogey_styling.header": "美化車架",
   "extendedbogeys.ponder.bogey_styling.text_1": "使用火車車架在軌道上創建新的車架",
   "extendedbogeys.ponder.bogey_styling.text_2": "再次點擊軌道可循環顯示不同尺寸的車架",
