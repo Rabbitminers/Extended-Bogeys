@@ -42,7 +42,7 @@ If you have any requests please contact us and ask.
 - ☒ ☒ ☒ Four Wheel Driver (Large)
 - ☒ ☒ ☐ Encased Four Wheel Driver (Large)
 - ☒ ☒ ☒ Four Wheel Trailer (Small)
-- ☒ ☐ ☐ Six Wheel (Small)
+- ☒ ☒ ☐ Six Wheel (Small)
 - ☒ ☒ ☒ Six Wheel (Large)
 - ☒ ☐ ☐ Flywheel Scale Driver (Large)
 
