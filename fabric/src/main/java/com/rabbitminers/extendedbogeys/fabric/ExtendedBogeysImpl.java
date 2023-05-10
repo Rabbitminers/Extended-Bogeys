@@ -8,6 +8,6 @@ public class ExtendedBogeysImpl implements ModInitializer {
     @Override
     public void onInitialize() {
         ExtendedBogeys.init();
-        ExtendedBogeysBlocks.REGISTRATE.register();
+        ExtendedBogeys.registrate().register();
     }
 }

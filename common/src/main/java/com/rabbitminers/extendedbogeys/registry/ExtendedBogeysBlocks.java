@@ -6,7 +6,6 @@ import com.tterrag.registrate.util.entry.BlockEntry;
 import net.minecraft.world.level.block.Block;
 
 public class ExtendedBogeysBlocks {
-	public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(ExtendedBogeys.MOD_ID);
 
 	public static void init() {
 		// load the class and register everything
