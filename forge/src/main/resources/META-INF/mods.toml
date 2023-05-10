@@ -1,0 +1,35 @@
+modLoader = "javafml"
+loaderVersion = "[${forge_version},)"
+#issueTrackerURL = ""
+license = "Insert License Here"
+
+[[mods]]
+modId = "examplemod"
+version = "${version}"
+displayName = "Example Mod"
+authors = "Me!"
+description = '''
+This is an example description! Tell everyone what your mod is about!
+'''
+logoFile = "icon.png"
+
+[[dependencies.examplemod]]
+modId = "forge"
+mandatory = true
+versionRange = "[${forge_version},)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.examplemod]]
+modId = "minecraft"
+mandatory = true
+versionRange = "${minecraft_version}"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.examplemod]]
+modId="create"
+mandatory=true
+versionRange="${create_version}"
+ordering="NONE"
+side="BOTH"
