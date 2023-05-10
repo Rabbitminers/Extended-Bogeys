@@ -15,6 +15,11 @@ Extended Bogeys primarily adds new types of bogey aswell as an Interface for oth
 A <sup>somewhat</sup> complete list of both features and styles both implemented and planned can be found <a href="https://github.com/Rabbitminers/Extended-Bogeys/blob/rewrite/TODO.md">Here</a> please feel free to make any requests at the contacts above.
 
 ## How can I add my own bogey?
+
+Extended Bogeys used to provide its own API which has now been merged into Create as of 0.5.1 documentation for this can be found [Here](Its not there yet)
+
+#### Legacy
+
 Extended Bogeys has a wiki detailing how you can integrate Extended Bogeys into your project aswell as details on creating, rendering and customising your own bogey. You can find the docs <a href="https://github.com/Rabbitminers/Extended-Bogeys/wiki">Here</a>
 
 <img src="https://user-images.githubusercontent.com/79579164/215903175-7acbd4f6-b221-4e2f-9305-efaf1c621ad0.png"

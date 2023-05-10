@@ -1,32 +1,35 @@
 {
   "schemaVersion": 1,
-  "id": "examplemod",
+  "id": "extendedbogeys",
   "version": "${version}",
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Extended Bogeys",
+  "description": "An addon mod to Create adding new styles of bogey and an interface for other mods to do so",
   "authors": [
-    "Me!"
+    "Rabbitminers",
+    "RailFanNate",
+    "Keanes2",
+    "Matt.",
+    "kurocat471"
   ],
   "contact": {
     "homepage": "https://fabricmc.net/",
     "sources": "https://github.com/FabricMC/fabric-example-mod"
   },
-  "license": "Insert License Here",
+  "license": "GNU GPLv3",
   "icon": "assets/examplemod/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.examplemod.fabric.ExampleModFabric"
+      "com.rabbitminers.extendedbogeys.fabric.ExtendedBogeysImpl"
     ]
   },
   "mixins": [
-    "examplemod.mixins.json",
-    "examplemod-common.mixins.json"
+    "extendedbogeys.mixins.json",
+    "extendedbogeys-common.mixins.json"
   ],
   "depends": {
     "minecraft": "${minecraft_version}",
     "fabricloader": ">=${fabric_loader_version}",
-    "fabric-api": ">=${fabric_api_version}",
-    "create": "${create_version}"
+    "fabric-api": ">=${fabric_api_version}"
   }
 }

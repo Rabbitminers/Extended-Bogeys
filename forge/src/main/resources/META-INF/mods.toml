@@ -1,33 +1,35 @@
 modLoader = "javafml"
 loaderVersion = "[${forge_version},)"
 #issueTrackerURL = ""
-license = "Insert License Here"
+license = "GNU GPLv3"
 
 [[mods]]
-modId = "examplemod"
+modId = "extendedbogeys"
 version = "${version}"
 displayName = "Example Mod"
-authors = "Me!"
+authors = "Rabbitminers, RailFanNate, Keanes2, Matt, kurocat471"
 description = '''
-This is an example description! Tell everyone what your mod is about!
+An addon mod to Create adding new styles of bogey and an interface for other mods to do so
 '''
+
+# TODO:
 logoFile = "icon.png"
 
-[[dependencies.examplemod]]
+[[dependencies.extendedbogeys]]
 modId = "forge"
 mandatory = true
 versionRange = "[${forge_version},)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.examplemod]]
+[[dependencies.extendedbogeys]]
 modId = "minecraft"
 mandatory = true
 versionRange = "${minecraft_version}"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.examplemod]]
+[[dependencies.extendedbogeys]]
 modId="create"
 mandatory=true
 versionRange="${create_version}"
