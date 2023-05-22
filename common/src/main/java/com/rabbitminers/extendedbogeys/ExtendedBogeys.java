@@ -1,6 +1,7 @@
 package com.rabbitminers.extendedbogeys;
 
 import com.rabbitminers.extendedbogeys.registry.ExtendedBogeysBlocks;
+import com.rabbitminers.extendedbogeys.registry.ExtendedBogeysBogeyStyles;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
@@ -14,11 +15,11 @@ public class ExtendedBogeys {
     public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(ExtendedBogeys.MOD_ID);
 
     public static void init() {
-        // Keep this we'll need it at some point
-        ExtendedBogeysBlocks.init();
+        ExtendedBogeysBlocks.register();
+        ExtendedBogeysBogeyStyles.register();
     }
 
-    public static ResourceLocation id(String path) {
+    public static ResourceLocation asResource(String path) {
         return new ResourceLocation(MOD_ID, path);
     }
 
