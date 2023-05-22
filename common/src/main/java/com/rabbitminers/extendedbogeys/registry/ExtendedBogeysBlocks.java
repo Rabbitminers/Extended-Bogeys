@@ -1,13 +1,10 @@
 package com.rabbitminers.extendedbogeys.registry;
 
 import com.rabbitminers.extendedbogeys.ExtendedBogeys;
-import com.simibubi.create.foundation.data.CreateRegistrate;
-import com.tterrag.registrate.util.entry.BlockEntry;
-import net.minecraft.world.level.block.Block;
 
 public class ExtendedBogeysBlocks {
 
-	public static void init() {
+	public static void register() {
 		// load the class and register everything
 		ExtendedBogeys.LOGGER.info("Registering blocks for " + ExtendedBogeys.NAME);
 	}
