@@ -21,6 +21,9 @@
   "entrypoints": {
     "main": [
       "com.rabbitminers.extendedbogeys.fabric.ExtendedBogeysImpl"
+    ],
+    "client": [
+      "com.rabbitminers.extendedbogeys.fabric.ExtendedBogeysClientImpl"
     ]
   },
   "mixins": [
