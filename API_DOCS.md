@@ -101,7 +101,7 @@ for (int i : Iterate.zeroAndOne) {
 }
 ```
 
-And your done! Lighting, removal, emptying transforms etc is all handled automatically by the API
+And you're done! Lighting, removal, emptying transforms etc is all handled automatically by the API
 
 ### Registering Bogey Styles
 
@@ -118,7 +118,7 @@ public class ExampleBogeyRenderer {
         }
 
         @Override
-        public void initialiseContraptionModelData(MaterialManager materialManager) {
+        public void initialiseContraptionModelData(MaterialManager materialManager, CarriageBogey bogey) {
                 /* Initalise contraption data... */
         }
     }
@@ -136,7 +136,7 @@ public class ExampleBogeyRenderer {
         }
 
         @Override
-        public void initialiseContraptionModelData(MaterialManager materialManager) {
+        public void initialiseContraptionModelData(MaterialManager materialManager, CarriageBogey bogey) {
                 /* Initalise contraption data... */
         }
     }
