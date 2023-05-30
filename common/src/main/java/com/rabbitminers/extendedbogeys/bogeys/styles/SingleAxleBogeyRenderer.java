@@ -19,13 +19,13 @@ public class SingleAxleBogeyRenderer {
 
         @Override
         public void render(boolean forwards, BogeyPaintColour color, float wheelAngle, PoseStack ms, int light, VertexConsumer vb, boolean inContraption) {
-            Transform<?> frame = this.getTransformFromPartial(ExtendedBogeysPartials.SINGLE_AXEL_LEADING_TRUCK_FRAME, ms, inContraption)
+            Transform<?> frame = this.getTransformFromPartial(ExtendedBogeysPartials.SMALL_SINGLE_AXLE_FRAME, ms, inContraption)
                     .rotateY(0)
                     .translate(0, 0.1, 0)
                     .scale(1 - 1/512f);
             finalize(frame, ms, light, vb);
 
-            Transform<?> pin = this.getTransformFromPartial(ExtendedBogeysPartials.SINGLE_AXEL_LEADING_TRUCK_PIN, ms, inContraption)
+            Transform<?> pin = this.getTransformFromPartial(ExtendedBogeysPartials.SMALL_SINGLE_AXLE_PIN, ms, inContraption)
                     .rotateY(0)
                     .scale(1 - 1 / 512f);
             finalize(pin, ms, light, vb);
@@ -43,8 +43,8 @@ public class SingleAxleBogeyRenderer {
 
         @Override
         public void initialiseContraptionModelData(MaterialManager materialManager) {
-            this.createModelInstances(materialManager, ExtendedBogeysPartials.SINGLE_AXEL_LEADING_TRUCK_PIN);
-            this.createModelInstances(materialManager, ExtendedBogeysPartials.SINGLE_AXEL_LEADING_TRUCK_FRAME);
+            this.createModelInstances(materialManager, ExtendedBogeysPartials.SMALL_SINGLE_AXLE_PIN);
+            this.createModelInstances(materialManager, ExtendedBogeysPartials.SMALL_SINGLE_AXLE_FRAME);
         }
     }
 }

@@ -1,7 +1,9 @@
 package com.rabbitminers.extendedbogeys.registry;
 
 import com.rabbitminers.extendedbogeys.ExtendedBogeys;
-import com.rabbitminers.extendedbogeys.bogeys.renderers.SingleAxleBogeyRenderer.SmallSingleAxleBogeyRenderer;
+import com.rabbitminers.extendedbogeys.bogeys.styles.DoubleAxleBogeyRenderer.LargeDoubleAxleBogeyRenderer;
+import com.rabbitminers.extendedbogeys.bogeys.styles.DoubleAxleBogeyRenderer.SmallDoubleAxleBogeyRenderer;
+import com.rabbitminers.extendedbogeys.bogeys.styles.SingleAxleBogeyRenderer.SmallSingleAxleBogeyRenderer;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllBogeyStyles;
 import com.simibubi.create.Create;
@@ -11,8 +13,14 @@ import com.simibubi.create.foundation.utility.Components;
 
 public class ExtendedBogeysBogeyStyles {
     public final BogeyStyle SINGLE_AXLE = create("single_axle")
-            .displayName(Components.translatable("extendedbogeys.bogey.style.standard"))
+            .displayName(Components.translatable("extendedbogeys.bogey.style.single_axle"))
             .size(BogeySizes.SMALL, () -> SmallSingleAxleBogeyRenderer::new, AllBlocks.SMALL_BOGEY)
+            .build();
+
+    public final BogeyStyle DOUBLE_AXLE = create("double_axle")
+            .displayName(Components.translatable("extendedbogeys.bogey.style.double_axle"))
+            .size(BogeySizes.SMALL, () -> SmallDoubleAxleBogeyRenderer::new, AllBlocks.SMALL_BOGEY)
+            .size(BogeySizes.LARGE, () -> LargeDoubleAxleBogeyRenderer::new, AllBlocks.LARGE_BOGEY)
             .build();
 
     public static AllBogeyStyles.BogeyStyleBuilder create(String name, String cycleGroup) {
