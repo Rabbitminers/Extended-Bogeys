@@ -2,5 +2,5 @@
   "parent": "extendedbogeys:block/four_wheel/small/textures",
   "loader": "forge:obj",
   "flip-v": true,
-  "model": "extendedbogeys:models/block/four_wheel/small/frame.obj"
+  "model": "extendedbogeys:models/block/doubleaxle/small/pin.obj"
 }
