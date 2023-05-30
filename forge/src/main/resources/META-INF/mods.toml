@@ -1,19 +1,27 @@
 modLoader = "javafml"
+
 loaderVersion = "[${forge_version},)"
+
 #issueTrackerURL = ""
 license = "GNU GPLv3"
 
 [[mods]]
+
 modId = "extendedbogeys"
+
 version = "${version}"
-displayName = "Example Mod"
-authors = "Rabbitminers, RailFanNate, Keanes2, Matt, kurocat471"
+
+displayName = "Extended Bogeys"
+
+credits = "Rabbitminers, RailFanNate, Keanes2, Matt., kurocat471"
+
+authors = "Rabbitminers, RailFanNate, Keanes2, Matt., kurocat471"
+
 description = '''
 An addon mod to Create adding new styles of bogey and an interface for other mods to do so
 '''
 
-# TODO:
-logoFile = "icon.png"
+logoFile="extendedbogeys.png" #optional
 
 [[dependencies.extendedbogeys]]
 modId = "forge"
