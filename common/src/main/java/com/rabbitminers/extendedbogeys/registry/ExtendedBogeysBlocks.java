@@ -6,6 +6,6 @@ public class ExtendedBogeysBlocks {
 
 	public static void register() {
 		// load the class and register everything
-		ExtendedBogeys.LOGGER.info("Registering blocks for " + ExtendedBogeys.NAME);
+		ExtendedBogeys.LOGGER.info("Registering blocks for " + ExtendedBogeys.MOD_NAME);
 	}
 }
