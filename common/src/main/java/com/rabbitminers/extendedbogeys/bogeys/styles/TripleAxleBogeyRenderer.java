@@ -15,18 +15,20 @@ public class TripleAxleBogeyRenderer {
 
         @Override
         public void render(boolean forwards, BogeyPaintColour color, float wheelAngle, PoseStack ms, int light, VertexConsumer vb, boolean inContraption) {
+            wheelAngle = forwards ? wheelAngle : -wheelAngle;
             double offset = 3d / 16d;
 
-            Transform<?>[] wheels = this.getTransformsFromPartial(AllPartialModels.LARGE_BOGEY_WHEELS, ms, inContraption, 3);
+            Transform<?>[] wheels = this.getTransformsFromPartial(ExtendedBogeysPartials.LARGE_WHEELS.get(color), ms, inContraption, 3);
             for (int side = -1; side < 2; side++) {
                 Transform<?> wheel = wheels[side + 1];
-                wheel.translate(0, 1, side * 1.875).rotateX(wheelAngle);
+                wheel.translate(0, 1, side * 1.875)
+                        .rotateX(forwards ? wheelAngle : -wheelAngle);
                 finalize(wheel, ms, light, vb);
             }
 
             ms.translate(0, offset, forwards ? offset : -offset);
 
-            Transform<?> frame = this.getTransformFromPartial(ExtendedBogeysPartials.LARGE_TRIPLE_AXLE_DRIVER_FRAME, ms, inContraption)
+            Transform<?> frame = this.getTransformFromPartial(ExtendedBogeysPartials.LARGE_TRIPLE_AXLE_DRIVER_FRAMES.get(color), ms, inContraption)
                     .rotateY(forwards ? 0 : 180);
             finalize(frame, ms, light, vb);
 
@@ -65,7 +67,7 @@ public class TripleAxleBogeyRenderer {
 
             Transform<?> radiusRod = this.getTransformFromPartial(ExtendedBogeysPartials.LARGE_TRIPLE_AXLE_DRIVER_RADIUSROD, ms, inContraption)
                     .rotateY(forwards ? 0 : 180);
-            finalize(eccentricRod, ms, light, vb);
+            finalize(radiusRod, ms, light, vb);
         }
 
         @Override
@@ -74,10 +76,10 @@ public class TripleAxleBogeyRenderer {
         }
 
         @Override
-        public void initialiseContraptionModelData(MaterialManager materialManager) {
+        public void initialiseContraptionModelData(MaterialManager materialManager, BogeyPaintColour color) {
             this.createModelInstances(
                     materialManager,
-                    ExtendedBogeysPartials.LARGE_TRIPLE_AXLE_DRIVER_FRAME,
+                    ExtendedBogeysPartials.LARGE_TRIPLE_AXLE_DRIVER_FRAMES.get(color),
                     ExtendedBogeysPartials.LARGE_TRIPLE_AXLE_DRIVER_CONNECTING_ROD,
                     ExtendedBogeysPartials.LARGE_TRIPLE_AXLE_DRIVER_PIN,
                     ExtendedBogeysPartials.LARGE_TRIPLE_AXLE_DRIVER_ROD,
@@ -87,7 +89,7 @@ public class TripleAxleBogeyRenderer {
             );
 
             this.createModelInstances(
-                    materialManager, AllPartialModels.LARGE_BOGEY_WHEELS, 3
+                    materialManager, ExtendedBogeysPartials.LARGE_WHEELS.get(color), 3
             );
         }
     }
