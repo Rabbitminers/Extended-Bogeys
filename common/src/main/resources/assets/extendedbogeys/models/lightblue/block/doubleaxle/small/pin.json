@@ -1,0 +1,6 @@
+{
+    "parent": "extendedbogeys:lightblue/block/doubleaxle/small/textures",
+    "loader": "forge:obj",
+    "flip-v": true,
+    "model": "extendedbogeys:models/base/block/doubleaxle/small/pin.obj"
+}

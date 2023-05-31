@@ -1,0 +1,16 @@
+{
+    "parent": "block/block",
+    "textures": {
+        "belt": "extendedbogeys:black/block/bogey/belt",
+        "bogey": "extendedbogeys:black/block/bogey/frame",
+        "bogey2": "extendedbogeys:black/block/bogey/frame2",
+        "piston": "extendedbogeys:black/block/bogey/piston",
+        "wheel": "extendedbogeys:black/block/bogey/wheel",
+        "axis": "create:block/axis",
+        "axis_top": "create:block/axis_top",
+        "frame3": "extendedbogeys:black/block/doubleaxle/large/frame3",
+        "piston2": "extendedbogeys:black/block/doubleaxle/large/piston2",
+        "rod": "extendedbogeys:base/block/doubleaxle/large/rod",
+        "top": "extendedbogeys:black/block/bogey/top"
+    }
+}

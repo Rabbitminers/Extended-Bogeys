@@ -1,0 +1,6 @@
+{
+    "parent": "extendedbogeys:black/block/doubleaxle/large/textures",
+    "loader": "forge:obj",
+    "flip-v": true,
+    "model": "extendedbogeys:models/base/block/doubleaxle/large/frame.obj"
+}

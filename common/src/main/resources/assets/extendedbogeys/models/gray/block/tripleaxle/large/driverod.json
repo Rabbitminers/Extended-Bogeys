@@ -1,0 +1,6 @@
+{
+    "parent": "extendedbogeys:gray/block/tripleaxle/large/textures",
+    "loader": "forge:obj",
+    "flip-v": true,
+    "model": "extendedbogeys:models/base/block/tripleaxle/large/driverod.obj"
+}

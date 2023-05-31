@@ -1,0 +1,8 @@
+{
+    "parent": "block/block",
+    "textures": {
+        "frame": "extendedbogeys:cyan/block/doubleaxle/small/frame",
+        "pin": "extendedbogeys:base/block/doubleaxle/small/bolt",
+        "support": "extendedbogeys:cyan/block/doubleaxle/small/support"
+    }
+}

@@ -1,0 +1,8 @@
+{
+    "parent": "block/block",
+    "textures": {
+        "wheel": "extendedbogeys:yellow/block/bogey/wheel",
+        "axis": "create:block/axis",
+        "axis_top": "create:block/axis_top"
+    }
+}

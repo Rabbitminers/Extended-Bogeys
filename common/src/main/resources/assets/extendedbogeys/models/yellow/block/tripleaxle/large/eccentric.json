@@ -1,0 +1,6 @@
+{
+    "parent": "extendedbogeys:yellow/block/tripleaxle/large/textures",
+    "loader": "forge:obj",
+    "flip-v": true,
+    "model": "extendedbogeys:models/base/block/tripleaxle/large/eccentric.obj"
+}
