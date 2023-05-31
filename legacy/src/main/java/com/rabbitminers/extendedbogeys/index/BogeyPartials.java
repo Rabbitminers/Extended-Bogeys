@@ -21,13 +21,13 @@ public class BogeyPartials {
     SMALL_FOUR_WHEEL_PIN = block("four_wheel/small/pin"),
 
     /* 0-6-0 LARGE */
-    SIX_WHEEL_FRAME = block("six/large/frame"),
-    SIX_WHEEL_CONNECTING_ROD = block("six/large/connectingrod"),
-    SIX_WHEEL_DRIVE_PIN = block("six/large/drivepin"),
-    SIX_WHEEL_DRIVE_ROD = block("six/large/driverod"),
-    SIX_WHEEL_ECCENTRIC = block("six/large/eccentric"),
-    SIX_WHEEL_ECCENTRIC_ROD = block("six/large/eccentricrod"),
-    SIX_WHEEL_RADIUSROD = block("six/large/radiusrod")
+    SIX_WHEEL_FRAME = block("tripleaxle/large/frame"),
+    SIX_WHEEL_CONNECTING_ROD = block("tripleaxle/large/connectingrod"),
+    SIX_WHEEL_DRIVE_PIN = block("tripleaxle/large/drivepin"),
+    SIX_WHEEL_DRIVE_ROD = block("tripleaxle/large/driverod"),
+    SIX_WHEEL_ECCENTRIC = block("tripleaxle/large/eccentric"),
+    SIX_WHEEL_ECCENTRIC_ROD = block("tripleaxle/large/eccentricrod"),
+    SIX_WHEEL_RADIUSROD = block("tripleaxle/large/radiusrod")
 
     ;
 
