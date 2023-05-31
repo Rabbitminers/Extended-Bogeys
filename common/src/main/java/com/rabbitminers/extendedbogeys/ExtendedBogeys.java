@@ -8,9 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ExtendedBogeys {
-    public static final String MOD_ID = "Extended Bogeys";
-    public static final String NAME = "Extended Bogeys";
-    public static final Logger LOGGER = LoggerFactory.getLogger(NAME);
+    public static final String MOD_ID = "extendedbogeys";
+    public static final String MOD_NAME = "Extended Bogeys";
+    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(ExtendedBogeys.MOD_ID);
 
