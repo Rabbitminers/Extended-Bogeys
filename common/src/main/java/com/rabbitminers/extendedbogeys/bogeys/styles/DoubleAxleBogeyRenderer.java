@@ -7,7 +7,6 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.rabbitminers.extendedbogeys.bogeys.renderers.ExtendedBogeysBogeyRenderer;
 import com.rabbitminers.extendedbogeys.data.BogeyPaintColour;
 import com.rabbitminers.extendedbogeys.registry.ExtendedBogeysPartials;
-import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.content.trains.bogey.BogeySizes;
 import com.simibubi.create.foundation.utility.Iterate;
@@ -17,23 +16,25 @@ public class DoubleAxleBogeyRenderer {
         @Override
         public void render(boolean forwards, BogeyPaintColour color, float wheelAngle, PoseStack ms, int light,
                            VertexConsumer vb, boolean inContraption) {
-            Transform<?>[] wheels = getTransformsFromPartial(AllPartialModels.SMALL_BOGEY_WHEELS,  ms, inContraption, 2);
+            wheelAngle = forwards ? wheelAngle : -wheelAngle;
+            Transform<?>[] wheels = getTransformsFromPartial(ExtendedBogeysPartials.SMALL_WHEELS.get(color),  ms, inContraption, 2);
 
             for (int side : Iterate.positiveAndNegative) {
                 wheels[(side+1) / 2]
                         .translate(0, 12 / 16f, side + (forwards ? -2 : 2))
-                        .rotateX(wheelAngle);
+                        .rotateX(forwards ? wheelAngle : -wheelAngle);
                 finalize(wheels[(side+1) / 2], ms, light, vb);
             }
 
             Transform<?> frame = getTransformFromPartial(ExtendedBogeysPartials.SMALL_DOUBLE_AXLE_FRAME, ms, inContraption)
-                 .translateY(0.2);
-            finalize(frame, ms, light, vb);
-
-
-            Transform<?> pin = getTransformFromPartial(ExtendedBogeysPartials.SMALL_SINGLE_AXLE_PIN, ms, inContraption)
+                    .rotateY(forwards ? 0 : 180)
                     .translateY(0.2);
             finalize(frame, ms, light, vb);
+
+
+            Transform<?> pin = getTransformFromPartial(ExtendedBogeysPartials.SMALL_DOUBLE_AXLE_PIN, ms, inContraption)
+                    .translateY(0.2);
+            finalize(pin, ms, light, vb);
         }
 
         @Override
@@ -42,14 +43,14 @@ public class DoubleAxleBogeyRenderer {
         }
 
         @Override
-        public void initialiseContraptionModelData(MaterialManager materialManager) {
+        public void initialiseContraptionModelData(MaterialManager materialManager, BogeyPaintColour color) {
             this.createModelInstances(
                 materialManager,
                 ExtendedBogeysPartials.SMALL_DOUBLE_AXLE_FRAME,
                 ExtendedBogeysPartials.SMALL_DOUBLE_AXLE_PIN
             );
             this.createModelInstances(
-                materialManager, AllPartialModels.SMALL_BOGEY_WHEELS, 2
+                materialManager, ExtendedBogeysPartials.SMALL_WHEELS.get(color), 2
             );
         }
     }
@@ -58,12 +59,13 @@ public class DoubleAxleBogeyRenderer {
 
         @Override
         public void render(boolean forwards, BogeyPaintColour color, float wheelAngle, PoseStack ms, int light, VertexConsumer vb, boolean inContraption) {
-            Transform<?>[] wheels = getTransformsFromPartial(AllPartialModels.LARGE_BOGEY_WHEELS,  ms, inContraption, 2);
+            wheelAngle = forwards ? wheelAngle : -wheelAngle;
+            Transform<?>[] wheels = getTransformsFromPartial(ExtendedBogeysPartials.LARGE_WHEELS.get(color),  ms, inContraption, 2);
 
             for (int side : Iterate.positiveAndNegative) {
                 Transform<?> wheel = wheels[(side+1) / 2];
                 wheel.translate(0, 1, side)
-                        .rotateX(wheelAngle);
+                        .rotateX(forwards ? wheelAngle : -wheelAngle);
                 finalize(wheel, ms, light, vb);
             }
 
@@ -90,9 +92,9 @@ public class DoubleAxleBogeyRenderer {
                     .translateZ(linearOffset);
             finalize(driveRod, ms, light, vb);
 
-            Transform<?> frame = getTransformFromPartial(ExtendedBogeysPartials.LARGE_DOUBLE_AXLE_DRIVER_FRAME, ms, inContraption)
+            Transform<?> frame = getTransformFromPartial(ExtendedBogeysPartials.LARGE_DOUBLE_AXLE_DRIVER_FRAMES.get(color), ms, inContraption)
                     .rotateY(forwards ? 0 : 180);
-            finalize(driveRod, ms, light, vb);
+            finalize(frame, ms, light, vb);
         }
 
         @Override
@@ -101,16 +103,16 @@ public class DoubleAxleBogeyRenderer {
         }
 
         @Override
-        public void initialiseContraptionModelData(MaterialManager materialManager) {
+        public void initialiseContraptionModelData(MaterialManager materialManager, BogeyPaintColour color) {
             this.createModelInstances(
                     materialManager,
-                    ExtendedBogeysPartials.LARGE_DOUBLE_AXLE_DRIVER_FRAME,
+                    ExtendedBogeysPartials.LARGE_DOUBLE_AXLE_DRIVER_FRAMES.get(color),
                     ExtendedBogeysPartials.LARGE_DOUBLE_AXLE_DRIVER_PIN,
                     ExtendedBogeysPartials.LARGE_DOUBLE_AXLE_DRIVER_ROD,
                     ExtendedBogeysPartials.LARGE_DOUBLE_AXLE_DRIVER_CONNECTING_ROD
             );
             this.createModelInstances(
-                    materialManager, AllPartialModels.LARGE_BOGEY_WHEELS, 2
+                    materialManager, ExtendedBogeysPartials.LARGE_WHEELS.get(color), 2
             );
         }
     }
