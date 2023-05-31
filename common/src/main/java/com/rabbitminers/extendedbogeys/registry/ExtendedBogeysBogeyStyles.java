@@ -13,18 +13,18 @@ import com.simibubi.create.content.trains.bogey.BogeyStyle;
 import com.simibubi.create.foundation.utility.Components;
 
 public class ExtendedBogeysBogeyStyles {
-    public final BogeyStyle SINGLE_AXLE = create("single_axle")
+    public static final BogeyStyle SINGLE_AXLE = create("single_axle")
             .displayName(Components.translatable("extendedbogeys.bogey.style.single_axle"))
             .size(BogeySizes.SMALL, () -> SmallSingleAxleBogeyRenderer::new, AllBlocks.SMALL_BOGEY)
             .build();
 
-    public final BogeyStyle DOUBLE_AXLE = create("double_axle")
+    public static final BogeyStyle DOUBLE_AXLE = create("double_axle")
             .displayName(Components.translatable("extendedbogeys.bogey.style.double_axle"))
             .size(BogeySizes.SMALL, () -> SmallDoubleAxleBogeyRenderer::new, AllBlocks.SMALL_BOGEY)
             .size(BogeySizes.LARGE, () -> LargeDoubleAxleBogeyRenderer::new, AllBlocks.LARGE_BOGEY)
             .build();
 
-    public final BogeyStyle TRIPLE_AXLE = create("triple_axle")
+    public static final BogeyStyle TRIPLE_AXLE = create("triple_axle")
             .displayName(Components.translatable("extendedbogeys.bogey.style.triple_axle"))
             .size(BogeySizes.LARGE, () -> LargeTripleAxleBogeyRenderer::new, AllBlocks.LARGE_BOGEY)
             .build();
@@ -38,6 +38,6 @@ public class ExtendedBogeysBogeyStyles {
     }
 
     public static void register() {
-
+        ExtendedBogeys.LOGGER.info("Registered bogey styles for " + ExtendedBogeys.MOD_NAME);
     }
 }
