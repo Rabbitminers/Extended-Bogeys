@@ -25,7 +25,8 @@ repositories {
 
 dependencies {
     // Building Against Forge
-    implementation("net.minecraftforge:forge:${minecraft_version}-${forge_version}")
+    // ("net.minecraftforge:forge:${minecraft_version}-${forge_version}")
+    modImplementation("net.fabricmc:fabric-loader:${fabric_loader_version}")
 
     modImplementation("com.simibubi.create:create-${minecraft_version}:${create_forge_version}:slim") { transitive = false }
     modImplementation("com.tterrag.registrate:Registrate:${registrate_forge_version}")
