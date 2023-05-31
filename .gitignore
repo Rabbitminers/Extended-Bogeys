@@ -9,6 +9,9 @@ output/
 bin/
 libs/
 
+temp/
+data/*
+
 .classpath
 .project
 .idea/
