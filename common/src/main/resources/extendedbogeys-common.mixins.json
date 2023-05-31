@@ -6,6 +6,9 @@
   "client": [
   ],
   "mixins": [
+    "MixinAbstractBogeyBlock",
+    "MixinBogeyInstance",
+    "MixinStationBlockEntity"
   ],
   "injectors": {
     "defaultRequire": 1
