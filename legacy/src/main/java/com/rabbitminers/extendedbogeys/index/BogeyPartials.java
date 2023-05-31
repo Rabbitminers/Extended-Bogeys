@@ -11,14 +11,14 @@ public class BogeyPartials {
     THREE_WHEEL_BOGEY_ROD = block("threewheelbogeyrod"),
 
     /* 0-4-0 LARGE */
-    FOUR_WHEEL_DRIVE_ROD = block("four_wheel/large/driverod"),
-    FOUR_WHEEL_DRIVE_PIN = block("four_wheel/large/drivepin"),
-    FOUR_WHEEL_CONNECTING_ROD = block("four_wheel/large/connectingrod"),
-    FOUR_WHEEL_DRIVE_FRAME = block("four_wheel/large/frame"),
+    doubleaxle_DRIVE_ROD = block("doubleaxle/large/driverod"),
+    doubleaxle_DRIVE_PIN = block("doubleaxle/large/drivepin"),
+    doubleaxle_CONNECTING_ROD = block("doubleaxle/large/connectingrod"),
+    doubleaxle_DRIVE_FRAME = block("doubleaxle/large/frame"),
 
     /* 4-0-0 / 0-0-4 SMALL */
-    SMALL_FOUR_WHEEL_FRAME = block("four_wheel/small/frame"),
-    SMALL_FOUR_WHEEL_PIN = block("four_wheel/small/pin"),
+    SMALL_doubleaxle_FRAME = block("doubleaxle/small/frame"),
+    SMALL_doubleaxle_PIN = block("doubleaxle/small/pin"),
 
     /* 0-6-0 LARGE */
     SIX_WHEEL_FRAME = block("tripleaxle/large/frame"),

@@ -50,15 +50,15 @@ public class FourWheelBogey implements IBogeyStyle {
     @Override
     public void registerSmallBogeyModelData(MaterialManager materialManager, DyeColor paintColour) {
         frame = materialManager.defaultSolid().material(Materials.TRANSFORMED)
-                .getModel(BogeyPartials.SMALL_FOUR_WHEEL_FRAME)
+                .getModel(BogeyPartials.SMALL_DO_FRAME)
                 .createInstance();
 
         drivePin = materialManager.defaultSolid().material(Materials.TRANSFORMED)
-                .getModel(BogeyPartials.SMALL_FOUR_WHEEL_PIN)
+                .getModel(BogeyPartials.SMALL_doubleaxle_PIN)
                 .createInstance();
 
         driveRod = materialManager.defaultSolid().material(Materials.TRANSFORMED)
-                .getModel(BogeyPartials.FOUR_WHEEL_DRIVE_ROD)
+                .getModel(BogeyPartials.doubleaxle_DRIVE_ROD)
                 .createInstance();
 
         wheels = new ModelData[2];
@@ -69,22 +69,22 @@ public class FourWheelBogey implements IBogeyStyle {
                 .createInstances(wheels);
 
         connectingRod = materialManager.defaultSolid().material(Materials.TRANSFORMED)
-                .getModel(BogeyPartials.FOUR_WHEEL_CONNECTING_ROD)
+                .getModel(BogeyPartials.doubleaxle_CONNECTING_ROD)
                 .createInstance();
     }
 
     @Override
     public void registerLargeBogeyModelData(MaterialManager materialManager, DyeColor paintColour) {
         frame = materialManager.defaultSolid().material(Materials.TRANSFORMED)
-                .getModel(BogeyPartials.FOUR_WHEEL_DRIVE_FRAME)
+                .getModel(BogeyPartials.doubleaxle_DRIVE_FRAME)
                 .createInstance();
 
         drivePin = materialManager.defaultSolid().material(Materials.TRANSFORMED)
-                .getModel(BogeyPartials.FOUR_WHEEL_DRIVE_PIN)
+                .getModel(BogeyPartials.doubleaxle_DRIVE_PIN)
                 .createInstance();
 
         driveRod = materialManager.defaultSolid().material(Materials.TRANSFORMED)
-                .getModel(BogeyPartials.FOUR_WHEEL_DRIVE_ROD)
+                .getModel(BogeyPartials.doubleaxle_DRIVE_ROD)
                 .createInstance();
 
         wheels = new ModelData[2];
@@ -95,7 +95,7 @@ public class FourWheelBogey implements IBogeyStyle {
                 .createInstances(wheels);
 
         connectingRod = materialManager.defaultSolid().material(Materials.TRANSFORMED)
-                .getModel(BogeyPartials.FOUR_WHEEL_CONNECTING_ROD)
+                .getModel(BogeyPartials.doubleaxle_CONNECTING_ROD)
                 .createInstance();
 
         shafts = new ModelData[2];
@@ -169,13 +169,13 @@ public class FourWheelBogey implements IBogeyStyle {
     @Override
     public void renderLargeInWorld(float wheelAngle, boolean isFacingForward, PoseStack ms, int light, VertexConsumer vb, BlockState air, DyeColor paintColour) {
 
-        CachedBufferer.partial(BogeyPartials.FOUR_WHEEL_DRIVE_FRAME, air)
+        CachedBufferer.partial(BogeyPartials.doubleaxle_DRIVE_FRAME, air)
                 .rotateY(isFacingForward ? 180 : 0)
                 .scale(1 - 1/512f)
                 .light(light)
                 .renderInto(ms, vb);
 
-        CachedBufferer.partial(BogeyPartials.FOUR_WHEEL_CONNECTING_ROD, air)
+        CachedBufferer.partial(BogeyPartials.doubleaxle_CONNECTING_ROD, air)
                 .rotateY(isFacingForward ? 180 : 0)
                 .rotateX(wheelAngle)
                 .translate(0, 1 / 4f, 0)
@@ -186,14 +186,14 @@ public class FourWheelBogey implements IBogeyStyle {
 
         float offSetScaleFactor =  Math.max(0f, (1f - Math.abs(Math.abs(wheelAngle) - 180f) / 180f));
 
-        CachedBufferer.partial(BogeyPartials.FOUR_WHEEL_DRIVE_PIN, air)
+        CachedBufferer.partial(BogeyPartials.doubleaxle_DRIVE_PIN, air)
                 .rotateY(isFacingForward ? 180 : 0)
                 .translateZ(1/4f * Math.sin(Math.toRadians(wheelAngle)))
                 .scale(1 - 1/512f)
                 .light(light)
                 .renderInto(ms, vb);
 
-        CachedBufferer.partial(BogeyPartials.FOUR_WHEEL_DRIVE_ROD, air)
+        CachedBufferer.partial(BogeyPartials.doubleaxle_DRIVE_ROD, air)
                 .translateZ(isFacingForward ? 0.6 : -0.6)
                 .translateY(0.85)
                 .rotateY(isFacingForward ? 180 : 0)
@@ -218,14 +218,14 @@ public class FourWheelBogey implements IBogeyStyle {
 
     @Override
     public void renderSmallInWorld(float wheelAngle, boolean isFacingForward, PoseStack ms, int light, VertexConsumer vb, BlockState air, DyeColor dyeColor) {
-        CachedBufferer.partial(BogeyPartials.SMALL_FOUR_WHEEL_FRAME, air)
+        CachedBufferer.partial(BogeyPartials.SMALL_doubleaxle_FRAME, air)
                 .translateY(0.2)
                 .rotateY(isFacingForward ? 180 : 0)
                 .scale(1 - 1/512f)
                 .light(light)
                 .renderInto(ms, vb);
 
-        CachedBufferer.partial(BogeyPartials.SMALL_FOUR_WHEEL_PIN, air)
+        CachedBufferer.partial(BogeyPartials.SMALL_doubleaxle_PIN, air)
                 .translateY(0.2)
                 .scale(1 - 1/512f)
                 .light(light)

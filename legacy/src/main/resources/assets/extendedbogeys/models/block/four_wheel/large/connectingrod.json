@@ -1,6 +1,6 @@
 {
-  "parent": "extendedbogeys:block/four_wheel/large/textures",
+  "parent": "extendedbogeys:block/doubleaxle/large/textures",
   "loader": "forge:obj",
   "flip-v": true,
-  "model": "extendedbogeys:models/block/four_wheel/large/connectingrod.obj"
+  "model": "extendedbogeys:models/block/doubleaxle/large/connectingrod.obj"
 }
