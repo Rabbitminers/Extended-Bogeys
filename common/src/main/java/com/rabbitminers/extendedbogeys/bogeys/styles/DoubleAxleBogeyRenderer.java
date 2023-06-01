@@ -79,6 +79,7 @@ public class DoubleAxleBogeyRenderer {
             double linearOffset = 1 / 4f * Math.sin(Math.toRadians(wheelAngle));
 
             Transform<?> drivePin = getTransformFromPartial(ExtendedBogeysPartials.LARGE_DOUBLE_AXLE_DRIVER_PIN, ms, inContraption)
+                    .rotateY(forwards ? 0 : 180)
                     .translateZ(linearOffset);
             finalize(drivePin, ms, light, vb);
 
@@ -88,7 +89,7 @@ public class DoubleAxleBogeyRenderer {
                     .translateZ(forwards ? -0.6 : 0.6)
                     .translateY(0.85)
                     .rotateY(forwards ? 0 : 180)
-                    .rotateX(offSetScaleFactor*20-10)
+                    .rotateX(offSetScaleFactor * 20 - 10)
                     .translateZ(linearOffset);
             finalize(driveRod, ms, light, vb);
 
