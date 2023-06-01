@@ -1,4 +1,4 @@
-package com.rabbitminers.extendedbogeys.mixin;
+package com.rabbitminers.extendedbogeys.mixin.client;
 
 import com.jozufozu.flywheel.api.MaterialManager;
 import com.rabbitminers.extendedbogeys.base.Constants;
