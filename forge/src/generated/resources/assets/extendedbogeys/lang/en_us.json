@@ -1,0 +1,36 @@
+{
+
+	"_": "->------------------------]  Game Elements  [------------------------<-",
+
+	"block.extendedbogeys.extra_large_bogey": "Extra Large Bogey",
+	"block.extendedbogeys.extra_large_unlinked_bogey": "Extra Large Unlinked Bogey",
+	"block.extendedbogeys.huge_bogey": "Huge Bogey",
+	"block.extendedbogeys.huge_unlinked_bogey": "Huge Unlinked Bogey",
+	"block.extendedbogeys.large_unlinked_bogey": "Large Unlinked Bogey",
+	"block.extendedbogeys.medium_bogey": "Medium Bogey",
+	"block.extendedbogeys.medium_unlinked_bogey": "Medium Unlinked Bogey",
+	"block.extendedbogeys.small_unlinked_bogey": "Small Unlinked Bogey",
+
+
+	"_": "->------------------------]  en_us  [------------------------<-",
+
+	"extendedbogeys.bogeys.bogey": "Train Bogey",
+	"extendedbogeys.bogeys.sizes.small": "Small",
+	"extendedbogeys.bogeys.sizes.medium": "Medium",
+	"extendedbogeys.bogeys.sizes.large": "Large",
+	"extendedbogeys.bogeys.sizes.extra_large": "Extra Large",
+	"extendedbogeys.bogeys.sizes.huge": "Huge",
+	"extendedbogeys.bogeys.sizes.text": "Bogey Sizes: ",
+
+	"extendedbogeys.tooltips.rotation": "Rotated Bogey!",
+	"extendedbogeys.tooltips.link": "Linked Bogey!",
+	"extendedbogeys.tooltips.unlink": "Unlinked Bogey!",
+	"extendedbogeys.tooltips.dyed": "Dyed Bogey ",
+
+	"extendedbogeys.bogeys.styles.single_axle": "Single Axle Bogey",
+	"extendedbogeys.bogeys.styles.double_axle": "Double Axle Bogey",
+	"extendedbogeys.bogeys.styles.triple_axle": "Triple Axle Bogey",
+
+	"_": "Thank you for translating Extended BOGEYS!"
+
+}

@@ -3,6 +3,6 @@
     "textures": {
         "frame": "extendedbogeys:pink/block/doubleaxle/small/frame",
         "pin": "extendedbogeys:base/block/doubleaxle/small/bolt",
-        "support": "extendedbogeys:pink/block/doubleaxle/small/support",
+        "support": "extendedbogeys:pink/block/doubleaxle/small/support"
     }
 }

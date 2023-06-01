@@ -1,6 +1,10 @@
 {
     "parent": "block/block",
     "textures": {
+        "belt": "extendedbogeys:brown/block/bogey/belt",
+        "bogey": "extendedbogeys:brown/block/bogey/frame",
+        "bogey2": "extendedbogeys:brown/block/bogey/frame2",
+        "piston": "extendedbogeys:brown/block/bogey/piston",
         "wheel": "extendedbogeys:brown/block/bogey/wheel",
         "axis": "create:block/axis",
         "axis_top": "create:block/axis_top"

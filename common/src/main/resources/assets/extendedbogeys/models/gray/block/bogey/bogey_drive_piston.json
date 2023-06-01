@@ -1,0 +1,6 @@
+{
+    "parent": "extendedbogeys:gray/block/bogey/textures",
+    "loader": "forge:obj",
+    "flip-v": true,
+    "model": "extendedbogeys:models/base/block/bogey/bogey_drive_piston.obj"
+}

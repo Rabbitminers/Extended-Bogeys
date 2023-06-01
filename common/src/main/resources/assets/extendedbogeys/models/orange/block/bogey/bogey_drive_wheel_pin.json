@@ -1,0 +1,6 @@
+{
+    "parent": "extendedbogeys:orange/block/bogey/textures",
+    "loader": "forge:obj",
+    "flip-v": true,
+    "model": "extendedbogeys:models/base/block/bogey/bogey_drive_wheel_pin.obj"
+}

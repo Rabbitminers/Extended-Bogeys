@@ -1,0 +1,6 @@
+{
+    "parent": "extendedbogeys:yellow/block/bogey/textures",
+    "loader": "forge:obj",
+    "flip-v": true,
+    "model": "extendedbogeys:models/base/block/bogey/bogey_frame.obj"
+}
