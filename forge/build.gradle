@@ -34,6 +34,12 @@ repositories {
             includeGroup("com.simibubi.create")
         }
     }
+    maven {
+        url 'https://www.cursemaven.com'
+        content {
+            includeGroup "curse.maven"
+        }
+    }
 }
 
 dependencies {
@@ -45,6 +51,8 @@ dependencies {
     modImplementation("com.simibubi.create:create-${minecraft_version}:${create_forge_version}:slim") { transitive = false }
     modImplementation("com.tterrag.registrate:Registrate:${registrate_forge_version}")
     modImplementation("com.jozufozu.flywheel:flywheel-forge-${flywheel_forge_minecraft_version}:${flywheel_forge_version}")
+
+    modImplementation("curse.maven:worldedit-225608:3697298")
 
     // Development QOL
     // modLocalRuntime("mezz.jei:jei-${minecraft_version}:${jei_forge_version}")
