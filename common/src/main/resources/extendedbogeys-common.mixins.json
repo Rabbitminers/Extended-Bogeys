@@ -4,10 +4,15 @@
   "package": "com.rabbitminers.extendedbogeys.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
+    "client.MixinAbstractBogeyBlockEntity",
+    "client.MixinAllBogeyStyles",
+    "client.MixinBogeyInstance",
+    "client.MixinBogeyBlockEntityRenderer"
   ],
   "mixins": [
     "MixinAbstractBogeyBlock",
-    "MixinBogeyInstance",
+    "MixinAllBlockEntityTypes",
+    "MixinCarriageContraptionEntity",
     "MixinStationBlockEntity"
   ],
   "injectors": {
