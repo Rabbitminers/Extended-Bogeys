@@ -1,15 +1,16 @@
 package com.rabbitminers.extendedbogeys.mixin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.rabbitminers.extendedbogeys.base.Constants;
-import com.rabbitminers.extendedbogeys.data.BogeyPaintColour;
+import com.rabbitminers.extendedbogeys.bogeys.common.CommonBogeyFunctionality;
+import com.rabbitminers.extendedbogeys.data.ExtendedBogeysBogeySize;
+import com.rabbitminers.extendedbogeys.registry.ExtendedBogeysBlocks;
 import com.simibubi.create.content.trains.bogey.*;
+import com.simibubi.create.foundation.utility.Components;
 import com.simibubi.create.foundation.utility.Lang;
-import com.simibubi.create.foundation.utility.NBTHelper;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Style;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -23,85 +24,44 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static com.rabbitminers.extendedbogeys.base.Constants.BOGEY_PAINT_KEY;
-import static com.rabbitminers.extendedbogeys.base.Constants.BOGEY_DIRECTION_KEY;
-
 @Mixin(AbstractBogeyBlock.class)
 public abstract class MixinAbstractBogeyBlock {
     @Shadow public abstract void render(BlockState state, float wheelAngle, PoseStack ms, float partialTicks, MultiBufferSource buffers, int light, int overlay, BogeyStyle style, CompoundTag bogeyData);
 
-    @Inject(method = "use", at=@At("TAIL"))
+    @Shadow protected abstract BlockState copyProperties(BlockState source, BlockState target);
+
+    @Inject(method = "use", at=@At("TAIL"), cancellable = true)
     public void onUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit,
-                      CallbackInfoReturnable<InteractionResult> cir) {
-        if (level.isClientSide)
-            return;
-
-        AbstractBogeyBlockEntity be = (AbstractBogeyBlockEntity) level.getBlockEntity(pos);
-
+                               CallbackInfoReturnable<InteractionResult> cir) {
+        CommonBogeyFunctionality.onInteractWithBogey(state, level, pos, player, hand, hit);
         ItemStack heldItem = player.getItemInHand(hand);
 
-        if (player.getCooldowns().isOnCooldown(heldItem.getItem()))
-            return;
+        AbstractBogeyBlockEntity be = (AbstractBogeyBlockEntity) level.getBlockEntity(pos);
+        if (be == null) return;
 
-        if (be != null && heldItem.getItem() instanceof DyeItem dyeItem && !player.isShiftKeyDown()) {
+        if (!level.isClientSide && !player.getCooldowns().isOnCooldown(heldItem.getItem()) && heldItem.is(Items.AIR)
+                && player.isShiftKeyDown()) {
             player.getCooldowns().addCooldown(heldItem.getItem(), 20);
             CompoundTag bogeyData = be.getBogeyData();
-            BogeyPaintColour colour = BogeyPaintColour.of(dyeItem.getDyeColor());
-
-            colour.dyeColour.ifPresent(color -> player.displayClientMessage(Lang.translateDirect("extendedbogeys.tooltips.dyed")
-                            .append(colour.dyeColour.get().getName())
-                            .withStyle(Style.EMPTY.withColor(color.getTextColor())), true));
-
-            NBTHelper.writeEnum(bogeyData, BOGEY_PAINT_KEY, colour);
-
-            be.setBogeyData(bogeyData);
-
-            if (!player.isCreative())
-                heldItem.shrink(1);
-
-            return;
-        }
-
-        if (be != null && heldItem.getItem() instanceof AxeItem && !player.isShiftKeyDown()) {
-            player.getCooldowns().addCooldown(heldItem.getItem(), 20);
-            CompoundTag bogeyData = be.getBogeyData();
-            if (!bogeyData.contains(BOGEY_PAINT_KEY)) {
-                NBTHelper.writeEnum(bogeyData, BOGEY_PAINT_KEY, BogeyPaintColour.UNPAINTED);
-                player.displayClientMessage(Lang.translateDirect("extendedbogeys.tooltips.already_clean"), true);
-                be.setBogeyData(bogeyData);
+            if (!(state.getBlock() instanceof StandardBogeyBlock unlinkedBogeyBlock))
                 return;
-            }
-
-            BogeyPaintColour colour = NBTHelper.readEnum(bogeyData, BOGEY_PAINT_KEY, BogeyPaintColour.class);
-            if (colour == BogeyPaintColour.UNPAINTED) {
-                player.displayClientMessage(Lang.translateDirect("extendedbogeys.tooltips.already_clean"), true);
+            ExtendedBogeysBogeySize supported = ExtendedBogeysBogeySize.of(unlinkedBogeyBlock.size);
+            if (supported == null)
                 return;
-            }
-
-            player.displayClientMessage(Lang.translateDirect("extendedbogeys.tooltips.cleaned"), true);
-            NBTHelper.writeEnum(bogeyData, BOGEY_PAINT_KEY, BogeyPaintColour.UNPAINTED);
-
-            be.setBogeyData(bogeyData);
-            return;
+            BlockState newState = ExtendedBogeysBlocks.UNLINKED_BOGEYS.get(supported).getDefaultState();
+            level.setBlock(pos, copyProperties(state, newState), 3);
+            AbstractBogeyBlockEntity newBlockEntity = (AbstractBogeyBlockEntity) level.getBlockEntity(pos);
+            if (newBlockEntity == null) return;
+            newBlockEntity.setBogeyData(bogeyData);
+            player.displayClientMessage(Components.translatable("extendedbogeys.tooltips.unlink")
+                    .withStyle(ChatFormatting.GREEN), true);
+            cir.setReturnValue(InteractionResult.CONSUME);
         }
+    }
 
-        if (be != null && heldItem.isEmpty() && !player.isShiftKeyDown()) {
-            player.getCooldowns().addCooldown(heldItem.getItem(), 20);
-
-            CompoundTag bogeyData = be.getBogeyData();
-            if (!bogeyData.contains(BOGEY_DIRECTION_KEY)) {
-                bogeyData.putBoolean(BOGEY_DIRECTION_KEY, false);
-                be.setBogeyData(bogeyData);
-                return;
-            }
-
-            boolean isForwards = bogeyData.getBoolean(BOGEY_DIRECTION_KEY);
-            bogeyData.putBoolean(BOGEY_DIRECTION_KEY, !isForwards);
-
-            be.setBogeyData(bogeyData);
-            player.displayClientMessage(Lang.translateDirect("extendedbogeys.tooltips.rotation"), true);
-
-            return;
-        }
+    @Inject(method = "use", at=@At("RETURN"), cancellable = true)
+    public void fixReturnValue(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit,
+                               CallbackInfoReturnable<InteractionResult> cir) {
+        cir.setReturnValue(InteractionResult.CONSUME);
     }
 }
