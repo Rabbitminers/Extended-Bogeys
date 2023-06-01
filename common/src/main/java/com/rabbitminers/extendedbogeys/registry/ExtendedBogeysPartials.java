@@ -4,6 +4,7 @@ import com.jozufozu.flywheel.core.PartialModel;
 import com.rabbitminers.extendedbogeys.ExtendedBogeys;
 import com.rabbitminers.extendedbogeys.data.BogeyPaintColour;
 import com.simibubi.create.AllPartialModels;
+import com.simibubi.create.content.trains.bogey.StandardBogeyRenderer;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -46,6 +47,8 @@ public class ExtendedBogeysPartials {
 
             SMALL_WHEELS = new EnumMap<>(BogeyPaintColour.class),
             LARGE_WHEELS = new EnumMap<>(BogeyPaintColour.class),
+            BOGEY_DRIVES = new EnumMap<>(BogeyPaintColour.class),
+            BOGEY_FRAMES = new EnumMap<>(BogeyPaintColour.class),
 
             // Large (0-4-0)
 
@@ -62,9 +65,13 @@ public class ExtendedBogeysPartials {
             if (colour == BogeyPaintColour.UNPAINTED) {
                 SMALL_WHEELS.put(BogeyPaintColour.UNPAINTED, AllPartialModels.SMALL_BOGEY_WHEELS);
                 LARGE_WHEELS.put(BogeyPaintColour.UNPAINTED, AllPartialModels.LARGE_BOGEY_WHEELS);
+                BOGEY_DRIVES.put(BogeyPaintColour.UNPAINTED, AllPartialModels.BOGEY_DRIVE);
+                BOGEY_FRAMES.put(BogeyPaintColour.UNPAINTED, AllPartialModels.BOGEY_FRAME);
             } else {
                 SMALL_WHEELS.put(colour, dyed(colour, "/bogey/wheel"));
                 LARGE_WHEELS.put(colour, dyed(colour,"/bogey/drive_wheel"));
+                BOGEY_DRIVES.put(colour, dyed(colour, "/bogey/bogey_drive"));
+                BOGEY_FRAMES.put(colour, dyed(colour, "/bogey/bogey_frame"));
             }
         }
     }
