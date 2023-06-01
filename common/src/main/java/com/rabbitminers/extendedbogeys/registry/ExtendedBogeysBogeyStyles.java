@@ -14,18 +14,18 @@ import com.simibubi.create.foundation.utility.Components;
 
 public class ExtendedBogeysBogeyStyles {
     public static final BogeyStyle SINGLE_AXLE = create("single_axle")
-            .displayName(Components.translatable("extendedbogeys.bogey.style.single_axle"))
+            .displayName(Components.translatable("extendedbogeys.bogeys.styles.single_axle"))
             .size(BogeySizes.SMALL, () -> SmallSingleAxleBogeyRenderer::new, AllBlocks.SMALL_BOGEY)
             .build();
 
     public static final BogeyStyle DOUBLE_AXLE = create("double_axle")
-            .displayName(Components.translatable("extendedbogeys.bogey.style.double_axle"))
+            .displayName(Components.translatable("extendedbogeys.bogeys.styles.double_axle"))
             .size(BogeySizes.SMALL, () -> SmallDoubleAxleBogeyRenderer::new, AllBlocks.SMALL_BOGEY)
             .size(BogeySizes.LARGE, () -> LargeDoubleAxleBogeyRenderer::new, AllBlocks.LARGE_BOGEY)
             .build();
 
     public static final BogeyStyle TRIPLE_AXLE = create("triple_axle")
-            .displayName(Components.translatable("extendedbogeys.bogey.style.triple_axle"))
+            .displayName(Components.translatable("extendedbogeys.bogeys.styles.triple_axle"))
             .size(BogeySizes.LARGE, () -> LargeTripleAxleBogeyRenderer::new, AllBlocks.LARGE_BOGEY)
             .build();
 
