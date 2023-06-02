@@ -12,8 +12,14 @@
   "extendedbogeys.tooltips.link": "Linked Bogey!",
   "extendedbogeys.tooltips.unlink": "Unlinked Bogey!",
   "extendedbogeys.tooltips.dyed": "Dyed Bogey ",
+  "extendedbogeys.tooltips.cleaned": "Cleaned Bogey!",
+  "extendedbogeys.tooltips.already_cleaned": "This Bogey Is Already Clean!",
 
   "extendedbogeys.bogeys.styles.single_axle": "Single Axle Bogey",
   "extendedbogeys.bogeys.styles.double_axle": "Double Axle Bogey",
-  "extendedbogeys.bogeys.styles.triple_axle": "Triple Axle Bogey"
+  "extendedbogeys.bogeys.styles.triple_axle": "Triple Axle Bogey",
+
+  "extendedbogeys.bogey.style.updated_style": "Updated style",
+  "extendedbogeys.bogey.style.updated_style_and_size": "Updated style and size",
+  "extendedbogeys.bogey.style.no_other_sizes": "No other sizes"
 }

@@ -8,13 +8,11 @@ import com.simibubi.create.content.trains.bogey.AbstractBogeyBlockEntity;
 import com.simibubi.create.content.trains.bogey.BogeySizes;
 import com.simibubi.create.content.trains.bogey.BogeyStyle;
 import com.simibubi.create.foundation.utility.Components;
-import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.foundation.utility.LangBuilder;
 import com.simibubi.create.foundation.utility.animation.LerpedFloat;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -55,7 +53,7 @@ public class MixinAbstractBogeyBlockEntity extends BlockEntity implements IHaveG
             boolean isImplemented = implementedSizes.contains(value);
             boolean isActive = value == abb.getSize();
 
-            tooltip.add(new TextComponent(isActive ? "-> " : isImplemented ? "✔ " : "× ")
+            tooltip.add(Components.literal(isActive ? "-> " : isImplemented ? "✔ " : "× ")
                     .append(capitalize(value.location().getPath()))
                     .withStyle(isActive ? ChatFormatting.GOLD : isImplemented
                             ? ChatFormatting.GREEN : ChatFormatting.RED));

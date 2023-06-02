@@ -25,7 +25,7 @@ public class ExtendedBogeys {
     }
 
     public static void gatherData(DataGenerator gen) {
-        gen.addProvider(new LangMerger(gen, MOD_ID, "Extended BOGEYS",
+        gen.addProvider(true, new LangMerger(gen, MOD_ID, "Extended Bogeys",
                 ExtendedBogeysLanguageProvider.values()));
     }
 

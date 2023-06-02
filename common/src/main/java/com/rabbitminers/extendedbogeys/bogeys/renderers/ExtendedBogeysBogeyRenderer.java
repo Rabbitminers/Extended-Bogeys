@@ -30,17 +30,26 @@ public abstract class ExtendedBogeysBogeyRenderer extends BogeyRenderer {
     @Override
     public void render(CompoundTag bogeyData, float wheelAngle, PoseStack ms, int light, VertexConsumer vb,
            boolean inContraption) {
-        this.render(this.isForwards(bogeyData), this.getColour(bogeyData), wheelAngle, ms, light, vb, inContraption);
+        this.render(this.isForwards(bogeyData, inContraption), this.getColour(bogeyData), wheelAngle, ms, light, vb, inContraption);
     }
 
-    private boolean isForwards(CompoundTag bogeyData) {
+    private boolean isForwards(CompoundTag bogeyData, boolean inContraption) {
         boolean isForwards = bogeyData.contains(Constants.BOGEY_DIRECTION_KEY) && bogeyData.getBoolean(Constants.BOGEY_DIRECTION_KEY);
 
         Direction direction = bogeyData.contains(Constants.BOGEY_ASSEMBLY_DIRECTION_KEY)
                 ? NBTHelper.readEnum(bogeyData, Constants.BOGEY_ASSEMBLY_DIRECTION_KEY, Direction.class)
                 : Direction.NORTH;
 
-        return isDirectionPosotive(direction) == isForwards;
+        boolean isLinked = true;
+        if (bogeyData.contains(Constants.BOGEY_LINK_KEY))
+            isLinked = bogeyData.getBoolean(Constants.BOGEY_LINK_KEY);
+
+        boolean isPosotive = isDirectionPosotive(direction);
+
+        if (isLinked && inContraption && isPosotive)
+            isForwards = !isForwards;
+
+        return isPosotive == isForwards;
     }
 
     @Nullable

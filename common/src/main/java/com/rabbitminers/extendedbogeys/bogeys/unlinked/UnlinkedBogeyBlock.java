@@ -4,9 +4,11 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
+import com.rabbitminers.extendedbogeys.base.Constants;
 import com.rabbitminers.extendedbogeys.bogeys.common.CommonBogeyFunctionality;
 import com.rabbitminers.extendedbogeys.data.ExtendedBogeysBogeySize;
 import com.rabbitminers.extendedbogeys.registry.ExtendedBogeysBlocks;
+import com.rabbitminers.extendedbogeys.registry.ExtendedBogeysBogeySizes;
 import com.simibubi.create.AllBlockEntityTypes;
 import com.simibubi.create.AllBogeyStyles;
 import com.simibubi.create.AllItems;
@@ -90,7 +92,7 @@ public class UnlinkedBogeyBlock extends Block implements IBE<StandardBogeyBlockE
             be.setBogeyData(be.getBogeyData().merge(defaultData));
 
             if (size == this.size) {
-                player.displayClientMessage(Components.translatable("bogey.style.updated_style")
+                player.displayClientMessage(Components.translatable("create.bogey.style.updated_style")
                         .append(": ").append(style.displayName), true);
             } else {
                 CompoundTag oldData = be.getBogeyData();
@@ -99,13 +101,17 @@ public class UnlinkedBogeyBlock extends Block implements IBE<StandardBogeyBlockE
                 if (!(newBlockEntity instanceof AbstractBogeyBlockEntity newTileEntity))
                     return InteractionResult.FAIL;
                 newTileEntity.setBogeyData(oldData);
-                player.displayClientMessage(Components.translatable("bogey.style.updated_style_and_size")
+                player.displayClientMessage(Components.translatable("create.bogey.style.updated_style_and_size")
                         .append(": ").append(style.displayName), true);
             }
 
             return InteractionResult.CONSUME;
         }
-        CommonBogeyFunctionality.onInteractWithBogey(state, level, pos, player, hand, hit);
+
+        InteractionResult commonResult = CommonBogeyFunctionality.onInteractWithBogey(state, level, pos, player, hand, hit);
+
+        if (commonResult != InteractionResult.PASS)
+            return commonResult;
 
         if (!player.getCooldowns().isOnCooldown(stack.getItem()) && stack.is(Items.AIR) && player.isShiftKeyDown()) {
             player.getCooldowns().addCooldown(stack.getItem(), 20);
@@ -122,6 +128,7 @@ public class UnlinkedBogeyBlock extends Block implements IBE<StandardBogeyBlockE
             newBlockEntity.setBogeyData(bogeyData);
             player.displayClientMessage(Components.translatable("extendedbogeys.tooltips.link")
                     .withStyle(ChatFormatting.GREEN), true);
+            bogeyData.putBoolean(Constants.BOGEY_LINK_KEY, true);
             return InteractionResult.CONSUME;
         }
         return InteractionResult.PASS;
@@ -156,8 +163,14 @@ public class UnlinkedBogeyBlock extends Block implements IBE<StandardBogeyBlockE
     }
 
     public BlockState getStateOfSize(AbstractBogeyBlockEntity sbte, BogeySizes.BogeySize size) {
-        BogeyStyle style = sbte.getStyle();
-        BlockState state = style.getBlockOfSize(size).defaultBlockState();
+        BlockState state;
+        ExtendedBogeysBogeySize supported = ExtendedBogeysBogeySize.of(size);
+        if (supported != null) {
+            state = ExtendedBogeysBlocks.UNLINKED_BOGEYS.get(supported).getDefaultState();
+        } else {
+            BogeyStyle style = sbte.getStyle();
+            state = style.getBlockOfSize(size).defaultBlockState();
+        }
         return copyProperties(sbte.getBlockState(), state);
     }
 

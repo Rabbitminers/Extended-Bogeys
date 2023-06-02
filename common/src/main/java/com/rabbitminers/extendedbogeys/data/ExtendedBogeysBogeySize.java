@@ -45,4 +45,9 @@ public enum ExtendedBogeysBogeySize {
                 .findFirst()
                 .orElse(null);
     }
+
+    public static boolean isSupported(BogeySizes.BogeySize size) {
+        return Arrays.stream(ExtendedBogeysBogeySize.values())
+                .anyMatch(value -> value.size == size);
+    }
 }

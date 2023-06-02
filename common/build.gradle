@@ -18,6 +18,7 @@ repositories {
     maven { // Create Forge and Registrate Forge
         url = "https://maven.tterrag.com/"
         content {
+            includeGroup("com.tterrag.registrate")
             includeGroup("com.simibubi.create")
         }
     }
@@ -25,11 +26,11 @@ repositories {
 
 dependencies {
     // Building Against Forge
-    // ("net.minecraftforge:forge:${minecraft_version}-${forge_version}")
+    // implementation("net.minecraftforge:forge:${minecraft_version}-${forge_version}")
     modImplementation("net.fabricmc:fabric-loader:${fabric_loader_version}")
 
     modImplementation("com.simibubi.create:create-${minecraft_version}:${create_forge_version}:slim") { transitive = false }
-    modImplementation("com.tterrag.registrate:Registrate:${registrate_forge_version}")
+    implementation("com.tterrag.registrate:Registrate:${registrate_forge_version}")
     modImplementation("com.jozufozu.flywheel:flywheel-forge-${flywheel_forge_minecraft_version}:${flywheel_forge_version}")
 
     // Building Against Fabric

@@ -1,6 +1,7 @@
 package com.rabbitminers.extendedbogeys.mixin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.rabbitminers.extendedbogeys.base.Constants;
 import com.rabbitminers.extendedbogeys.bogeys.common.CommonBogeyFunctionality;
 import com.rabbitminers.extendedbogeys.data.ExtendedBogeysBogeySize;
 import com.rabbitminers.extendedbogeys.registry.ExtendedBogeysBlocks;
@@ -30,7 +31,7 @@ public abstract class MixinAbstractBogeyBlock {
 
     @Shadow protected abstract BlockState copyProperties(BlockState source, BlockState target);
 
-    @Inject(method = "use", at=@At("TAIL"), cancellable = true)
+    @Inject(method = "use", at = @At("TAIL"), cancellable = true)
     public void onUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit,
                                CallbackInfoReturnable<InteractionResult> cir) {
         CommonBogeyFunctionality.onInteractWithBogey(state, level, pos, player, hand, hit);
@@ -52,6 +53,7 @@ public abstract class MixinAbstractBogeyBlock {
             level.setBlock(pos, copyProperties(state, newState), 3);
             AbstractBogeyBlockEntity newBlockEntity = (AbstractBogeyBlockEntity) level.getBlockEntity(pos);
             if (newBlockEntity == null) return;
+            bogeyData.putBoolean(Constants.BOGEY_LINK_KEY, false);
             newBlockEntity.setBogeyData(bogeyData);
             player.displayClientMessage(Components.translatable("extendedbogeys.tooltips.unlink")
                     .withStyle(ChatFormatting.GREEN), true);
@@ -59,7 +61,7 @@ public abstract class MixinAbstractBogeyBlock {
         }
     }
 
-    @Inject(method = "use", at=@At("RETURN"), cancellable = true)
+    @Inject(method = "use", at = @At("RETURN"), cancellable = true)
     public void fixReturnValue(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit,
                                CallbackInfoReturnable<InteractionResult> cir) {
         cir.setReturnValue(InteractionResult.CONSUME);

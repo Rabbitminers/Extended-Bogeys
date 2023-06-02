@@ -25,8 +25,10 @@ public class ExtendedBogeysBlocks {
 				.properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
 				.properties(BlockBehaviour.Properties::noOcclusion)
 				.transform(TagGen.pickaxeOnly())
+				/* // For some reason this is fucked on 1.19.2 only enable for datagen on 1.18.2
 				.blockstate((c, p) -> BlockStateGen.horizontalAxisBlock(c, p, s -> p.models()
 						.getExistingFile(p.modLoc("block/track/bogey/unlinked_top"))))
+				 */
 				.loot((p, l) -> p.dropOther(l, AllBlocks.RAILWAY_CASING.get()))
 				.onRegister(movementBehaviour(new UnlinkedBogeyCarriageMovementBehaviour()))
 				.register());
