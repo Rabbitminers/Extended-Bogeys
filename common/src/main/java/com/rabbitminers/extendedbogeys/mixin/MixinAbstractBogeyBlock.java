@@ -27,11 +27,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(AbstractBogeyBlock.class)
 public abstract class MixinAbstractBogeyBlock {
-    @Shadow public abstract void render(BlockState state, float wheelAngle, PoseStack ms, float partialTicks, MultiBufferSource buffers, int light, int overlay, BogeyStyle style, CompoundTag bogeyData);
 
     @Shadow protected abstract BlockState copyProperties(BlockState source, BlockState target);
 
-    @Inject(method = "use", at = @At("TAIL"), cancellable = true)
+    @Inject(method = "m_6227_", at = @At("TAIL"), cancellable = true)
     public void onUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit,
                                CallbackInfoReturnable<InteractionResult> cir) {
         CommonBogeyFunctionality.onInteractWithBogey(state, level, pos, player, hand, hit);
@@ -61,7 +60,7 @@ public abstract class MixinAbstractBogeyBlock {
         }
     }
 
-    @Inject(method = "use", at = @At("RETURN"), cancellable = true)
+    @Inject(method = "m_6227_", at = @At("RETURN"), cancellable = true)
     public void fixReturnValue(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit,
                                CallbackInfoReturnable<InteractionResult> cir) {
         cir.setReturnValue(InteractionResult.CONSUME);
