@@ -1,12 +1,16 @@
 package com.rabbitminers.extendedbogeys.registry;
 
 import com.rabbitminers.extendedbogeys.ExtendedBogeys;
+import com.rabbitminers.extendedbogeys.base.helpers.LangHelpers;
 import com.rabbitminers.extendedbogeys.base.types.BogeySizeBlockSet;
 import com.rabbitminers.extendedbogeys.bogeys.unlinked.UnlinkedBogeyBlock;
 import com.rabbitminers.extendedbogeys.bogeys.unlinked.UnlinkedBogeyCarriageMovementBehaviour;
 import com.simibubi.create.AllBlocks;
+import com.simibubi.create.AllSpriteShifts;
+import com.simibubi.create.content.decoration.encasing.CasingBlock;
 import com.simibubi.create.content.trains.bogey.BogeySizes;
 import com.simibubi.create.content.trains.bogey.StandardBogeyBlock;
+import com.simibubi.create.foundation.block.DyedBlockList;
 import com.simibubi.create.foundation.data.BlockStateGen;
 import com.simibubi.create.foundation.data.BuilderTransformers;
 import com.simibubi.create.foundation.data.CreateRegistrate;
@@ -25,10 +29,8 @@ public class ExtendedBogeysBlocks {
 				.properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
 				.properties(BlockBehaviour.Properties::noOcclusion)
 				.transform(TagGen.pickaxeOnly())
-				/* // For some reason this is fucked on 1.19.2 only enable for datagen on 1.18.2
 				.blockstate((c, p) -> BlockStateGen.horizontalAxisBlock(c, p, s -> p.models()
 						.getExistingFile(p.modLoc("block/track/bogey/unlinked_top"))))
-				 */
 				.loot((p, l) -> p.dropOther(l, AllBlocks.RAILWAY_CASING.get()))
 				.onRegister(movementBehaviour(new UnlinkedBogeyCarriageMovementBehaviour()))
 				.register());
@@ -41,6 +43,15 @@ public class ExtendedBogeysBlocks {
 					.register();
 		else return size.size == BogeySizes.LARGE ? AllBlocks.LARGE_BOGEY : AllBlocks.SMALL_BOGEY;
 	});
+
+	public static final DyedBlockList<CasingBlock> PAINTED_RAILWAY_CASING = new DyedBlockList<>(color ->
+			REGISTRATE.block(color.getName() + "_railway_casing", CasingBlock::new)
+					.transform(BuilderTransformers.layeredCasing(() -> AllSpriteShifts.RAILWAY_CASING_SIDE,
+							() -> AllSpriteShifts.RAILWAY_CASING))
+					.properties(p -> p.color(MaterialColor.TERRACOTTA_CYAN))
+					.properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
+					.lang(LangHelpers.capitalize(color.getName()) + " Train Casing")
+					.register());
 
 	public static void register() {
 		ExtendedBogeys.LOGGER.info("Registering blocks for " + ExtendedBogeys.MOD_NAME);
