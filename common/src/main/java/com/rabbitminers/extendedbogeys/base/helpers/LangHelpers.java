@@ -10,4 +10,8 @@ public class LangHelpers {
                 .map(word -> word.substring(0, 1).toUpperCase() + word.substring(1))
                 .collect(Collectors.joining(" "));
     }
+
+    public static String removeUnderscores(String input) {
+        return input.replace("_", "");
+    }
 }
