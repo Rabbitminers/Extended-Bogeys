@@ -8,7 +8,23 @@ architectury {
 }
 
 loom {
+    Project common = project(":common")
+    Project fabric = project(":fabric")
     accessWidenerPath = project(":common").loom.accessWidenerPath
+
+    runs {
+        datagen {
+            client()
+
+            name "Minecraft Data"
+            vmArg "-Dfabric-api.datagen"
+            vmArg "-Dfabric-api.datagen.output-dir=${common.file("src/generated/resources")}"
+            vmArg "-Dfabric-api.datagen.modid=${archives_base_name}"
+            vmArg "-Dporting_lib.datagen.existing_resources=${common.file("src/main/resources")}"
+
+            environmentVariable("DATAGEN", "TRUE")
+        }
+    }
 }
 
 configurations {
@@ -63,6 +79,16 @@ dependencies {
 }
 
 processResources {
+    from(rootProject.file("common/src/main/resources")) {
+        include("**/**")
+        duplicatesStrategy = DuplicatesStrategy.WARN
+    }
+
+    from(rootProject.file("common/src/generated/resources")) {
+        include("**/**")
+        exclude("**/.cache")
+        duplicatesStrategy = DuplicatesStrategy.WARN
+    }
     // set up properties for filling into metadata
     Map<String, String> properties = Map.of(
             "version", version,
@@ -95,6 +121,14 @@ remapJar {
 jar {
     classifier "dev"
 }
+
+sourceSets.main {
+    resources {
+        srcDir("src/generated/resources")
+        exclude("src/generated/resources/.cache")
+    }
+}
+
 
 sourcesJar {
     def commonSources = project(":common").sourcesJar
