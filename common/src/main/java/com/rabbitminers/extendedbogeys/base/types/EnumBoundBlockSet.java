@@ -2,14 +2,15 @@ package com.rabbitminers.extendedbogeys.base.types;
 
 import com.tterrag.registrate.util.entry.BlockEntry;
 import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.function.Function;
 
 public class EnumBoundBlockSet<T extends Block, E extends Enum<E>>
         implements Iterable<BlockEntry<T>> {
-
     private final BlockEntry<?>[] values;
+    private Class<E> e;
 
     public EnumBoundBlockSet(Class<E> e, Function<E, BlockEntry<? extends T>> filler) {
         values = new BlockEntry<?>[e.getEnumConstants().length];
@@ -19,8 +20,17 @@ public class EnumBoundBlockSet<T extends Block, E extends Enum<E>>
     }
 
     @SuppressWarnings("unchecked")
-    public BlockEntry<T> get(E cogwheel) {
-        return (BlockEntry<T>) values[cogwheel.ordinal()];
+    public BlockEntry<T> get(E block) {
+        return (BlockEntry<T>) values[block.ordinal()];
+    }
+
+    @Nullable
+    public E enumValueOfBlock(T block) {
+        for (int i = 0; i < values.length; i++) {
+            if (values[i].get() == block)
+                return e.getEnumConstants()[i];
+        }
+        return null;
     }
 
     public boolean contains(Block block) {

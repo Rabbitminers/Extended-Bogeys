@@ -1,5 +1,7 @@
 package com.rabbitminers.extendedbogeys.registry;
 
+import com.rabbitminers.extendedbogeys.ExtendedBogeys;
+import com.rabbitminers.extendedbogeys.base.helpers.LangHelpers;
 import com.simibubi.create.Create;
 import com.simibubi.create.foundation.block.connected.AllCTTypes;
 import com.simibubi.create.foundation.block.connected.CTSpriteShiftEntry;
@@ -17,8 +19,8 @@ public class ExtendedBogeysSpriteShifts {
 
     static {
         for (DyeColor color : DyeColor.values()) {
-            PAINTED_RAILWAY_CASING.put(color, omni(color.getName() + "/block/railway_casing"));
-            PAINTED_RAILWAY_CASING_SIDE.put(color, omni(color.getName() + "/block/railway_casing_side"));
+            PAINTED_RAILWAY_CASING.put(color, omni(LangHelpers.removeUnderscores(color.getName()) + "/block/railway_casing"));
+            PAINTED_RAILWAY_CASING_SIDE.put(color, omni(LangHelpers.removeUnderscores(color.getName()) + "/block/railway_casing_side"));
         }
     }
 
@@ -26,8 +28,8 @@ public class ExtendedBogeysSpriteShifts {
         return getCT(AllCTTypes.OMNIDIRECTIONAL, name);
     }
     private static CTSpriteShiftEntry getCT(CTType type, String blockTextureName, String connectedTextureName) {
-        return CTSpriteShifter.getCT(type, Create.asResource("block/" + blockTextureName),
-                Create.asResource(connectedTextureName + "_connected"));
+        return CTSpriteShifter.getCT(type, ExtendedBogeys.asResource(blockTextureName),
+                ExtendedBogeys.asResource(connectedTextureName + "_connected"));
     }
 
     private static CTSpriteShiftEntry getCT(CTType type, String blockTextureName) {
