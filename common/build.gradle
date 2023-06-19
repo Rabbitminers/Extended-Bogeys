@@ -29,14 +29,14 @@ dependencies {
     // implementation("net.minecraftforge:forge:${minecraft_version}-${forge_version}")
     modImplementation("net.fabricmc:fabric-loader:${fabric_loader_version}")
 
-    modImplementation("com.simibubi.create:create-${minecraft_version}:${create_forge_version}:slim") { transitive = false }
-    modImplementation("com.tterrag.registrate:Registrate:${registrate_forge_version}")
-    modImplementation("com.jozufozu.flywheel:flywheel-forge-${flywheel_forge_minecraft_version}:${flywheel_forge_version}")
+    // modImplementation("com.simibubi.create:create-${minecraft_version}:${create_forge_version}:slim") { transitive = false }
+    // modImplementation("com.tterrag.registrate:Registrate:${registrate_forge_version}")
+    // modImplementation("com.jozufozu.flywheel:flywheel-forge-${flywheel_forge_minecraft_version}:${flywheel_forge_version}")
 
     // Building Against Fabric
     // modImplementation("net.fabricmc:fabric-loader:${fabric_loader_version}")
 
-    // modCompileOnly("com.simibubi.create:create-fabric-${minecraft_version}:${create_fabric_version}")
+    modCompileOnly("com.simibubi.create:create-fabric-${minecraft_version}:${create_fabric_version}")
 }
 
 publishing {
