@@ -30,7 +30,7 @@ public abstract class MixinAbstractBogeyBlock {
 
     @Shadow protected abstract BlockState copyProperties(BlockState source, BlockState target);
 
-    @Inject(method = "m_6227_", at = @At("TAIL"), cancellable = true)
+    @Inject(method = "use", at = @At("TAIL"), cancellable = true)
     public void onUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit,
                                CallbackInfoReturnable<InteractionResult> cir) {
         CommonBogeyFunctionality.onInteractWithBogey(state, level, pos, player, hand, hit);
@@ -60,7 +60,7 @@ public abstract class MixinAbstractBogeyBlock {
         }
     }
 
-    @Inject(method = "m_6227_", at = @At("RETURN"), cancellable = true)
+    @Inject(method = "use", at = @At("RETURN"), cancellable = true)
     public void fixReturnValue(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit,
                                CallbackInfoReturnable<InteractionResult> cir) {
         cir.setReturnValue(InteractionResult.CONSUME);

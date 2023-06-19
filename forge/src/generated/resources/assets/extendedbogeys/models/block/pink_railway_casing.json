@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "side": "extendedbogeys:pink/block/railway_casing_side",
+    "end": "extendedbogeys:pink/block/railway_casing"
+  }
+}
