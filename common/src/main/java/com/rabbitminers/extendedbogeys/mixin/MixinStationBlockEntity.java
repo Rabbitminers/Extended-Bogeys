@@ -40,16 +40,21 @@ public class MixinStationBlockEntity extends BlockEntity {
 
     // Would use redirect but mappings seem to have gone wonky :(
     // @Inject(method = "trackClicked", at = @At("TAIL"))
+    /*
     @Inject(
             method = "trackClicked",
             at = @At(
                     value = "INVOKE",
-                    // target = "Lnet/minecraft/world/level/Level;m_7731_(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z",
-                    target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z",
+                    target = "Lnet/minecraft/world/level/Level;m_7731_(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z",
+                    // target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z",
                     shift = At.Shift.AFTER,
                     ordinal = 1
             )
     )
+
+     */
+
+    @Inject(method = "trackClicked", at = @At(value = "TAIL"))
     public void append(Player player, InteractionHand hand, ITrackBlock track, BlockState state, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
         if (level == null)
             return;
@@ -67,17 +72,6 @@ public class MixinStationBlockEntity extends BlockEntity {
 
         CompoundTag bogeyData = bogeyBlockEntity.getBogeyData();
         NBTHelper.writeEnum(bogeyData, Constants.BOGEY_ASSEMBLY_DIRECTION_KEY, assemblyDirection);
-
-        bogeyData.putBoolean(Constants.BOGEY_LINK_KEY, true);
-
-        ItemStack heldItem = player.getItemInHand(hand);
-        if (heldItem.getItem() instanceof BlockItem blockItem &&
-                ExtendedBogeysBlocks.PAINTED_RAILWAY_CASING.contains(blockItem.getBlock()) &&
-                blockItem.getBlock() instanceof CasingBlock casingBlock) {
-            DyeColor color = ExtendedBogeysBlocks.PAINTED_RAILWAY_CASING.enumValueOfBlock(casingBlock);
-            if (color != null)
-                NBTHelper.writeEnum(bogeyData, Constants.BOGEY_PAINT_KEY, color);
-        }
 
         bogeyBlockEntity.setBogeyData(bogeyData);
     }
