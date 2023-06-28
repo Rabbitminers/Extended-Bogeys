@@ -1,33 +1,33 @@
 package com.rabbitminers.extendedbogeys.mixin;
 
 import com.rabbitminers.extendedbogeys.base.Constants;
+import com.rabbitminers.extendedbogeys.data.BogeyPaintColour;
 import com.rabbitminers.extendedbogeys.registry.ExtendedBogeysBlocks;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.decoration.encasing.CasingBlock;
 import com.simibubi.create.content.trains.bogey.AbstractBogeyBlock;
 import com.simibubi.create.content.trains.bogey.AbstractBogeyBlockEntity;
+import com.simibubi.create.content.trains.bogey.BogeyStyle;
 import com.simibubi.create.content.trains.station.StationBlockEntity;
 import com.simibubi.create.content.trains.track.ITrackBlock;
 import com.simibubi.create.foundation.utility.NBTHelper;
+import com.tterrag.registrate.util.entry.BlockEntry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+
+import static com.rabbitminers.extendedbogeys.base.Constants.BOGEY_PAINT_KEY;
 
 @Mixin(StationBlockEntity.class)
 public class MixinStationBlockEntity extends BlockEntity {
@@ -38,24 +38,15 @@ public class MixinStationBlockEntity extends BlockEntity {
         super(type, pos, blockState);
     }
 
-    // Would use redirect but mappings seem to have gone wonky :(
-    // @Inject(method = "trackClicked", at = @At("TAIL"))
-    /*
     @Inject(
             method = "trackClicked",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/world/level/Level;m_7731_(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z",
-                    // target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z",
-                    shift = At.Shift.AFTER,
-                    ordinal = 1
+                    target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z",
+                    shift = At.Shift.AFTER
             )
     )
-
-     */
-
-    @Inject(method = "trackClicked", at = @At(value = "TAIL"))
-    public void append(Player player, InteractionHand hand, ITrackBlock track, BlockState state, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
+    public void addData(Player player, InteractionHand hand, ITrackBlock track, BlockState state, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
         if (level == null)
             return;
 
@@ -70,24 +61,35 @@ public class MixinStationBlockEntity extends BlockEntity {
         if (!(blockEntity instanceof AbstractBogeyBlockEntity bogeyBlockEntity))
             return;
 
+        ItemStack heldItem = player.getItemInHand(hand);
+        BogeyPaintColour paintColour = BogeyPaintColour.UNPAINTED;
+
+        if (heldItem.getItem() instanceof BlockItem blockItem &&
+                blockItem.getBlock() instanceof CasingBlock casingBlock) {
+            System.out.println("Found casing block " + casingBlock);
+            paintColour = BogeyPaintColour
+                    .of(ExtendedBogeysBlocks.PAINTED_RAILWAY_CASING
+                    .enumValueOfBlock(casingBlock));
+            System.out.println("Found paint colour: " + paintColour);
+        }
+
         CompoundTag bogeyData = bogeyBlockEntity.getBogeyData();
+
+        NBTHelper.writeEnum(bogeyData, BOGEY_PAINT_KEY, paintColour);
         NBTHelper.writeEnum(bogeyData, Constants.BOGEY_ASSEMBLY_DIRECTION_KEY, assemblyDirection);
 
         bogeyBlockEntity.setBogeyData(bogeyData);
     }
 
-    /*
-    @ModifyArg(
-            method = "assemble",
+    @Redirect(
+            method = "trackClicked",
             at = @At(
                     value = "INVOKE",
-                    target = "Lcom/simibubi/create/content/trains/entity/CarriageBogey;<init>(Lcom/simibubi/create/content/trains/bogey/AbstractBogeyBlock;ZLnet/minecraft/nbt/CompoundTag;Lcom/simibubi/create/content/trains/entity/TravellingPoint;Lcom/simibubi/create/content/trains/entity/TravellingPoint;)V"
-            ),
-            index = 2
+                    target = "Lcom/tterrag/registrate/util/entry/BlockEntry;isIn(Lnet/minecraft/world/item/ItemStack;)Z"
+            )
     )
-    public CompoundTag appendBogeyData(CompoundTag bogeyData) {
-        NBTHelper.writeEnum(bogeyData, Constants.BOGEY_ASSEMBLY_DIRECTION_KEY, assemblyDirection);
-        return bogeyData;
+    public boolean modifyAssemblyConditions(BlockEntry<?> instance, ItemStack stack) {
+        return stack.is(AllBlocks.RAILWAY_CASING.get().asItem())
+                || ExtendedBogeysBlocks.PAINTED_RAILWAY_CASING.contains(stack.getItem());
     }
-    */
 }

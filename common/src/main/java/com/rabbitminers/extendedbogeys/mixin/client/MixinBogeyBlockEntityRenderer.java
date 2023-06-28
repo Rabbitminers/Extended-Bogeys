@@ -23,7 +23,9 @@ public class MixinBogeyBlockEntityRenderer<T extends BlockEntity> {
         BlockState blockState = be.getBlockState();
         if (be instanceof AbstractBogeyBlockEntity sbte) {
             float angle = sbte.getVirtualAngle(partialTicks);
+            // System.out.println("With print statement 3");
             if (blockState.getBlock() instanceof UnlinkedBogeyBlock bogey) {
+                // System.out.println("With print statement 1");
                 bogey.render(blockState, angle, ms, partialTicks, buffer, light, overlay, sbte.getStyle(), sbte.getBogeyData());
             }
         }

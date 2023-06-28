@@ -1,6 +1,9 @@
 package com.rabbitminers.extendedbogeys.base.types;
 
 import com.tterrag.registrate.util.entry.BlockEntry;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Nullable;
 
@@ -10,10 +13,12 @@ import java.util.function.Function;
 public class EnumBoundBlockSet<T extends Block, E extends Enum<E>>
         implements Iterable<BlockEntry<T>> {
     private final BlockEntry<?>[] values;
-    private Class<E> e;
+    private final Class<E> e;
 
     public EnumBoundBlockSet(Class<E> e, Function<E, BlockEntry<? extends T>> filler) {
+        this.e = e;
         values = new BlockEntry<?>[e.getEnumConstants().length];
+
         for (E constant : e.getEnumConstants()) {
             values[constant.ordinal()] = filler.apply(constant);
         }
@@ -40,6 +45,10 @@ public class EnumBoundBlockSet<T extends Block, E extends Enum<E>>
             }
         }
         return false;
+    }
+
+    public boolean contains(Item item) {
+        return item instanceof BlockItem bi && this.contains(bi.getBlock());
     }
 
     @SuppressWarnings("unchecked")
