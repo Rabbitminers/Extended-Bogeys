@@ -12,7 +12,7 @@
 ## Features
 Extended Bogeys primarily adds new types of bogey aswell as an Interface for other mods to do the same, ontop of this a new Unlinked bogey as been added alowing for more than two bogeys per carriage. Configurably, (disabled by default) speed, acceleration and minimum turn radii can be applied to each bogey making each one more unique.
 
-A <sup>somewhat</sup> complete list of both features and styles both implemented and planned can be found <a href="https://github.com/Rabbitminers/Extended-Bogeys/blob/rewrite/TODO.md">Here</a> please feel free to make any requests at the contacts above.
+A complete list of both features and styles both implemented and planned can be found <a href="https://github.com/Rabbitminers/Extended-Bogeys/blob/rewrite/TODO.md">Here</a> please feel free to make any requests at the contacts above.
 
 ## How can I add my own bogey?
 
