@@ -14,13 +14,13 @@ These are given in the following format **Started  : Completed**
 - ☒ ☐ Style Selection Interface/Menu
 - ☒ ☐ Configurable Turn De-railment
 - ☒ ☐ Configurable Bogey Acceleration
-- ☒ ☒ Configurable Speed Limits/Modifications
+- ☒ ☒ Configurable Speed Limits / Modifications
 - ☒ ☒ Bogey Rotation
 - ☒ ☒ GUI Bogey Renderer
 - ☒ ☐ Developer Wiki
 - ☒ ☒ Disable Default Bogey Components (e.g Shaft)
-- ☒ ☒ Unlinked/"Disabled" Bogeys
-- ☒ ☒ Config For Different For Features
+- ☒ ☒ Unlinked / "Disable" Bogeys
+- ☒ ☒ Config For Different Features
 - ☒ ☐ Paintable / Dyeable Bogeys Interface
 - ☒ ☐ Fuel Requirements For Train To Run
 - ☒ ☐ Water Requirements For Trian to Run
@@ -32,33 +32,80 @@ Styles marked with ? are features under consideration and could be added.
 
 If you have any requests please contact us and ask.
 
-#### Core:
+### Core:
 
-- ☒ ☒ ☒ Two Axel Trailor (Small)
-- ☒ ☒ ☒ Four Wheel Driver (Large)
-- ☒ ☐ ☐ ? Encased Four Wheel Driver (Large)
-- ☒ ☐ ☐ Six Wheel (Small)
-- ☒ ☐ ☐ Six Wheel (Large)
-- ☒ ☐ ☐ Flywheel Scale Driver (Large)
+#### Small Wheelset:
 
-(Some planned styles are missing, we need to put together a co-ordinated list)
+- ☐ ☐ ☐ Single Axel Bogey
+- ☐ ☐ ☐ Triple Axel Bogey
+- ☒ ☒ ☒ Single Axel Trailer Bogey
+- ☒ ☒ ☒ Double Axel Trailer Bogey
+- ☐ ☐ ☐ Triple Axel Trailer Bogey
+- ☐ ☐ ☐ Triple Axel Tender Bogey
+- ☐ ☐ ☐ Four Axel Tender Bogey
+- ☐ ☐ ☐ Five Axel Tender Bogey
 
-#### XL Addon:
+#### Medium Wheelset:
 
-- ☐ ☐ ☐ Eight Wheel (Small) - Note this may be moved to the core mod
-- ☒ ☐ ☐ Eight Wheel Driver (Large) - Note this may be moved to the core mod
-- ☐ ☐ ☐ Ten Wheel (Small)
-- ☒ ☐ ☐ Ten Wheel Driver (Large)
-- ☐ ☐ ☐ ? Twelve Wheel (Small)
-- ☐ ☐ ☐ ? Twelve  Wheel Driver (Large)
+- ☒ ☒ ☐ Single Axel Bogey
+- ☒ ☒ ☐ Double Axel Bogey
+- ☒ ☒ ☐ Triple Axel Bogey
+- ☒ ☒ ☐ Single Axel Trailer Bogey
+- ☒ ☒ ☐ Double Axel Trailer Bogey
+- ☒ ☒ ☐ Triple Axel Trailer Bogey
+- ☒ ☒ ☐ Triple Axel Tender Bogey
+- ☒ ☒ ☐ Four Axel Tender Bogey
+- ☒ ☒ ☐ Five Axel Tender Bogey
 
-#### Diesel Addon
+#### Large Wheelset:
 
-- ☐ ☐ ☐ ? Todo
+- ☒ ☒ ☒ 0-4-0 Driver Bogey (Planned Remodel)
+- ☒ ☒ ☒ 0-6-0 Driver Bogey (Planned Remodel)
+- ☒ ☒ ☐ 0-8-0 Driver Bogey (Planned Remodel)
+- ☐ ☐ ☐ 0-10-0 Driver Bogey
+- ☐ ☐ ☐ 0-12-0 Driver Bogey ?
+- ☒ ☐ ☐ Encased Four Wheel Driver (Large) ?
 
-#### Oddities Addon? (For the more 'unique' bogeys out there)
+#### XLarge Wheelset:
 
-- ☒ ☐ ☐ ? The 'Monstrocity Bogey' (Large)
-- ☒ ☐ ☐ ? Cattle Catchers
-- ☐ ☐ ☐ ? Eleven Wheel (Small)
-- ☐ ☐ ☐ ? Eleven Wheel Driver (Large)
+- ☐ ☐ ☐ 0-2-0 Driver Bogey ?
+- ☒ ☒ ☐ 0-4-0 Driver Bogey
+- ☒ ☒ ☐ 0-6-0 Driver Bogey
+- ☒ ☒ ☐ 0-8-0 Driver Bogey
+- ☒ ☒ ☐ 0-10-0 Driver Bogey
+- ☒ ☒ ☐ 0-12-0 Driver Bogey ?
+
+### XL Addon:
+
+#### Small Wheelset:
+
+- ☐ ☐ ☐ Six Axel Tender Bogey
+
+#### Medium Wheelset:
+
+- ☒ ☐ ☐ Six Axel Tender Bogey
+
+#### Large Wheelset:
+
+- ☐ ☐ ☐ 0-14-0 Driver Bogey
+
+#### XLarge Wheelset:
+
+- ☐ ☐ ☐ 0-14-0 Driver Bogey
+
+#### Flywheel Size Wheelset:
+
+- ☐ ☐ ☐ 0-2-0 Driver Bogey ?
+- ☐ ☐ ☐ 0-4-0 Driver Bogey
+- ☐ ☐ ☐ 0-6-0 Driver Bogey
+
+### Diesel Addon:
+
+- ☐ ☐ ☐ Todo ?
+
+### Oddities Addon (For the more 'unique' bogeys out there) ?
+
+- ☒ ☐ ☐ The 'Monstrocity Bogey' (Large) ?
+- ☒ ☐ ☐ Cattle Catchers ?
+- ☐ ☐ ☐ Eleven Wheel (Small) ?
+- ☐ ☐ ☐ Eleven Wheel Driver (Large) ?
