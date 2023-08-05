@@ -36,8 +36,8 @@ If you have any requests please contact us and ask.
 
 #### Small Wheelset:
 
-- ☐ ☐ ☐ Single Axel Bogey
-- ☐ ☐ ☐ Triple Axel Bogey
+- ☒ ☒ ☐ Single Axel Bogey
+- ☒ ☒ ☐ Triple Axel Bogey
 - ☒ ☒ ☒ Single Axel Trailer Bogey
 - ☒ ☒ ☒ Double Axel Trailer Bogey
 - ☐ ☐ ☐ Triple Axel Trailer Bogey
