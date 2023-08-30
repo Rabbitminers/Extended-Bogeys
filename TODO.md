@@ -59,11 +59,16 @@ If you have any requests please contact us and ask.
 
 #### Large Wheelset:
 
+- ☒ ☒ ☐ Scotch Yoke 0-4-0
+- ☒ ☒ ☐ Scotch Yoke 0-6-0
+- ☒ ☒ ☐ Scotch Yoke 0-8-0
+- ☒ ☒ ☐ Scotch Yoke 0-10-0
+- ☒ ☒ ☐ Scotch Yoke 0-12-0
 - ☒ ☒ ☒ 0-4-0 Driver Bogey (Planned Remodel)
 - ☒ ☒ ☒ 0-6-0 Driver Bogey (Planned Remodel)
 - ☒ ☒ ☐ 0-8-0 Driver Bogey (Planned Remodel)
-- ☐ ☐ ☐ 0-10-0 Driver Bogey
-- ☐ ☐ ☐ 0-12-0 Driver Bogey ?
+- ☒ ☒ ☐ 0-10-0 Driver Bogey
+- ☒ ☒ ☐ 0-12-0 Driver Bogey ?
 - ☒ ☐ ☐ Encased Four Wheel Driver (Large) ?
 
 #### XLarge Wheelset:
