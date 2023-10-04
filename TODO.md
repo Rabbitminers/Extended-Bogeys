@@ -11,6 +11,7 @@ These are given in the following format **Started  : Completed**
 - ☒ ☒ Read Bogey Style From Saved Data
 - ☒ ☒ Sync Bogey Styles Between Server and Client
 - ☒ ☒ Cycle Styles With Wrench
+- ☒ ☐ Select Different Valve Gears To Use On Different Wheelsets 
 - ☒ ☐ Style Selection Interface/Menu
 - ☒ ☐ Configurable Turn De-railment
 - ☒ ☐ Configurable Bogey Acceleration
@@ -23,7 +24,7 @@ These are given in the following format **Started  : Completed**
 - ☒ ☒ Config For Different Features
 - ☒ ☐ Paintable / Dyeable Bogeys Interface
 - ☒ ☐ Fuel Requirements For Train To Run
-- ☒ ☐ Water Requirements For Trian to Run
+- ☒ ☐ Water Requirements For Train to Run
 
 ## Bogey Styles
 These are given in the following format **Modeled  : Textured : Implemented**
@@ -50,6 +51,8 @@ If you have any requests please contact us and ask.
 - ☒ ☒ ☐ Single Axel Bogey
 - ☒ ☒ ☐ Double Axel Bogey
 - ☒ ☒ ☐ Triple Axel Bogey
+- ☒ ☒ ☐ Four Axel Bogey
+- ☒ ☒ ☐ Five Axel Bogey
 - ☒ ☒ ☐ Single Axel Trailer Bogey
 - ☒ ☒ ☐ Double Axel Trailer Bogey
 - ☒ ☒ ☐ Triple Axel Trailer Bogey
@@ -64,21 +67,21 @@ If you have any requests please contact us and ask.
 - ☒ ☒ ☐ Scotch Yoke 0-8-0
 - ☒ ☒ ☐ Scotch Yoke 0-10-0
 - ☒ ☒ ☐ Scotch Yoke 0-12-0
-- ☒ ☒ ☒ 0-4-0 Driver Bogey (Planned Remodel)
-- ☒ ☒ ☒ 0-6-0 Driver Bogey (Planned Remodel)
-- ☒ ☒ ☐ 0-8-0 Driver Bogey (Planned Remodel)
+- ☒ ☒ ☒ 0-4-0 Driver Bogey (Finished Remodel)
+- ☒ ☒ ☒ 0-6-0 Driver Bogey (Finished Remodel)
+- ☒ ☒ ☐ 0-8-0 Driver Bogey (Finished Remodel)
 - ☒ ☒ ☐ 0-10-0 Driver Bogey
 - ☒ ☒ ☐ 0-12-0 Driver Bogey ?
-- ☒ ☐ ☐ Encased Four Wheel Driver (Large) ?
+- ☒ ☒ ☐ Encased Four Wheel Driver (Large) ?
 
 #### XLarge Wheelset:
 
-- ☐ ☐ ☐ 0-2-0 Driver Bogey ?
+- ☒ ☒ ☐ Scotch Yoke 0-2-0
 - ☒ ☒ ☐ 0-4-0 Driver Bogey
 - ☒ ☒ ☐ 0-6-0 Driver Bogey
 - ☒ ☒ ☐ 0-8-0 Driver Bogey
 - ☒ ☒ ☐ 0-10-0 Driver Bogey
-- ☒ ☒ ☐ 0-12-0 Driver Bogey ?
+- ☒ ☒ ☐ 0-12-0 Driver Bogey
 
 ### XL Addon:
 
