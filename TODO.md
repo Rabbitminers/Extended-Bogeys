@@ -37,28 +37,28 @@ If you have any requests please contact us and ask.
 
 #### Small Wheelset:
 
-- ☒ ☒ ☐ Single Axel Bogey
-- ☒ ☒ ☐ Triple Axel Bogey
-- ☒ ☒ ☒ Single Axel Trailer Bogey
-- ☒ ☒ ☒ Double Axel Trailer Bogey
-- ☐ ☐ ☐ Triple Axel Trailer Bogey
-- ☐ ☐ ☐ Triple Axel Tender Bogey
-- ☐ ☐ ☐ Four Axel Tender Bogey
-- ☐ ☐ ☐ Five Axel Tender Bogey
+- ☒ ☒ ☐ Single Axle Bogey
+- ☒ ☒ ☐ Triple Axle Bogey
+- ☒ ☒ ☒ Single Axle Trailer Bogey
+- ☒ ☒ ☒ Double Axle Trailer Bogey
+- ☐ ☐ ☐ Triple Axle Trailer Bogey
+- ☐ ☐ ☐ Triple Axle Tender Bogey
+- ☐ ☐ ☐ Four Axle Tender Bogey
+- ☐ ☐ ☐ Five Axle Tender Bogey
 
 #### Medium Wheelset:
 
-- ☒ ☒ ☐ Single Axel Bogey
-- ☒ ☒ ☐ Double Axel Bogey
-- ☒ ☒ ☐ Triple Axel Bogey
-- ☒ ☒ ☐ Four Axel Bogey
-- ☒ ☒ ☐ Five Axel Bogey
-- ☒ ☒ ☐ Single Axel Trailer Bogey
-- ☒ ☒ ☐ Double Axel Trailer Bogey
-- ☒ ☒ ☐ Triple Axel Trailer Bogey
-- ☒ ☒ ☐ Triple Axel Tender Bogey
-- ☒ ☒ ☐ Four Axel Tender Bogey
-- ☒ ☒ ☐ Five Axel Tender Bogey
+- ☒ ☒ ☐ Single Axle Bogey
+- ☒ ☒ ☐ Double Axle Bogey
+- ☒ ☒ ☐ Triple Axle Bogey
+- ☒ ☒ ☐ Four Axle Bogey
+- ☒ ☒ ☐ Five Axle Bogey
+- ☒ ☒ ☐ Single Axle Trailer Bogey
+- ☒ ☒ ☐ Double Axle Trailer Bogey
+- ☒ ☒ ☐ Triple Axle Trailer Bogey
+- ☒ ☒ ☐ Triple Axle Tender Bogey
+- ☒ ☒ ☐ Four Axle Tender Bogey
+- ☒ ☒ ☐ Five Axle Tender Bogey
 
 #### Large Wheelset:
 
@@ -87,11 +87,11 @@ If you have any requests please contact us and ask.
 
 #### Small Wheelset:
 
-- ☐ ☐ ☐ Six Axel Tender Bogey
+- ☐ ☐ ☐ Six Axle Tender Bogey
 
 #### Medium Wheelset:
 
-- ☒ ☐ ☐ Six Axel Tender Bogey
+- ☒ ☐ ☐ Six Axle Tender Bogey
 
 #### Large Wheelset:
 
@@ -113,9 +113,9 @@ If you have any requests please contact us and ask.
 
 ### Oddities Addon (For the more 'unique' bogeys out there) ?
 
-- ☒ ☐ ☐ The 'Monstrocity Bogey' (Large) ?
+- ☐ ☐ ☐ The 'Monstrocity Bogey' (Large) ?
 - ☒ ☐ ☐ Cattle Catchers ?
 - ☐ ☐ ☐ Eleven Wheel (Small) ?
 - ☐ ☐ ☐ Eleven Wheel Driver (Large) ?
-- ☐ ☐ ☐ Walking bogey
+- ☐ ☐ ☐ Walking bogey ?
 - ☒ ☒ ☐ Invisible Bogey ?
