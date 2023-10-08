@@ -77,6 +77,11 @@ If you have any requests please contact us and ask.
 #### XLarge Wheelset:
 
 - ☒ ☒ ☐ Scotch Yoke 0-2-0
+- ☒ ☐ ☐ Scotch Yoke 0-4-0
+- ☒ ☐ ☐ Scotch Yoke 0-6-0
+- ☒ ☐ ☐ Scotch Yoke 0-8-0
+- ☒ ☐ ☐ Scotch Yoke 0-10-0
+- ☒ ☐ ☐ Scotch Yoke 0-12-0
 - ☒ ☒ ☐ 0-4-0 Driver Bogey
 - ☒ ☒ ☐ 0-6-0 Driver Bogey
 - ☒ ☒ ☐ 0-8-0 Driver Bogey
