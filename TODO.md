@@ -39,12 +39,14 @@ If you have any requests please contact us and ask.
 
 - ☒ ☒ ☐ Single Axle Bogey
 - ☒ ☒ ☐ Triple Axle Bogey
+- ☒ ☒ ☐ Four Axle Bogey
+- ☒ ☒ ☐ Five Axle Bogey
 - ☒ ☒ ☒ Single Axle Trailer Bogey
 - ☒ ☒ ☒ Double Axle Trailer Bogey
-- ☐ ☐ ☐ Triple Axle Trailer Bogey
-- ☐ ☐ ☐ Triple Axle Tender Bogey
-- ☐ ☐ ☐ Four Axle Tender Bogey
-- ☐ ☐ ☐ Five Axle Tender Bogey
+- ☒ ☐ ☐ Triple Axle Trailer Bogey
+- ☒ ☐ ☐ Triple Axle Tender Bogey
+- ☒ ☐ ☐ Four Axle Tender Bogey
+- ☒ ☐ ☐ Five Axle Tender Bogey
 
 #### Medium Wheelset:
 
@@ -67,12 +69,16 @@ If you have any requests please contact us and ask.
 - ☒ ☒ ☐ Scotch Yoke 0-8-0
 - ☒ ☒ ☐ Scotch Yoke 0-10-0
 - ☒ ☒ ☐ Scotch Yoke 0-12-0
+- ☒ ☒ ☐ 0-2-0 Driver Bogey
 - ☒ ☒ ☒ 0-4-0 Driver Bogey (Finished Remodel)
 - ☒ ☒ ☒ 0-6-0 Driver Bogey (Finished Remodel)
 - ☒ ☒ ☐ 0-8-0 Driver Bogey (Finished Remodel)
 - ☒ ☒ ☐ 0-10-0 Driver Bogey
-- ☒ ☒ ☐ 0-12-0 Driver Bogey ?
-- ☒ ☒ ☐ Encased Four Wheel Driver (Large) ?
+- ☒ ☒ ☐ 0-12-0 Driver Bogey 
+- ☒ ☒ ☐ Encased 0-4-0 Driver Bogey
+- ☒ ☒ ☐ Encased 0-6-0 Driver Bogey
+- ☒ ☐ ☐ Encased 0-8-0 Driver Bogey
+- 
 
 #### XLarge Wheelset:
 
@@ -108,7 +114,7 @@ If you have any requests please contact us and ask.
 
 #### Flywheel Size Wheelset:
 
-- ☐ ☐ ☐ 0-2-0 Driver Bogey ?
+- ☐ ☐ ☐ 0-2-0 Driver Bogey 
 - ☐ ☐ ☐ 0-4-0 Driver Bogey
 - ☐ ☐ ☐ 0-6-0 Driver Bogey
 
