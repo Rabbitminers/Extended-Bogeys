@@ -78,7 +78,6 @@ If you have any requests please contact us and ask.
 - ☒ ☒ ☐ Encased 0-4-0 Driver Bogey
 - ☒ ☒ ☐ Encased 0-6-0 Driver Bogey
 - ☒ ☐ ☐ Encased 0-8-0 Driver Bogey
-- 
 
 #### XLarge Wheelset:
 
