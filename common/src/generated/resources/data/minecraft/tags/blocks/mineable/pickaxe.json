@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "extendedbogeys:small_unlinked_bogey",
+    "extendedbogeys:medium_unlinked_bogey",
+    "extendedbogeys:large_unlinked_bogey",
+    "extendedbogeys:extra_large_unlinked_bogey",
+    "extendedbogeys:huge_unlinked_bogey",
+    "extendedbogeys:medium_bogey",
+    "extendedbogeys:extra_large_bogey",
+    "extendedbogeys:huge_bogey"
+  ]
+}

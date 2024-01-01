@@ -15,29 +15,30 @@ repositories {
     maven { url = "https://maven.cafeteria.dev/releases" } // Fake Player API
     maven { url = "https://maven.jamieswhiteshirt.com/libs-release" } // Reach Entity Attributes
     maven { url = "https://jitpack.io/" } // Mixin Extras, Fabric ASM
-    maven { // Create Forge and Registrate Forge
-        url = "https://maven.tterrag.com/"
-        content {
-            includeGroup("com.tterrag.registrate")
-            includeGroup("com.simibubi.create")
-        }
-    }
 }
 
 dependencies {
-    // Building Against Forge
-    // implementation("net.minecraftforge:forge:${minecraft_version}-${forge_version}")
+    // We depend on fabric loader here to use the fabric @Environment annotations and get the mixin dependencies
+    // Do NOT use other classes from fabric loader
     modImplementation("net.fabricmc:fabric-loader:${fabric_loader_version}")
-
-    // modImplementation("com.simibubi.create:create-${minecraft_version}:${create_forge_version}:slim") { transitive = false }
-    // modImplementation("com.tterrag.registrate:Registrate:${registrate_forge_version}")
-    // modImplementation("com.jozufozu.flywheel:flywheel-forge-${flywheel_forge_minecraft_version}:${flywheel_forge_version}")
-
-    // Building Against Fabric
-    // modImplementation("net.fabricmc:fabric-loader:${fabric_loader_version}")
-
+    // Compile against Create Fabric in common
+    // beware of differences across platforms!
+    // dependencies must also be pulled in to minimize problems, from remapping issues to compile errors.
+    // All dependencies except Flywheel and Registrate are NOT safe to use!
+    // Flywheel and Registrate must also be used carefully due to differences.
     modCompileOnly("com.simibubi.create:create-fabric-${minecraft_version}:${create_fabric_version}")
+    // required for proper remapping and compiling
+    modCompileOnly("net.fabricmc.fabric-api:fabric-api:${fabric_api_version}")
 }
+
+sourceSets.main {
+    resources { // include generated resources in resources
+        srcDir("src/generated/resources")
+        exclude(".cache/**")
+        exclude("assets/create/**")
+    }
+}
+
 
 publishing {
     publications {
@@ -46,16 +47,5 @@ publishing {
             from components.java
         }
     }
-
-    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-    repositories {
-        // Add repositories to publish to here.
-    }
-}
-
-sourceSets.main {
-    resources { // include generated resources in resources
-        srcDir("src/generated/resources")
-        exclude("src/generated/resources/.cache")
-    }
+    repositories {}
 }

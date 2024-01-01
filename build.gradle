@@ -1,8 +1,8 @@
 plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
-    id "dev.architectury.loom" version "1.0-SNAPSHOT" apply false
-    id "io.github.juuxel.loom-quiltflower" version "1.+" apply false // Quiltflower, a better decompiler
-    id "io.github.p03w.machete" version "1.+" // automatic jar compressing on build
+    id "dev.architectury.loom" version "1.1.+" apply false
+    id "io.github.juuxel.loom-vineflower" version "1.+" apply false // Vineflower, a better decompiler
+    id "me.modmuss50.mod-publish-plugin" version "0.3.4" apply false // https://github.com/modmuss50/mod-publish-plugin
 }
 
 architectury {
@@ -11,16 +11,27 @@ architectury {
 
 subprojects {
     apply plugin: "dev.architectury.loom"
-    apply plugin: "io.github.juuxel.loom-quiltflower"
+    apply plugin: "io.github.juuxel.loom-vineflower"
 
     loom {
         silentMojangMappingsLicense()
+
+        runs.configureEach {
+            vmArg("-Dmixin.debug.export=true")
+            vmArg("-Dmixin.env.remapRefMap=true")
+            vmArg("-Dmixin.env.refMapRemappingFile=${projectDir}/build/createSrgToMcp/output.srg")
+        }
     }
 
     repositories {
         mavenCentral()
         maven { url = "https://maven.shedaniel.me/" } // Cloth Config, REI
-        // maven { url = "https://dvs1.progwml6.com/files/maven/" } // JEI
+        maven { // JEI
+            url = "https://maven.blamejared.com/"
+            content {
+                includeGroup("mezz.jei")
+            }
+        }
         maven { url = "https://maven.parchmentmc.org" } // Parchment mappings
         maven { url = "https://maven.quiltmc.org/repository/release" } // Quilt Mappings
         maven { // Flywheel
@@ -43,6 +54,16 @@ subprojects {
 
         // see each subproject for dependencies.
     }
+
+    tasks.register("moveBuiltJars", Copy) {
+        if (project.path != ":common") {
+            def remapJar = project.tasks.named('remapJar')
+            dependsOn remapJar
+            from remapJar
+        }
+
+        into(rootProject.file("jars"))
+    }
 }
 
 allprojects {
@@ -53,20 +74,16 @@ allprojects {
     archivesBaseName = rootProject.archives_base_name
     group = rootProject.maven_group
 
-    // Formats the mod version to include the loader, Minecraft version, and build number (if present)
-    // example: 1.0.0+fabric-1.18.2-100
+    // Mod version - Minecraft Version - Create Version - Loader
+    // e.g 2.1.0-1.18.2-0.5.1-fabric
     String buildNumber = System.getenv("GITHUB_RUN_NUMBER")
-    version = "${mod_version}+${project.name}-patch-"
+    version = "${mod_version}-${minecraft_version}-${raw_create_version}-${project.name}" + (buildNumber != null ? "-${buildNumber}" : "")
 
     repositories {
-        // Add repositories to retrieve artifacts from in here.
-        // You should only use this when depending on other mods because
-        // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-        // See https://docs.gradle.org/current/userguide/declaring_repositories.html
-        // for more information about repositories.
+        //
     }
 
-    tasks.withType(JavaCompile) {
+    tasks.withType(JavaCompile).configureEach {
         options.encoding = "UTF-8"
     }
 
@@ -74,8 +91,44 @@ allprojects {
         withSourcesJar()
     }
 
-    machete {
-        // disable machete locally for faster builds
-        enabled = buildNumber != null
+    configurations.configureEach {
+        resolutionStrategy.eachDependency {
+            if (requested.module.name == "fabric-loader") {
+                useVersion(fabric_loader_version)
+            }
+        }
     }
 }
+
+// https://github.com/Layers-of-Railways/Railway/blob/1.19/dev/build.gradle
+String getChangelogText(String loader, boolean recent) {
+    def changelogFile = file(recent ? 'recent_changelog.txt' : 'changelog.txt')
+    String str = ''
+    int lineCount = 0
+    boolean done = false
+    changelogFile.eachLine {
+        if (done || it == null) {
+            return
+        }
+        if (it.size() > 1) {
+            def temp = it
+            if (lineCount == 0) {
+                temp = "<span style=\"font-size: 18px; color: #333399;\">Extended Bogeys v${mod_version}</span>&nbsp;&nbsp;<em>for Minecraft $loader ${minecraft_version}</em><br/>"
+            } else if (it.startsWith('-')) {
+                temp = "&nbsp;&nbsp;&nbsp;$temp<br/>"
+                temp = temp.replaceAll("(\\S+\\/\\S+)#([0-9]+)\\b", "<a href=\"https://github.com/\$1/issues/\$2\">\$0</a>");
+                temp = temp.replaceAll("#([0-9]+)\\b(?!</a>)", "<a href=\"https://github.com/Rabbitminers/Extended-Bogeys/issues/\$1\">\$0</a>");
+            } else {
+                temp = "<h4>$temp</h4>"
+            }
+            str += temp
+            lineCount++
+        } else {
+            str += "<p>Please submit any Issues you come across on the&nbsp;<a href=\"https://github.com/Rabbitminers/Extended-Bogeys/issues\" rel=\"nofollow\">Issue Tracker</a>.</p>"
+            done = true
+        }
+    }
+    return str
+}
+new File("changelog.html").write getChangelogText("Fabric", false)
+new File("recent_changelog.html").write getChangelogText("Fabric", true)
