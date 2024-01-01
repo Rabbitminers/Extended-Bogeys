@@ -68,10 +68,10 @@ public class ExtendedBogeysPartials {
                 BOGEY_DRIVES.put(BogeyPaintColour.UNPAINTED, AllPartialModels.BOGEY_DRIVE);
                 BOGEY_FRAMES.put(BogeyPaintColour.UNPAINTED, AllPartialModels.BOGEY_FRAME);
             } else {
-                SMALL_WHEELS.put(colour, dyed(colour, "/bogey/wheel"));
-                LARGE_WHEELS.put(colour, dyed(colour,"/bogey/drive_wheel"));
-                BOGEY_DRIVES.put(colour, dyed(colour, "/bogey/bogey_drive"));
-                BOGEY_FRAMES.put(colour, dyed(colour, "/bogey/bogey_frame"));
+                SMALL_WHEELS.put(colour, dyed(colour, "bogey/wheel"));
+                LARGE_WHEELS.put(colour, dyed(colour,"bogey/drive_wheel"));
+                BOGEY_DRIVES.put(colour, dyed(colour, "bogey/bogey_drive"));
+                BOGEY_FRAMES.put(colour, dyed(colour, "bogey/bogey_frame"));
             }
         }
     }

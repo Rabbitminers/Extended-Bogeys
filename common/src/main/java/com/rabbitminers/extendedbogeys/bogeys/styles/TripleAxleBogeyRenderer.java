@@ -15,59 +15,56 @@ public class TripleAxleBogeyRenderer {
 
         @Override
         public void render(boolean forwards, BogeyPaintColour color, float wheelAngle, PoseStack ms, int light, VertexConsumer vb, boolean inContraption) {
-            wheelAngle = forwards ? wheelAngle : -wheelAngle;
-            double offset = 3d / 16d;
+            BogeyModelData[] wheels = this.getTransform(ExtendedBogeysPartials.LARGE_WHEELS.get(color), ms, inContraption, 3);
 
-            Transform<?>[] wheels = this.getTransformsFromPartial(ExtendedBogeysPartials.LARGE_WHEELS.get(color), ms, inContraption, 3);
             for (int side = -1; side < 2; side++) {
-                Transform<?> wheel = wheels[side + 1];
-                wheel.translate(0, 1, side * 1.875)
-                        .rotateX(forwards ? wheelAngle : -wheelAngle);
-                finalize(wheel, ms, light, vb);
+                wheels[side+1]
+                    .translate(0, 1, side*1.875)
+                    .rotateY(forwards ? 0 : 180)
+                    .rotateX(wheelAngle)
+                    .render(ms, light, vb);
             }
 
-            ms.translate(0, offset, forwards ? offset : -offset);
+            this.getTransform(ExtendedBogeysPartials.LARGE_TRIPLE_AXLE_DRIVER_FRAMES.get(color), ms, inContraption)
+                    .rotateY(forwards ? 0 : 180)
+                    .render(ms, light, vb);
 
-            Transform<?> frame = this.getTransformFromPartial(ExtendedBogeysPartials.LARGE_TRIPLE_AXLE_DRIVER_FRAMES.get(color), ms, inContraption)
-                    .rotateY(forwards ? 0 : 180);
-            finalize(frame, ms, light, vb);
-
-            Transform<?> connectingRod = this.getTransformFromPartial(ExtendedBogeysPartials.LARGE_TRIPLE_AXLE_DRIVER_CONNECTING_ROD, ms, inContraption)
+            this.getTransform(ExtendedBogeysPartials.LARGE_TRIPLE_AXLE_DRIVER_CONNECTING_ROD, ms, inContraption)
                     .rotateY(forwards ? 0 : 180)
                     .rotateX(wheelAngle)
                     .translate(0, 1 / 4f, 0)
                     .rotateX(-wheelAngle)
-                    .translateY(-4d/16d);
-            finalize(connectingRod, ms, light, vb);
+                    .translateY(-4d/16d)
+                    .render(ms, light, vb);
 
             float offSetScaleFactor =  Math.max(0f, (1f - Math.abs(Math.abs(wheelAngle) - 180f) / 180f));
             double zOffset = 1 / 4f * Math.sin(Math.toRadians(wheelAngle));
 
-            Transform<?> driveRod = this.getTransformFromPartial(ExtendedBogeysPartials.LARGE_TRIPLE_AXLE_DRIVER_ROD, ms, inContraption)
+            this.getTransform(ExtendedBogeysPartials.LARGE_TRIPLE_AXLE_DRIVER_ROD, ms, inContraption)
                     .rotateY(forwards ? 0 : 180)
                     .translate(0, 0.9, -1.875)
                     .rotateX(8.5*offSetScaleFactor)
-                    .translateZ(zOffset);
-            finalize(driveRod, ms, light, vb);
+                    .translateZ(zOffset)
+                    .render(ms, light, vb);
 
-            Transform<?> drivePin = this.getTransformFromPartial(ExtendedBogeysPartials.LARGE_TRIPLE_AXLE_DRIVER_PIN, ms, inContraption)
+            this.getTransform(ExtendedBogeysPartials.LARGE_TRIPLE_AXLE_DRIVER_PIN, ms, inContraption)
                     .rotateY(forwards ? 0 : 180)
-                    .translateZ(zOffset);
-            finalize(drivePin, ms, light, vb);
+                    .translateZ(zOffset)
+                    .render(ms, light, vb);
 
-            Transform<?> eccentric = this.getTransformFromPartial(ExtendedBogeysPartials.LARGE_TRIPLE_AXLE_DRIVER_ECCENTRIC, ms, inContraption)
+            this.getTransform(ExtendedBogeysPartials.LARGE_TRIPLE_AXLE_DRIVER_ECCENTRIC, ms, inContraption)
                     .rotateY(forwards ? 0 : 180)
                     .translate(0, 0.8, 1.68)
-                    .rotateX(wheelAngle);
-            finalize(eccentric, ms, light, vb);
+                    .rotateX(wheelAngle)
+                    .render(ms, light, vb);
 
-            Transform<?> eccentricRod = this.getTransformFromPartial(ExtendedBogeysPartials.LARGE_TRIPLE_AXLE_DRIVER_ECCENTRIC_ROD, ms, inContraption)
-                    .rotateY(forwards ? 0 : 180);
-            finalize(eccentricRod, ms, light, vb);
+            this.getTransform(ExtendedBogeysPartials.LARGE_TRIPLE_AXLE_DRIVER_ECCENTRIC_ROD, ms, inContraption)
+                    .rotateY(forwards ? 0 : 180)
+                    .render(ms, light, vb);
 
-            Transform<?> radiusRod = this.getTransformFromPartial(ExtendedBogeysPartials.LARGE_TRIPLE_AXLE_DRIVER_RADIUSROD, ms, inContraption)
-                    .rotateY(forwards ? 0 : 180);
-            finalize(radiusRod, ms, light, vb);
+            this.getTransform(ExtendedBogeysPartials.LARGE_TRIPLE_AXLE_DRIVER_RADIUSROD, ms, inContraption)
+                    .rotateY(forwards ? 0 : 180)
+                    .render(ms, light, vb);
         }
 
         @Override
@@ -77,7 +74,7 @@ public class TripleAxleBogeyRenderer {
 
         @Override
         public void initialiseContraptionModelData(MaterialManager materialManager, BogeyPaintColour color) {
-            this.createModelInstances(
+            this.createModelInstance(
                     materialManager,
                     ExtendedBogeysPartials.LARGE_TRIPLE_AXLE_DRIVER_FRAMES.get(color),
                     ExtendedBogeysPartials.LARGE_TRIPLE_AXLE_DRIVER_CONNECTING_ROD,
@@ -88,7 +85,7 @@ public class TripleAxleBogeyRenderer {
                     ExtendedBogeysPartials.LARGE_TRIPLE_AXLE_DRIVER_ECCENTRIC_ROD
             );
 
-            this.createModelInstances(
+            this.createModelInstance(
                     materialManager, ExtendedBogeysPartials.LARGE_WHEELS.get(color), 3
             );
         }

@@ -1,45 +1,35 @@
 package com.rabbitminers.extendedbogeys.data;
 
 import com.google.gson.JsonElement;
-import com.rabbitminers.extendedbogeys.ExtendedBogeys;
-import com.simibubi.create.foundation.data.LangPartial;
+import com.google.gson.JsonObject;
 import com.simibubi.create.foundation.utility.FilesHelper;
-import com.simibubi.create.foundation.utility.Lang;
+import com.tterrag.registrate.providers.RegistrateLangProvider;
 
-import java.util.function.Supplier;
+import java.util.Map.Entry;
+import java.util.function.BiConsumer;
 
-public enum ExtendedBogeysLanguageProvider implements LangPartial {
-    EN_US("en_us"),
+public class ExtendedBogeysLanguageProvider {
+    private static final String PATH = "assets/extendedbogeys/lang/default/";
 
-    ;
+    public static void generate(RegistrateLangProvider provider) {
+        BiConsumer<String, String> langConsumer = provider::add;
 
-    private final String display;
-    private final Supplier<JsonElement> provider;
-
-    private ExtendedBogeysLanguageProvider(String display) {
-        this.display = display;
-        this.provider = this::fromResource;
+        provideDefaultLang("en_us", langConsumer);
     }
 
-    private ExtendedBogeysLanguageProvider(String display, Supplier<JsonElement> customProvider) {
-        this.display = display;
-        this.provider = customProvider;
+    private static void provideDefaultLang(String fileName, BiConsumer<String, String> consumer) {
+        String path = formatPath(fileName);
+        JsonElement jsonElement = FilesHelper.loadJsonResource(path);
+        JsonObject jsonObject = jsonElement.getAsJsonObject();
+
+        for (Entry<String, JsonElement> entry : jsonObject.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue().getAsString();
+            consumer.accept(key, value);
+        }
     }
 
-    public String getDisplayName() {
-        return display;
-    }
-
-    public JsonElement provide() {
-        return provider.get();
-    }
-
-    private JsonElement fromResource() {
-        String fileName = Lang.asId(name());
-        String filepath = "assets/" + ExtendedBogeys.MOD_ID + "/lang/default/" + fileName + ".json";
-        JsonElement element = FilesHelper.loadJsonResource(filepath);
-        if (element == null)
-            throw new IllegalStateException(String.format("Could not find default lang file: %s", filepath));
-        return element;
+    private static String formatPath(String fileName) {
+        return PATH + fileName + ".json";
     }
 }

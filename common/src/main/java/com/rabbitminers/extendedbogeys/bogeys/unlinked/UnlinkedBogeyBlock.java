@@ -3,12 +3,11 @@ package com.rabbitminers.extendedbogeys.bogeys.unlinked;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import com.rabbitminers.extendedbogeys.base.Constants;
 import com.rabbitminers.extendedbogeys.bogeys.common.CommonBogeyFunctionality;
 import com.rabbitminers.extendedbogeys.data.ExtendedBogeysBogeySize;
 import com.rabbitminers.extendedbogeys.registry.ExtendedBogeysBlocks;
-import com.rabbitminers.extendedbogeys.registry.ExtendedBogeysBogeySizes;
 import com.simibubi.create.AllBlockEntityTypes;
 import com.simibubi.create.AllBogeyStyles;
 import com.simibubi.create.AllItems;
@@ -17,7 +16,6 @@ import com.simibubi.create.foundation.block.IBE;
 import com.simibubi.create.foundation.block.ProperWaterloggedBlock;
 import com.simibubi.create.foundation.utility.Components;
 import com.simibubi.create.foundation.utility.Iterate;
-import com.simibubi.create.foundation.utility.Lang;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -40,6 +38,7 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
 
 import java.util.*;
 
@@ -141,11 +140,12 @@ public class UnlinkedBogeyBlock extends Block implements IBE<StandardBogeyBlockE
 
         final Optional<BogeyRenderer.CommonRenderer> commonRenderer
                 = style.getInWorldCommonRenderInstance();
+
         final BogeyRenderer renderer = style.getInWorldRenderInstance(size);
         if (state != null) {
             ms.translate(.5f, .5f, .5f);
             if (state.getValue(AXIS) == Direction.Axis.X)
-                ms.mulPose(Vector3f.YP.rotationDegrees(90));
+                ms.mulPose(Axis.YP.rotationDegrees(90));
         }
         ms.translate(0, -1.5 - 1 / 128f, 0);
         VertexConsumer vb = buffers.getBuffer(RenderType.cutoutMipped());

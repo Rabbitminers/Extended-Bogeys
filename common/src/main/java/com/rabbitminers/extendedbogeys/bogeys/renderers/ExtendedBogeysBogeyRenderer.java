@@ -7,6 +7,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.rabbitminers.extendedbogeys.base.Constants;
 import com.rabbitminers.extendedbogeys.data.BogeyPaintColour;
 import com.simibubi.create.content.trains.bogey.BogeyRenderer;
+import com.simibubi.create.content.trains.entity.CarriageBogey;
 import com.simibubi.create.foundation.render.SuperByteBuffer;
 import com.simibubi.create.foundation.utility.NBTHelper;
 import net.minecraft.core.Direction;
@@ -40,16 +41,8 @@ public abstract class ExtendedBogeysBogeyRenderer extends BogeyRenderer {
                 ? NBTHelper.readEnum(bogeyData, Constants.BOGEY_ASSEMBLY_DIRECTION_KEY, Direction.class)
                 : Direction.NORTH;
 
-        boolean isLinked = true;
-        if (bogeyData.contains(Constants.BOGEY_LINK_KEY))
-            isLinked = bogeyData.getBoolean(Constants.BOGEY_LINK_KEY);
-
         boolean isPosotive = isDirectionPosotive(direction);
-
-        if (isLinked && inContraption && isPosotive)
-            isForwards = !isForwards;
-
-        return isPosotive == isForwards;
+        return isPosotive != isForwards;
     }
 
     @Nullable
@@ -64,8 +57,9 @@ public abstract class ExtendedBogeysBogeyRenderer extends BogeyRenderer {
     }
 
     @Override
-    public final void initialiseContraptionModelData(MaterialManager materialManager) {
-        /* Due to a mild fuck up bogey data isn't passed here, this method is empty and is replaced by another until the PR to fix this problem is merged */
+    public void initialiseContraptionModelData(MaterialManager materialManager, CarriageBogey carriageBogey) {
+        BogeyPaintColour colour = this.getColour(carriageBogey.bogeyData);
+        this.initialiseContraptionModelData(materialManager, colour);
     }
 
     public abstract void initialiseContraptionModelData(MaterialManager materialManager, BogeyPaintColour colour);
