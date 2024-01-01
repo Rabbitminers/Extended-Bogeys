@@ -1,6 +1,7 @@
 {
     "parent": "block/block",
     "loader": "forge:obj",
+"porting_lib:loader": "porting_lib:obj",
     "flip-v": true,
     "textures": {
         "bolt": "extendedbogeys:cyan/block/singleaxle/small/bolt"

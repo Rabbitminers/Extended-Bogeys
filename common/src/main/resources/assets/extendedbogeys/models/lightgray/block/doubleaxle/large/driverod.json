@@ -1,6 +1,7 @@
 {
     "parent": "extendedbogeys:lightgray/block/doubleaxle/large/textures",
     "loader": "forge:obj",
+"porting_lib:loader": "porting_lib:obj",
     "flip-v": true,
     "model": "extendedbogeys:models/base/block/doubleaxle/large/driverod.obj"
 }

@@ -1,6 +1,7 @@
 {
     "parent": "extendedbogeys:lightgray/block/bogey/textures",
     "loader": "forge:obj",
+"porting_lib:loader": "porting_lib:obj",
     "flip-v": true,
     "model": "create:models/block/track/bogey/bogey_drive.obj"
 }

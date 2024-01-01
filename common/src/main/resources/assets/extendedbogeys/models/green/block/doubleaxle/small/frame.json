@@ -1,6 +1,7 @@
 {
     "parent": "extendedbogeys:green/block/doubleaxle/small/textures",
     "loader": "forge:obj",
+"porting_lib:loader": "porting_lib:obj",
     "flip-v": true,
     "model": "extendedbogeys:models/base/block/doubleaxle/small/frame.obj"
 }

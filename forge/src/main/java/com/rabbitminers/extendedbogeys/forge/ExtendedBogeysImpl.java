@@ -19,12 +19,5 @@ public class ExtendedBogeysImpl {
         ExtendedBogeys.init();
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT,
                 () -> ExtendedBogeysClient::init);
-
-        eventBus.addListener(EventPriority.LOWEST, ExtendedBogeysImpl::gatherData);
-    }
-
-    public static void gatherData(GatherDataEvent event) {
-        DataGenerator gen = event.getGenerator();
-        ExtendedBogeys.gatherData(gen);
     }
 }
