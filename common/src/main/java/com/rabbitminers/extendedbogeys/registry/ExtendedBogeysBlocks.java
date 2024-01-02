@@ -4,6 +4,7 @@ import com.rabbitminers.extendedbogeys.ExtendedBogeys;
 import com.rabbitminers.extendedbogeys.base.types.BogeySizeBlockSet;
 import com.rabbitminers.extendedbogeys.bogeys.unlinked.UnlinkedBogeyBlock;
 import com.rabbitminers.extendedbogeys.bogeys.unlinked.UnlinkedBogeyCarriageMovementBehaviour;
+import com.rabbitminers.extendedbogeys.multiloader.BlockstateGenerationHooks;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.trains.bogey.BogeySizes;
 import com.simibubi.create.content.trains.bogey.StandardBogeyBlock;
@@ -26,8 +27,7 @@ public class ExtendedBogeysBlocks {
 				.properties(p -> p.sound(SoundType.NETHERITE_BLOCK))
 				.properties(BlockBehaviour.Properties::noOcclusion)
 				.transform(TagGen.pickaxeOnly())
-				.blockstate((c, p) -> BlockStateGen.horizontalAxisBlock(c, p, s -> p.models()
-						.getExistingFile(p.modLoc("block/track/bogey/unlinked_top"))))
+				.blockstate(BlockstateGenerationHooks::unlinkedTop)
 				.loot((p, l) -> p.dropOther(l, AllBlocks.RAILWAY_CASING.get()))
 				.onRegister(movementBehaviour(new UnlinkedBogeyCarriageMovementBehaviour()))
 				.register());

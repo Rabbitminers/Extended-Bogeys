@@ -5,7 +5,6 @@ import com.rabbitminers.extendedbogeys.registry.ExtendedBogeysBlocks;
 import com.rabbitminers.extendedbogeys.registry.ExtendedBogeysBogeySizes;
 import com.rabbitminers.extendedbogeys.registry.ExtendedBogeysBogeyStyles;
 import com.simibubi.create.foundation.data.CreateRegistrate;
-import com.simibubi.create.foundation.data.LangMerger;
 import com.tterrag.registrate.providers.ProviderType;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
