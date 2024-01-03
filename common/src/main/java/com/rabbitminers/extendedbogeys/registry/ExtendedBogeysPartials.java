@@ -28,18 +28,33 @@ public class ExtendedBogeysPartials {
 
     // Large (0-4-0)
     LARGE_DOUBLE_AXLE_DRIVER_ROD = block("doubleaxle/large/driverod"),
-            LARGE_DOUBLE_AXLE_DRIVER_PIN = block("doubleaxle/large/drivepin"),
-            LARGE_DOUBLE_AXLE_DRIVER_CONNECTING_ROD = block("doubleaxle/large/connectingrod"),
+    LARGE_DOUBLE_AXLE_DRIVER_PIN = block("doubleaxle/large/drivepin"),
+    LARGE_DOUBLE_AXLE_DRIVER_CONNECTING_ROD = block("doubleaxle/large/connectingrod"),
 
     // Triple Axle
 
     // Large (0-6-0)
     LARGE_TRIPLE_AXLE_DRIVER_CONNECTING_ROD = block("tripleaxle/large/connectingrod"),
-            LARGE_TRIPLE_AXLE_DRIVER_PIN = block("tripleaxle/large/drivepin"),
-            LARGE_TRIPLE_AXLE_DRIVER_ROD = block("tripleaxle/large/driverod"),
-            LARGE_TRIPLE_AXLE_DRIVER_ECCENTRIC = block("tripleaxle/large/eccentric"),
-            LARGE_TRIPLE_AXLE_DRIVER_ECCENTRIC_ROD = block("tripleaxle/large/eccentricrod"),
-            LARGE_TRIPLE_AXLE_DRIVER_RADIUSROD = block("tripleaxle/large/radiusrod")
+    LARGE_TRIPLE_AXLE_DRIVER_PIN = block("tripleaxle/large/drivepin"),
+    LARGE_TRIPLE_AXLE_DRIVER_ROD = block("tripleaxle/large/driverod"),
+    LARGE_TRIPLE_AXLE_DRIVER_ECCENTRIC = block("tripleaxle/large/eccentric"),
+    LARGE_TRIPLE_AXLE_DRIVER_ECCENTRIC_ROD = block("tripleaxle/large/eccentricrod"),
+    LARGE_TRIPLE_AXLE_DRIVER_RADIUSROD = block("tripleaxle/large/radiusrod"),
+
+    MEDIUM_SHARED_WHEELS = block("bogey/medium/shared/wheels"),
+
+    MEDIUM_STANDARD_FRAME = block("bogey/medium/standard/frame"),
+    MEDIUM_SINGLE_WHEEL_FRAME = block("bogey/medium/single_wheel/frame"),
+    MEDIUM_TRIPLE_WHEEL_FRAME = block("bogey/medium/triple_wheel/frame"),
+    MEDIUM_QUADRUPLE_WHEEL_FRAME = block("bogey/medium/quadruple_wheel/frame"),
+    MEDIUM_QUINTUPLE_WHEEL_FRAME = block("bogey/medium/quintuple_wheel/frame"),
+
+    MEDIUM_2_0_2_TRAILING_FRAME = block("bogey/medium/2-0-2_trailing/frame"),
+    MEDIUM_4_0_4_TRAILING_FRAME = block("bogey/medium/4-0-4_trailing/frame"),
+    MEDIUM_6_0_6_TRAILING_FRAME = block("bogey/medium/6-0-6_trailing/frame"),
+    MEDIUM_6_0_6_TENDER_FRAME = block("bogey/medium/6-0-6_tender/frame"),
+    MEDIUM_8_0_8_TENDER_FRAME = block("bogey/medium/8-0-8_tender/frame"),
+    MEDIUM_10_0_10_TENDER_FRAME = block("bogey/medium/10-0-10_tender/frame")
     ;
 
     public static final Map<BogeyPaintColour, PartialModel>
@@ -88,7 +103,7 @@ public class ExtendedBogeysPartials {
     }
 
     private static PartialModel block(String path) {
-        return new PartialModel(ExtendedBogeys.asResource("unpainted/block/" + path));
+        return new PartialModel(ExtendedBogeys.asResource("block/" + path));
     }
 
     private static PartialModel entity(String path) {
