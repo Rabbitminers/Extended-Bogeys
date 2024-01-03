@@ -1,0 +1,13 @@
+{
+  "parent": "block/block",
+  "loader": "forge:obj",
+  "flip_v": true,
+  "model": "extendedbogeys:models/block/bogey/medium/8-0-8_tender/frame.obj",
+  "textures": {
+    "0": "extendedbogeys:block/bogey/medium/tender_bogey_outer",
+    "1": "extendedbogeys:block/bogey/medium/trailing_bogey_outer",
+    "2": "extendedbogeys:block/bogey/trailing_bogey_base",
+    "3": "extendedbogeys:block/bogey/frame",
+    "4": "extendedbogeys:block/bogey/medium/trailing_bogey_base2"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "parent": "block/block",
+  "loader": "forge:obj",
+  "flip_v": true,
+  "model": "extendedbogeys:models/block/bogey/medium/shared/wheels.obj",
+  "textures": {
+    "0": "extendedbogeys:block/bogey/medium/18x18",
+    "1": "create:block/axis",
+    "2": "extendedbogeys:block/bogey/medium/frame4"
+  }
+}
