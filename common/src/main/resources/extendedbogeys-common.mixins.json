@@ -6,12 +6,13 @@
   "client": [
     "client.MixinAbstractBogeyBlockEntity",
     "client.MixinAllBogeyStyles",
-    "client.MixinBogeyInstance",
-    "client.MixinBogeyBlockEntityRenderer"
+    "client.MixinBogeyBlockEntityRenderer",
+    "client.MixinBogeyInstance"
   ],
   "mixins": [
     "MixinAbstractBogeyBlock",
     "MixinAllBlockEntityTypes",
+    "MixinAllBogeyStyles",
     "MixinCarriageContraptionEntity",
     "MixinStationBlockEntity"
   ],
