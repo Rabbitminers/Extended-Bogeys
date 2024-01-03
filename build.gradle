@@ -41,6 +41,7 @@ subprojects {
                 includeGroup("com.jozufozu.flywheel")
             }
         }
+        maven { url = "https://maven.ithundxr.dev/releases" } // Steam n Rails
     }
 
     dependencies {
