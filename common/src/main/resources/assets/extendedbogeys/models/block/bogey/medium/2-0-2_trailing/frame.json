@@ -1,13 +1,14 @@
 {
-  "parent": "block/block",
-  "loader": "forge:obj",
-  "flip_v": true,
-  "model": "extendedbogeys:models/block/bogey/medium/2-0-2_trailing/frame.obj",
-  "textures": {
-    "0": "extendedbogeys:block/bogey/trailing_bogey_base",
-    "1": "extendedbogeys:block/bogey/frame",
-    "2": "create:block/bogey/wheel",
-    "3": "extendedbogeys:block/bogey/medium/trailing_bogey_outer",
-    "4": "extendedbogeys:block/bogey/medium/trailing_bogey_base2"
-  }
+    "parent": "block/block",
+    "loader": "forge:obj",
+    "flip_v": true,
+    "model": "extendedbogeys:models/block/bogey/medium/2-0-2_trailing/frame.obj",
+    "textures": {
+        "0": "extendedbogeys:block/bogey/trailing_bogey_base",
+        "1": "extendedbogeys:block/bogey/frame",
+        "2": "create:block/bogey/wheel",
+        "3": "extendedbogeys:block/bogey/medium/trailing_bogey_outer",
+        "4": "extendedbogeys:block/bogey/medium/trailing_bogey_base2"
+    },
+    "porting_lib:loader": "porting_lib:obj"
 }
